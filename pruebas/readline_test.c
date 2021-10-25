@@ -34,6 +34,8 @@ int	main()
 		{
 			again = 0;
 			prompt = readline("my_minishell$ ");
+			if (prompt == NULL)
+				exit(1);
 			if (ft_strcmp("pwd", prompt) == 0) //compara este string con lo que está en prompt (lo que metemos)
 				write(1, "la ruta en la que nos encontramos\n", 35);
 			if (ft_strcmp("exit", prompt) == 0)

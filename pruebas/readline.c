@@ -22,7 +22,7 @@ int main()
 	while(buffer[0] != 'e' && buffer[1] != 'x' && buffer[2] != 'i' && buffer[3] != 't')
 	{
 		buffer = readline("Minishell$ "); //Devuelve la linea leida, recoge un str para mostrar por pantalla
-		printf("%s\n", buffer); // Imprimimos la linea leida
+		printf("Minishell: %s: command not found\n", buffer); // Imprimimos la linea leida
 		free(buffer); // Fundamental liberar cada linea leida por readline
 	}
 }
