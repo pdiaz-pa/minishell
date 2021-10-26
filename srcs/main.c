@@ -22,6 +22,7 @@ void	ft_sig_int(int signal)
 		rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
 	}
 }
+
 int	main()
 {
 	/*Antes de todo, hay que hacer que:
