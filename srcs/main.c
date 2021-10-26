@@ -1,25 +1,52 @@
 #include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0); //	Al devolver 0 se puede confundir el fallo con un string sin cambios
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
-
 void	ft_sig_int(int signal)
 {
 	if (signal == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line(); // indica a las siguientes funciones que estamos en la siguiente línea
-		// rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
+		rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
 		rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
+	}
+}
+
+void ft_prompt_cmp(char *prompt)
+{
+	extern char **environ;
+	int i;
+
+	i = 0;
+	if (ft_strcmp("pwd", prompt) == 0) //compara este string con lo que está en prompt (lo que metemos)
+				printf("%s\n", getcwd(NULL, 0));
+	else if (ft_strcmp("exit", prompt) == 0)
+	{
+		write(1, "exit\n", 5);
+		exit(1);
+	}
+	else if (ft_strcmp("echo", prompt) == 0)
+	{
+		printf("función echo\n");
+	}
+	else if (ft_strcmp("cd", prompt) == 0)
+	{
+		printf("función cd\n");
+	}
+		else if (ft_strcmp("export", prompt) == 0)
+	{
+		printf("función export\n");
+	}
+		else if (ft_strcmp("unset", prompt) == 0)
+	{
+		printf("función unset\n");
+	}
+		else if (ft_strcmp("env", prompt) == 0)
+	{
+		while (environ[i] != NULL)
+		{
+			printf("%s\n", environ[i]);
+			i++;
+		}
 	}
 }
 
@@ -44,13 +71,7 @@ int	main()
 			prompt = readline("my_minishell$ ");
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 				exit(1);
-			else if (ft_strcmp("pwd", prompt) == 0) //compara este string con lo que está en prompt (lo que metemos)
-				printf("%s\n", getcwd(NULL, 0));
-			else if (ft_strcmp("exit", prompt) == 0)
-			{
-				write(1, "exit\n", 5);
-				exit(1);
-			}
+			ft_prompt_cmp(prompt);
 			free(prompt);
 		}
 	}
