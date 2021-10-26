@@ -4,6 +4,10 @@ LFLAGS = -lreadline
 NAME = minishell
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS = -I/Users/$(USER)/.brew/opt/readline/include
+MLIBFT = make -C ./libft/
+CLIBFT = cp libft/libft.a .
+LIBFT = libft.a
+
 
 DIR_H = ./includes/
 DIR_S = ./srcs/
@@ -21,10 +25,13 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) -I $(DIR_H) $(OBJS) $(CFLAGS) $(LFLAGS) $(LDFLAGS)
+	$(MLIBFT)
+	$(CLIBFT)
+	$(CC) -o $(NAME) -I $(DIR_H) $(LIBFT) $(OBJS) $(CFLAGS) $(LFLAGS) $(LDFLAGS)
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(LIBFT)
+	$(MLIBFT) fclean
 
 fclean: clean
 	rm -rf $(NAME)
