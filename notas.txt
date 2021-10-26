@@ -1,2 +1,3 @@
 Readline -> https://programmerclick.com/article/3971310310/
 Historial -> https://www.ochobitshacenunbyte.com/2015/08/31/historial-comandos-gnu-linux-history/
+Ctrl-C -> https://stackoverflow.com/questions/4217037/catch-ctrl-c-in-c
