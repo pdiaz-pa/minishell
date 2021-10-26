@@ -34,7 +34,13 @@ void ft_prompt_cmp(char *prompt)
 	}
 		else if (ft_strcmp("export", prompt) == 0)
 	{
-		printf("función export\n");
+		i = 0;
+		while (environ[i] != NULL)
+		{
+			printf("%s", "declare -x ");
+			printf("%s\n", environ[i]);
+			i++;
+		}
 	}
 		else if (ft_strcmp("unset", prompt) == 0)
 	{
@@ -42,6 +48,7 @@ void ft_prompt_cmp(char *prompt)
 	}
 		else if (ft_strcmp("env", prompt) == 0)
 	{
+		i = 0;
 		while (environ[i] != NULL)
 		{
 			printf("%s\n", environ[i]);
@@ -62,8 +69,8 @@ int	main()
 
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &ft_sig_int);
+		signal(SIGQUIT, SIG_IGN); // anula el funcionamiento de ctrl + "\"
+		signal(SIGINT, &ft_sig_int); // cambia el funcionamiento de ctrl + "C"
 		again = 1;
 		while (again)
 		{
