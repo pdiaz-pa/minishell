@@ -18,7 +18,7 @@ void	ft_sig_int(int signal)
 	{
 		printf("\n");
 		rl_on_new_line(); // indica a las siguientes funciones que estamos en la siguiente línea
-		rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
+		// rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
 		rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
 	}
 }

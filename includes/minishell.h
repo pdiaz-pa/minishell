@@ -7,4 +7,5 @@
 # include <readline/readline.h>
 # include <errno.h>
 # include <signal.h>
+# include "../libft/libft.h"
 #endif
