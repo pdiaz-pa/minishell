@@ -18,17 +18,42 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+void ignore_signal_for_shell()
+{
+	void   (*SIGINT_handler)(int);
+	
+	// ignore "Ctrl-C"
+    SIGINT_handler = signal(SIGINT, SIG_IGN);
+	// ignore "Ctrl-Z"
+    signal(SIGTSTP, SIG_IGN);
+	// ignore "Ctrl-\"
+    signal(SIGQUIT, SIG_IGN);
+}
+void	sig_int(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+	}
+}
 int	main()
 {
 	/*Antes de todo, hay que hacer que:
 		-Control + C no salga del programa
 		-Control + D salga del programa (cuando prompt == NULL)
 	igual que en bash */
+
+	int again;
+	char *prompt;
+	ignore_signal_for_shell();
 	while (1)
 	{
-		int again;
-		char *prompt;
 
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &sig_int);
 		again = 1;
 		while (again)
 		{
