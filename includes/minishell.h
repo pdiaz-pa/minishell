@@ -8,4 +8,5 @@
 # include <errno.h>
 # include <signal.h>
 # include "../libft/libft.h"
+# include <readline/history.h>
 #endif

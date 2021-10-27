@@ -32,7 +32,7 @@ void ft_prompt_cmp(char *prompt)
 	{
 		printf("función cd\n");
 	}
-		else if (ft_strcmp("export", prompt) == 0)
+	else if (ft_strcmp("export", prompt) == 0)
 	{
 		i = 0;
 		while (environ[i] != NULL)
@@ -42,11 +42,11 @@ void ft_prompt_cmp(char *prompt)
 			i++;
 		}
 	}
-		else if (ft_strcmp("unset", prompt) == 0)
+	else if (ft_strcmp("unset", prompt) == 0)
 	{
 		printf("función unset\n");
 	}
-		else if (ft_strcmp("env", prompt) == 0)
+	else if (ft_strcmp("env", prompt) == 0)
 	{
 		i = 0;
 		while (environ[i] != NULL)
@@ -66,7 +66,6 @@ int	main()
 
 	int again;
 	char *prompt;
-
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN); // anula el funcionamiento de ctrl + "\"
@@ -76,9 +75,11 @@ int	main()
 		{
 			again = 0;
 			prompt = readline("my_minishell$ ");
+			add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 				exit(1);
 			ft_prompt_cmp(prompt);
+			
 			free(prompt);
 		}
 	}
