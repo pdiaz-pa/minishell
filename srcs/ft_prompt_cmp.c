@@ -44,7 +44,7 @@ void ft_prompt_cmp(char *prompt)
 			i++;
 		}
 	}
-	else if (ft_strcmp("/", prompt) == 0)
+	else if (prompt[0] == '/')
 	{
 		printf("función echo\n");
 	}
