@@ -1,0 +1,1 @@
+Tutorial parseo en bash -> https://mywiki.wooledge.org/BashParser
