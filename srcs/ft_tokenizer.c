@@ -30,7 +30,6 @@ void ft_make_list(t_mylist *head, char **token_arr, int array_size)
 	}
 }
 
-
 char **ft_prompt_to_array(char *prompt)
 {
 	int i;
@@ -52,19 +51,10 @@ char **ft_prompt_to_array(char *prompt)
 	arr = malloc(size * sizeof(char *)); //alocamos memoria para el char ** pero también hay que alocar memoria para cada elemento, del tamaño del elemento que queremos alocar.
 	i = 0;
 	j = 0;
-	size = 0;
-	while (prompt[i] != '\0')
-	{
-		while(prompt[i] != ' ')
-		{
-
-			i++;
-			size++;
-		}
-
-		size = 0;
-	}
 	printf("%d size\n", size);
+	size = 0;
+
+
 	return(arr);
 }
 
@@ -79,5 +69,6 @@ t_mylist *ft_tokenizer(char *prompt)
 	token_list = NULL;
 	token_arr = ft_prompt_to_array(prompt);
 	ft_make_list(token_list, token_arr, array_size);
+	free(token_arr);
 	return (token_list);
 }

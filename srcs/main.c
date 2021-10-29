@@ -28,7 +28,7 @@ int	main()
 		while (again)
 		{
 			again = 0;
-			prompt = readline("my_minishell$ ");
+			prompt = readline("minishell$ ");
 			add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 				exit(1);

@@ -22,4 +22,5 @@ t_mylist *ft_tokenizer(char *prompt);
 char **ft_prompt_to_array(char *prompt);
 void ft_make_list(t_mylist *head, char **token_arr, int array_size);
 void ft_prompt_cmp(char *prompt);
+
 #endif

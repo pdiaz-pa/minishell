@@ -46,6 +46,6 @@ void ft_prompt_cmp(char *prompt)
 	}
 	else if (ft_strcmp("/", prompt) == 0)
 	{
-		printf("función barra\n");
+		printf("función echo\n");
 	}
 }
