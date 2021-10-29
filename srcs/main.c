@@ -57,6 +57,7 @@ void ft_prompt_cmp(char *prompt)
 	}
 }
 
+
 int	main()
 {
 	/*Antes de todo, hay que hacer que:
@@ -75,11 +76,11 @@ int	main()
 		{
 			again = 0;
 			prompt = readline("my_minishell$ ");
-			add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
+			//add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 				exit(1);
 			ft_prompt_cmp(prompt);
-			
+			ft_tokenizer(prompt); //en desarrollo. comentar esta  función si se quiere probar algo
 			free(prompt);
 		}
 	}

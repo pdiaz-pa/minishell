@@ -13,7 +13,8 @@ DIR_H = ./includes/
 DIR_S = ./srcs/
 DIR_O = ./
 
-SRC = 	main.c
+SRC = 	main.c \
+		ft_tokenizer.c
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
