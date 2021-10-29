@@ -55,7 +55,12 @@ void ft_prompt_cmp(char *prompt)
 			i++;
 		}
 	}
+	else if (ft_strcmp("/", prompt) == 0)
+	{
+		printf("función barra\n");
+	}
 }
+
 
 
 int	main()
@@ -76,7 +81,7 @@ int	main()
 		{
 			again = 0;
 			prompt = readline("my_minishell$ ");
-			//add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
+			add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 				exit(1);
 			ft_prompt_cmp(prompt);

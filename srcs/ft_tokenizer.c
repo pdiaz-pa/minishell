@@ -49,7 +49,7 @@ char **ft_prompt_to_array(char *prompt)
 		i++;
 	}
 	size++;
-	arr = malloc(size * sizeof(char *));
+	arr = malloc(size * sizeof(char *)); //alocamos memoria para el char ** pero también hay que alocar memoria para cada elemento, del tamaño del elemento que queremos alocar.
 	i = 0;
 	j = 0;
 	size = 0;
@@ -61,6 +61,7 @@ char **ft_prompt_to_array(char *prompt)
 			i++;
 			size++;
 		}
+
 		size = 0;
 	}
 	printf("%d size\n", size);

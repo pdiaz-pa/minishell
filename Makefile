@@ -14,7 +14,8 @@ DIR_S = ./srcs/
 DIR_O = ./
 
 SRC = 	main.c \
-		ft_tokenizer.c
+		ft_tokenizer.c \
+		ft_prompt_cmd.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
