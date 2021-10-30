@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/10/30 12:02:32 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/10/30 12:35:51 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_exe(char *path, char **envp)
 	pid_t	pid;
 	char	*final;
 	int		status;
+	char	**splitarg;
 
 	final = NULL;
 	valid_cmd(envp, path, &final);
@@ -32,17 +33,21 @@ void	ft_exe(char *path, char **envp)
 			printf("minishell: %s: command not found\n", path);
 		return ;
 	}
+	splitarg = ft_split(path, ' ');
 	pid = fork();
 	if (pid == -1)
 		perror("pid error");
 	else if (pid == 0)
 	{
-		if (execve(final, &final, envp) == -1)
+		if (execve(final, splitarg, envp) == -1)
 			perror("execve");
 	}
 	else if (pid > 0)
+	{
 		pid = waitpid(-1, &status, 0);
-
+		free_mem(splitarg);
+		free(final);
+	}
 }
 
 static void	valid_cmd(char **envp, char *cmd, char **final)
