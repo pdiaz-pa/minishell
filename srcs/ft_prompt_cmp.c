@@ -1,9 +1,18 @@
 #include "../includes/minishell.h"
 
-void ft_prompt_cmp(char *prompt)
+void ft_prompt_cmp(char *prompt, char **envp)
 {
 	extern char **environ;
 	int i;
+
+	// Array temporal
+	char	**argv;
+	argv = malloc(sizeof(char *) * 3);
+	argv[0] = ft_strdup("Hello ");
+	argv[1] = ft_strdup("Hello");
+	argv[2] = ft_strdup("-n");
+	// Fin array temporal
+
 
 	i = 0;
 	if (ft_strcmp("pwd", prompt) == 0) //compara este string con lo que está en prompt (lo que metemos)
@@ -15,11 +24,11 @@ void ft_prompt_cmp(char *prompt)
 	}
 	else if (ft_strcmp("echo", prompt) == 0)
 	{
-		printf("función echo\n");
+		ft_echo(argv);
 	}
 	else if (ft_strcmp("cd", prompt) == 0)
 	{
-		printf("función cd\n");
+		ft_cd();
 	}
 	else if (ft_strcmp("export", prompt) == 0)
 	{
@@ -46,6 +55,6 @@ void ft_prompt_cmp(char *prompt)
 	}
 	else if (prompt[0] == '/')
 	{
-		printf("función echo\n");
+		ft_exe("ls", envp);
 	}
 }

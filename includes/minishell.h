@@ -21,6 +21,9 @@ typedef struct s_mylist {
 t_mylist *ft_tokenizer(char *prompt);
 char **ft_prompt_to_array(char *prompt);
 void ft_make_list(t_mylist *head, char **token_arr, int array_size);
-void ft_prompt_cmp(char *prompt);
+void ft_prompt_cmp(char *prompt, char **envp);
+void	ft_echo(char **argv);
+void	ft_cd();
+void	ft_exe(char *path, char **envp);
 
 #endif

@@ -15,7 +15,10 @@ DIR_O = ./
 
 SRC = 	main.c \
 		ft_tokenizer.c \
-		ft_prompt_cmp.c
+		ft_prompt_cmp.c \
+		builtins/ft_echo.c \
+		builtins/ft_cd.c \
+		exe/ft_exe.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
