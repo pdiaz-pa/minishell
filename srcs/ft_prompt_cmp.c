@@ -28,8 +28,7 @@ void ft_prompt_cmp(char *prompt, char **envp)
 	}
 	else if (ft_strncmp("cd", prompt, 2) == 0)
 	{
-		printf("ENTRAAAcd%sSALE", prompt);
-		ft_cd(prompt);
+		ft_cd(&prompt[2], envp);
 	}
 	else if (ft_strncmp("export", prompt, 6) == 0)
 	{
@@ -54,8 +53,8 @@ void ft_prompt_cmp(char *prompt, char **envp)
 			i++;
 		}
 	}
-	else if (prompt[0] == '/')
+	else
 	{
-		ft_exe("ls", envp);
+		ft_exe(prompt, envp);
 	}
 }
