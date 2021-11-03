@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/10/30 12:35:51 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/03 12:42:29 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	ft_exe(char *path, char **envp)
 
 	final = NULL;
 	valid_cmd(envp, path, &final);
-	if (final == NULL)
+	/* if (final == NULL)
 	{
 		if (path[0] == '/')
 			printf("minishell: %s: No such file or directory\n", path);
 		else
 			printf("minishell: %s: command not found\n", path);
 		return ;
-	}
+	} */
 	splitarg = ft_split(path, ' ');
 	pid = fork();
 	if (pid == -1)
