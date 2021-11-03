@@ -11,6 +11,9 @@ typedef struct  s_tokenizer{
 	int start;
 	int sizer;
 	int size;
+    char ch;
+    int single_flag;
+    int double_flag;
 }	t_tokenizer;
 
 # include <stdio.h>
