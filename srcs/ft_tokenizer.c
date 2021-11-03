@@ -59,52 +59,97 @@ void ft_smart_token(char promptchar, t_tokenizer *tk)
 		39-> '
 		32-> SPACE
 	*/
-	printf("%c promptchar\n", promptchar);
-	if ((promptchar == 34) && tk->single_flag == 0) //si encontramos un " buscamos un ", activamos flag
+	if (promptchar == 32) // casos prompt espacio
 	{
-		tk->ch = 34;
-		tk->double_flag = 1;
-		printf("buscando DOUBLE\n");
+		if (tk->double_flag == 0 && tk->single_flag == 0)
+			tk->ch = 32;
+		else if (tk->double_flag == 1 && tk->single_flag == 0)
+			tk->ch = 34;
+		else if (tk->double_flag == 0 && tk->single_flag == 1)
+			tk->ch = 39;
+		else
+			printf("SPACE: ESTO NO DEBERÍA PASAR!!\n");
 	}
-	else if ((promptchar == 39) && tk->double_flag == 0) //si encontramos un ' buscamos un ' activamos flag
+	else if (promptchar == 34) // casos prompt doble
 	{
-		tk->ch = 39;
-		tk->single_flag = 1;
-		printf("buscando SINGLE\n");
+		if (tk->double_flag == 0 && tk->single_flag == 0)
+			tk->double_flag = 1;
+		else if (tk->double_flag == 1 && tk->single_flag == 0)
+			tk->double_flag = 0;
+		else if (tk->double_flag == 0 && tk->single_flag == 1)
+			tk->ch = 39;
+		else
+			printf("DOBLE: ESTO NO DEBERÍA PASAR!!\n");
 	}
-	else if ((promptchar == 34) && tk->double_flag == 1) //si encontramos un segundo " buscamos un ' ' desactivamos flag
+	else if (promptchar == 39) // casos prompt simple
 	{
-		tk->ch = 32;
-		tk->double_flag = 0;
-		printf("buscando SPACE TRAS CERRAR  DOUBLE\n");
-	}
-	else if ((promptchar == 39) && tk->single_flag == 1) //si encontramos un segundo ' buscamos un ' ' desactivamos flag
-	{
-		tk->ch = 32;
-		tk->single_flag = 0;
-		printf("buscando SPACE TRAS CERRAR SINGLE\n");
+		if (tk->double_flag == 0 && tk->single_flag == 0)
+			tk->single_flag = 1;
+		else if (tk->double_flag == 1 && tk->single_flag == 0)
+			tk->ch = 34;
+		else if (tk->double_flag == 0 && tk->single_flag == 1)
+			tk->single_flag = 0;
+		else
+			printf("SIMPLE: ESTO NO DEBERÍA PASAR!!\n");
 	}
 	else
 	{
-		if(tk->double_flag == 0 && tk->single_flag == 0)
-		tk->ch = 32;
-		printf("buscando SPACE\n");
+		if (tk->double_flag == 0 && tk->single_flag == 0)
+			tk->ch = 32;
+		else if (tk->double_flag == 1 && tk->single_flag == 0)
+			tk->ch = 34;
+		else if (tk->double_flag == 0 && tk->single_flag == 1)
+			tk->ch = 39;
+		else
+			printf("OTROS: ESTO NO DEBERÍA PASAR!!\n");
 	}
 
-	
+	//pruebas
+
+	/*
+	Casos posibles
+	Caracter doubleflag singleflag action
+	space		0			0		busca space
+	space		1			0		busca double
+	space		1			1		imposible
+	space		0			1		busca single
+	double		0			0		cambia doubleflag
+	double		1			0		cambia doubleflag
+	double		1			1		imposible
+	double		0			1		busca singleflag
+	single		0			0		cambia singleflag
+	single		1			0		busca doubleflag
+	single		1			1		imposible
+	single		0			1		cambia singleflag
+	otro		0			0		busca space
+	otro		0			1		busca single
+	otro		1			0		busca double
+	otro		1			1		imposible
+
+	*/
 }
 int ft_arr_size(char *prompt, int size, int start, t_tokenizer *tk)
 {
+	size = 1;
 	while (prompt[start] != '\0')
 	{
 		ft_smart_token(prompt[start], tk);
-		if (prompt[start] == tk->ch)
+		if (prompt[start] == tk->ch && tk->ch == ' ') //por cada espacio que encontramos en modo normal, +1 size
 		{
 			size++;
 		}
+		if (prompt[start] == tk->ch && tk->ch == 34) //por cada par de " que encontramos en modo ", +1 size
+		{
+			if (tk->double_flag % 2)
+			{
+				printf("encontré unas comillas dobles\n");
+				size++;
+			}
+		}
 		start++;
 	}
-	size++;
+	printf("%d -----SIZE-----\n", size);
+	printf("-----------------\n");
 	return(size);
 }
 
@@ -120,10 +165,13 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 	tk->start = 0;
 	arr = malloc(tk->size * sizeof(char *)); //reservamos memoria para el char ** pero también hay que alocar memoria para cada elemento, del tamaño del elemento que queremos alocar.
 	while (prompt[tk->sizer] != '\0')
-	{
+	{	
+		ft_smart_token(prompt[tk->sizer], tk);
 		while (prompt[tk->sizer] != tk->ch && prompt[tk->sizer] != '\0') //calculamos el tamaño del string a guardar para reservar memoria en nuestro arr[i]
 		{
 			ft_smart_token(prompt[tk->sizer], tk);
+			printf("%c SEPARADOR ", tk->ch);
+			printf("%c promptchar \n", prompt[tk->sizer]);
 			tk->sizer++;
 		}
 		printf("%d SIZER\n", (tk->sizer - tk->start));
