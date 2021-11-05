@@ -68,18 +68,26 @@ void ft_smart_token(char promptchar, t_tokenizer *tk)
 		else if (tk->double_flag == 0 && tk->single_flag == 1)
 			tk->ch = 39;
 		else
-			printf("SPACE: ESTO NO DEBERÍA PASAR!!\n");
+			printf("SPACE: ERROR!!\n");
 	}
 	else if (promptchar == 34) // casos prompt doble
 	{
 		if (tk->double_flag == 0 && tk->single_flag == 0)
+		{
 			tk->double_flag = 1;
+			tk->ch = 34;
+		}
+
 		else if (tk->double_flag == 1 && tk->single_flag == 0)
+		{
 			tk->double_flag = 0;
+			tk->ch = 32;
+		}
+
 		else if (tk->double_flag == 0 && tk->single_flag == 1)
 			tk->ch = 39;
 		else
-			printf("DOBLE: ESTO NO DEBERÍA PASAR!!\n");
+			printf("DOBLE: ERROR!!\n");
 	}
 	else if (promptchar == 39) // casos prompt simple
 	{
@@ -90,7 +98,7 @@ void ft_smart_token(char promptchar, t_tokenizer *tk)
 		else if (tk->double_flag == 0 && tk->single_flag == 1)
 			tk->single_flag = 0;
 		else
-			printf("SIMPLE: ESTO NO DEBERÍA PASAR!!\n");
+			printf("SIMPLE: ERROR!!\n");
 	}
 	else
 	{
@@ -101,31 +109,28 @@ void ft_smart_token(char promptchar, t_tokenizer *tk)
 		else if (tk->double_flag == 0 && tk->single_flag == 1)
 			tk->ch = 39;
 		else
-			printf("OTROS: ESTO NO DEBERÍA PASAR!!\n");
+			printf("OTROS: ERROR!!\n");
 	}
-
-	//pruebas
 
 	/*
 	Casos posibles
 	Caracter doubleflag singleflag action
-	space		0			0		busca space
-	space		1			0		busca double
+	space		0			0		busca space, no cambia flags
+	space		1			0		busca double, no cambia flags
 	space		1			1		imposible
-	space		0			1		busca single
-	double		0			0		cambia doubleflag
-	double		1			0		cambia doubleflag
+	space		0			1		busca single, no cambia flags
+	double		0			0		busca double, cambia doubleflag
+	double		1			0		busca space, cambia doubleflag
 	double		1			1		imposible
-	double		0			1		busca singleflag
-	single		0			0		cambia singleflag
-	single		1			0		busca doubleflag
+	double		0			1		busca singleflag, no cambia flags
+	single		0			0		busca single, cambia singleflag
+	single		1			0		busca double, no cambia flags
 	single		1			1		imposible
-	single		0			1		cambia singleflag
-	otro		0			0		busca space
-	otro		0			1		busca single
-	otro		1			0		busca double
+	single		0			1		busca space, cambia singleflag
+	otro		0			0		busca space, no cambia flags
+	otro		0			1		busca single, no cambia flags
+	otro		1			0		busca double, no cambia flags
 	otro		1			1		imposible
-
 	*/
 }
 int ft_arr_size(char *prompt, int size, int start, t_tokenizer *tk)
@@ -135,17 +140,18 @@ int ft_arr_size(char *prompt, int size, int start, t_tokenizer *tk)
 	{
 		ft_smart_token(prompt[start], tk);
 		if (prompt[start] == tk->ch && tk->ch == ' ') //por cada espacio que encontramos en modo normal, +1 size
-		{
 			size++;
-		}
 		if (prompt[start] == tk->ch && tk->ch == 34) //por cada par de " que encontramos en modo ", +1 size
 		{
-			if (tk->double_flag % 2)
+			if (tk->double_flag % 2 == 0)
 			{
 				printf("encontré unas comillas dobles\n");
 				size++;
 			}
 		}
+        while (prompt[start] == ' ' && prompt[start] != '\0')
+            start++;
+        
 		start++;
 	}
 	printf("%d -----SIZE-----\n", size);
@@ -166,7 +172,10 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 	arr = malloc(tk->size * sizeof(char *)); //reservamos memoria para el char ** pero también hay que alocar memoria para cada elemento, del tamaño del elemento que queremos alocar.
 	while (prompt[tk->sizer] != '\0')
 	{	
-		ft_smart_token(prompt[tk->sizer], tk);
+		if (tk->ch == 34)
+			ft_smart_token(prompt[tk->sizer], tk);
+		if (prompt[tk->sizer] == tk->ch && tk->ch == 34 && tk->double_flag == 1)
+			tk->sizer++;
 		while (prompt[tk->sizer] != tk->ch && prompt[tk->sizer] != '\0') //calculamos el tamaño del string a guardar para reservar memoria en nuestro arr[i]
 		{
 			ft_smart_token(prompt[tk->sizer], tk);
@@ -174,6 +183,8 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 			printf("%c promptchar \n", prompt[tk->sizer]);
 			tk->sizer++;
 		}
+		if (prompt[tk->sizer] == tk->ch && tk->ch == 34 && tk->double_flag == 1)
+			tk->sizer++;
 		printf("%d SIZER\n", (tk->sizer - tk->start));
 		arr[i] = malloc(((tk->sizer - tk->start) * sizeof(char)) + 1); //reservamos la memoria de sizer + 1 para el '\0'
 		while(tk->start != tk->sizer) //copiamos caracter a caracter el string en nuestro array
@@ -185,7 +196,7 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 		arr[i][j] = '\0';
 		j = 0;
 		printf("%s array \n", arr[i]);
-		while(prompt[tk->sizer] == ' ')
+		while(prompt[tk->sizer] == ' ' && prompt[tk->sizer] != '\0')
 			tk->sizer++;
 		tk->start = tk->sizer;
 		i++;
@@ -193,9 +204,7 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 	return(arr);
 }
 
-
-
-t_mylist *ft_tokenizer(char *prompt)
+t_mylist *ft_tokenizer2(char *prompt)
 {
 	t_mylist *token_list;
 	t_tokenizer tk;
