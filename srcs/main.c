@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 				exit(1);
 			ft_prompt_cmp(prompt, envp);
 			if (prompt[0] != '\0') // para evitar crasheo al no pasarle nada
-				ft_tokenizer(prompt); //en desarrollo. comentar esta  función si se quiere probar algo
+			//	ft_tokenizer(prompt); //en desarrollo. comentar esta  función si se quiere probar algo
 			free(prompt);
 		}
 	}

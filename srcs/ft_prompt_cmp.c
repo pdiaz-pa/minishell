@@ -32,13 +32,7 @@ void ft_prompt_cmp(char *prompt, char **envp)
 	}
 	else if (ft_strncmp("export", prompt, 6) == 0)
 	{
-		i = 0;
-		while (environ[i] != NULL)
-		{
-			printf("%s", "declare -x ");
-			printf("%s\n", environ[i]);
-			i++;
-		}
+		ft_export(envp);
 	}
 	else if (ft_strncmp("unset", prompt, 5) == 0)
 	{
