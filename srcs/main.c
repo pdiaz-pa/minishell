@@ -26,7 +26,7 @@ void	ft_sig_int(int signal)
 	}
 }
 
-int	main(int argc, char **argv/*, char **envp*/)
+int	main(int argc, char **argv, char **envp)
 {
 	/*Antes de todo, hay que hacer que:
 		-Control + C no salga del programa
@@ -39,7 +39,7 @@ int	main(int argc, char **argv/*, char **envp*/)
 	(void)argv;
 	t_env	*env;
 
-	save_env(env);
+	env = save_env(envp);
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN); // anula el funcionamiento de ctrl + "\"
