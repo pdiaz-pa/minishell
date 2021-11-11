@@ -6,13 +6,18 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/08 08:03:04 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/11 14:47:53 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static void	bubble_sort(char **copy, int lines);
+
+void	save_env(t_env *env)
+{
+
+}
 
 int	ft_export(char **envp)
 {
@@ -31,7 +36,8 @@ int	ft_export(char **envp)
 	while (++i < lines)
 		printf("%s\n", copy[i]);
 	bubble_sort(copy, lines);
-	printf("%d\n", ft_strcmp("a","z"));
+	//printf("%d\n", ft_strcmp("a","z"));
+	printf("getenv = %s", getenv("PWD"));
 	return (0);
 }
 

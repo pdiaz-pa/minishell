@@ -37,6 +37,9 @@ int	main(int argc, char **argv/*, char **envp*/)
 	char *prompt;
 	(void)argc;
 	(void)argv;
+	t_env	*env;
+
+	save_env(env);
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN); // anula el funcionamiento de ctrl + "\"

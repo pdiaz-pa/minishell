@@ -26,6 +26,11 @@ typedef struct  s_tokenizer{
 # include "../libft/libft.h"
 # include <readline/history.h>
 
+typedef struct  s_env{
+    char			*name;
+    char			*content;
+    struct s_env	*next;
+}	            t_env;
 
 //ft_tokenizer.c
 t_mylist *ft_tokenizer(char *prompt);
@@ -35,5 +40,6 @@ void ft_prompt_cmp(char *prompt, char **envp);
 void	ft_echo(char **argv);
 void	ft_cd(char *argv, char **envp);
 void	ft_exe(char *path, char **envp);
+void	save_env(t_env *env);
 
 #endif
