@@ -2,8 +2,8 @@
 
 void ft_stack_printer(t_mylist *stack)
 {
-    stack = stack->next; // para que no se imprima el primer 0 (head)
-    while(stack) // imprime cada nodo 
+    //stack = stack->next; // para que no se imprima el primer 0 (head)
+    while(stack->next != NULL) // imprime cada nodo 
     {
         printf("%s->", stack->token);
         stack = stack->next;
@@ -30,38 +30,40 @@ void ft_make_list(t_mylist *head, char **token_arr, int array_size)
 	idx = 0;
 	while (idx < array_size)
 	{
+		printf("%s BRUUUH\n", token_arr[idx]);
+		idx++;
+	}
+	while (idx > 0)
+	{
 		new_node = (t_mylist *)malloc(sizeof(t_mylist));
     
 		if (!new_node)
 			printf("fuckyou");
 		if (head->next == NULL)
 		{
-			new_node->token = token_arr[idx++];
+			new_node->token = token_arr[idx--];
 			new_node->next = NULL;
 			new_node->prev = head;
 			head->next = new_node;
 		}
 		else
 		{
-			new_node->token = token_arr[idx++];
+			new_node->token = token_arr[idx--];
 			new_node->next = head->next;
 			new_node->next->prev = new_node;
 			new_node->prev = head;
 			head->next = new_node;
 		}
 	}
+
 }
-	/*
-		34-> "
-		39-> '
-		32-> SPACE
-	*/
+
 int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 {
 	int size;
 	size = 0;
 	tk->start++;
-	tk->sizer++;
+	//tk->sizer++;
 	printf("\e[0;31mMODO DOBLE\e[0m\n");
 	while (prompt[tk->start] != 34 && prompt[tk->start] != '\0')
 	{
@@ -81,7 +83,7 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 int ft_singleq_mode(char *prompt, t_tokenizer *tk)
 {
 	tk->start++;
-	tk->sizer++;
+	//tk->sizer++;
 	int size;
 
 	size = 0;
@@ -132,11 +134,11 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 	{
 		tk->size++;
 		printf("%d +1 SIZE NORMAL\n", tk->size);
-		if(prompt[tk->start] == ' ')
+		/*if(prompt[tk->start] == ' ')
 		{
 			tk->sizer++;
 			tk->start++;
-		}
+		}*/
 	}
 	return (size);
 }
@@ -200,13 +202,57 @@ int ft_str_size(char *prompt, t_tokenizer *tk)
 		{
 			str_size = ft_normal_mode(prompt, tk);
 			printf("%d STRING SIZE \n", str_size);
-			tk->arr[i] = malloc(str_size + 1);
-			while (tk->sizer < tk->start)
+			tk->arr[i] = malloc(str_size);
+			while (str_size > 0)
 			{
+				/*
+				34-> "
+				39-> '
+				32-> SPACE
+				*/
 				printf("%d tkstart  %d  tksizer  %c\n", tk->start, tk->sizer, prompt[tk->sizer]);
-				tk->arr[i][j] = prompt[tk->sizer];
-				j++;
-				tk->sizer++;
+				if(tk->double_flag == 0 && prompt[tk->sizer] == 34 && tk->single_flag == 0)
+				{
+					tk->double_flag = 1;
+					tk->sizer++;
+				}
+				else if(tk->double_flag == 1 && prompt[tk->sizer] == 34 && tk->single_flag == 0)
+				{
+					tk->double_flag = 0;
+					tk->sizer++;					
+				}
+				else if(tk->double_flag == 0 && prompt[tk->sizer] == 39 && tk->single_flag == 0)
+				{
+					tk->single_flag = 1;
+					tk->sizer++;					
+				}
+				else if(tk->double_flag == 0 && prompt[tk->sizer] == 39 && tk->single_flag == 1)
+				{
+					tk->single_flag = 0;
+					tk->sizer++;
+				}
+				else if(tk->double_flag == 1 && prompt[tk->sizer] == 39 && tk->single_flag == 0)
+				{
+					printf("bruh\n");
+					tk->arr[i][j] = prompt[tk->sizer];
+					j++;
+					tk->sizer++;
+					str_size--;	
+				}
+				else if(tk->double_flag == 0 && prompt[tk->sizer] == 34 && tk->single_flag == 1)
+				{
+					tk->arr[i][j] = prompt[tk->sizer];
+					j++;
+					tk->sizer++;
+					str_size--;
+				}
+				else
+				{
+					tk->arr[i][j] = prompt[tk->sizer];
+					j++;
+					tk->sizer++;
+					str_size--;
+				}
 			}
 			tk->arr[i][j] = '\0';
 			j = 0;
@@ -249,8 +295,8 @@ t_mylist *ft_tokenizer(char *prompt)
 	array_size = 0;
 	token_arr = ft_prompt_to_array(prompt, &tk);
 	token_list = ft_init_t_stack();
-	//ft_make_list(token_list, token_arr, tk.size);
-	//ft_stack_printer(token_list);
+	ft_make_list(token_list, token_arr, tk.size);
+	ft_stack_printer(token_list);
 	free(token_arr);
 	return (token_list);
 }
