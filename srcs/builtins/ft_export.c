@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/11 14:47:53 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/11 16:41:02 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 static void	bubble_sort(char **copy, int lines);
 
-void	save_env(t_env *env)
+t_env	*save_env(char **envp)
 {
-
+	t_env	*env;
+	env = NULL;
+	if (envp)
+		printf("");
+	return (env);
 }
 
 int	ft_export(char **envp)

@@ -40,6 +40,6 @@ void ft_prompt_cmp(char *prompt, char **envp);
 void	ft_echo(char **argv);
 void	ft_cd(char *argv, char **envp);
 void	ft_exe(char *path, char **envp);
-void	save_env(t_env *env);
+t_env	*save_env(char **envp);
 
 #endif
