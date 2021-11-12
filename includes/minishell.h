@@ -27,8 +27,7 @@ typedef struct  s_tokenizer{
 # include <readline/history.h>
 
 typedef struct  s_env{
-    char			*name;
-    char			*content;
+    char			**line;
     struct s_env	*next;
 }	            t_env;
 
