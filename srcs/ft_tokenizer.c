@@ -2,8 +2,8 @@
 
 void ft_stack_printer(t_mylist *stack)
 {
-    //stack = stack->next; // para que no se imprima el primer 0 (head)
-    while(stack->next != NULL) // imprime cada nodo 
+    stack = stack->next; // para que no se imprima el primer 0 (head)
+    while(stack != NULL) // imprime cada nodo 
     {
         printf("%s->", stack->token);
         stack = stack->next;
@@ -30,32 +30,26 @@ void ft_make_list(t_mylist *head, char **token_arr, int array_size)
 	idx = 0;
 	while (idx < array_size)
 	{
-		printf("%s BRUUUH\n", token_arr[idx]);
-		idx++;
-	}
-	while (idx > 0)
-	{
 		new_node = (t_mylist *)malloc(sizeof(t_mylist));
     
 		if (!new_node)
 			printf("fuckyou");
 		if (head->next == NULL)
 		{
-			new_node->token = token_arr[idx--];
+			new_node->token = token_arr[idx++];
 			new_node->next = NULL;
 			new_node->prev = head;
 			head->next = new_node;
 		}
 		else
 		{
-			new_node->token = token_arr[idx--];
+			new_node->token = token_arr[idx++];
 			new_node->next = head->next;
 			new_node->next->prev = new_node;
 			new_node->prev = head;
 			head->next = new_node;
 		}
 	}
-
 }
 
 int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
@@ -164,7 +158,7 @@ int ft_arr_size(char *prompt, t_tokenizer *tk)
 	printf("\e[46mCALCUATING ARRAY OF *CHAR's SIZE...\e[0m\n");
 	while (prompt[tk->start] != '\0')
 	{
-		while (prompt[tk->start] == ' ')
+		while (prompt[tk->start] == ' ' || prompt[tk->start] == 34)
 		{
 			tk->start++;
 			tk->sizer++;
@@ -189,6 +183,8 @@ int ft_str_size(char *prompt, t_tokenizer *tk)
 	str_size = 0;
 	tk->start = 0;
 	tk->sizer = 0;
+	tk->double_flag = 0;
+	tk->single_flag = 0;
 	printf("\e[42mCALCUATING *CHAR's SIZE...\e[0m\n");
 	while (prompt[tk->start] != '\0')
 	{
@@ -211,48 +207,10 @@ int ft_str_size(char *prompt, t_tokenizer *tk)
 				32-> SPACE
 				*/
 				printf("%d tkstart  %d  tksizer  %c\n", tk->start, tk->sizer, prompt[tk->sizer]);
-				if(tk->double_flag == 0 && prompt[tk->sizer] == 34 && tk->single_flag == 0)
-				{
-					tk->double_flag = 1;
-					tk->sizer++;
-				}
-				else if(tk->double_flag == 1 && prompt[tk->sizer] == 34 && tk->single_flag == 0)
-				{
-					tk->double_flag = 0;
-					tk->sizer++;					
-				}
-				else if(tk->double_flag == 0 && prompt[tk->sizer] == 39 && tk->single_flag == 0)
-				{
-					tk->single_flag = 1;
-					tk->sizer++;					
-				}
-				else if(tk->double_flag == 0 && prompt[tk->sizer] == 39 && tk->single_flag == 1)
-				{
-					tk->single_flag = 0;
-					tk->sizer++;
-				}
-				else if(tk->double_flag == 1 && prompt[tk->sizer] == 39 && tk->single_flag == 0)
-				{
-					printf("bruh\n");
-					tk->arr[i][j] = prompt[tk->sizer];
-					j++;
-					tk->sizer++;
-					str_size--;	
-				}
-				else if(tk->double_flag == 0 && prompt[tk->sizer] == 34 && tk->single_flag == 1)
-				{
-					tk->arr[i][j] = prompt[tk->sizer];
-					j++;
-					tk->sizer++;
-					str_size--;
-				}
-				else
-				{
-					tk->arr[i][j] = prompt[tk->sizer];
-					j++;
-					tk->sizer++;
-					str_size--;
-				}
+				tk->arr[i][j] = prompt[tk->sizer];
+				j++;
+				tk->sizer++;
+				str_size--;
 			}
 			tk->arr[i][j] = '\0';
 			j = 0;
@@ -263,6 +221,25 @@ int ft_str_size(char *prompt, t_tokenizer *tk)
 	printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
 	printf("\e[42m %d --------\e[0m\n\n", tk->size);
 	return (tk->size);
+}
+
+char **ft_invert(char** arr, int n)
+{
+    char* temp;
+	int i;
+	int j;
+
+	i = 0;
+    j = n - 1;
+    while (i < j) 
+	{
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        j--;
+		i++;
+    }
+	return(arr);
 }
 
 char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
@@ -276,8 +253,11 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 
 	tk->arr = malloc(tk->size * sizeof(char *)); //reservamos memoria para el char ** pero también hay que alocar memoria para cada elemento, del tamaño del elemento que queremos alocar.
 	ft_str_size(prompt, tk);
+	tk->arr = ft_invert(tk->arr, tk->size);
 	return(tk->arr);
 }
+
+
 
 t_mylist *ft_tokenizer(char *prompt)
 {
