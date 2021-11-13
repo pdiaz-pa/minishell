@@ -40,6 +40,8 @@ int	main(int argc, char **argv, char **envp)
 	t_env	*env;
 
 	env = save_env(envp);
+	ft_export(env);
+
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN); // anula el funcionamiento de ctrl + "\"

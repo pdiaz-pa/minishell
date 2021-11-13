@@ -6,101 +6,106 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/12 12:44:21 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/13 21:15:13 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	bubble_sort(char **copy, int lines);
 static void	save_line(t_env **env, char *envp);
+// static t_env	**short_line(t_env **env, char *envp)
+;
 
-int	ft_export(char **envp)
+int	ft_export(t_env *env)
 {
-	int	i;
-	int	lines;
-	char	**copy;
+	t_env	*temp;
 
-	lines = 0;
-	while (envp [lines])
-		lines++;
-	copy = malloc(sizeof(char *) * lines);
-	i = -1;
-	while (++i < lines)
-		copy[i] = envp[i];
-	i = -1;
-	while (++i < lines)
-		printf("%s\n", copy[i]);
-	bubble_sort(copy, lines);
-	//printf("%d\n", ft_strcmp("a","z"));
-	printf("getenv = %s", getenv("PWD"));
+	temp = env;
+	while (temp != NULL)
+	{
+		printf("declare -x ");
+		printf("%s", temp->line[0]);
+		if (temp->line[1])
+		{
+			printf("=\"");
+			printf("%s", temp->line[1]);
+			printf("\"\n");
+
+		}
+		else
+			printf("\n");
+		temp = temp->next;
+
+	}
 	return (0);
 }
 
 t_env	*save_env(char **envp)
 {
 	t_env	*env;
-	t_env	*temp;
 	int		i;
+	char	find;
 
 	i = 0;
 	env = NULL;
-	printf("ENTRA\n");
 	while(envp[i])
 	{
 		save_line(&env, envp[i]);
 		i++;
 	}
-	temp = env;
-	while (temp != NULL)
+	i = 0;
+	find = '0';
+	while(envp[i])
 	{
-		printf("%s\n", temp->line[0]);
-		temp = temp->next;
+		if (ft_strncmp("OLDPWD=", envp[i], 7) == 0)
+			find = '1';
+		i++;
 	}
+	if (find == '0')
+		save_line(&env, "OLDPWD");
 	return (env);
 }
 
 static void	save_line(t_env **env, char *envp)
 {
-	t_env	*temp;
 	t_env	*new;
+	t_env	*temp;
+	t_env	*temp2;
 
 	new = malloc(sizeof (t_env));
+	if (new == NULL)
+		perror("malloc error");
 	new->line = ft_split(envp, '=');
 	new->next = NULL;
-	temp = *env;
 	if (*env == NULL)
 		*env = new;
 	else
 	{
-		while(temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
-	}
-}
-
-static void	bubble_sort(char **copy, int lines)
-{
-	int		i;
-	char	swap;
-	//char	*aux;
-
-	swap = '1';
-	while (swap == '1')
-	{
-		swap = '0';
-		i = 0;
-		while (i < lines - 1)
+		temp = *env;
+		if (temp != NULL && ft_strcmp(new->line[0], temp->line[0]) < 0)
 		{
-			if ((ft_strcmp(copy[i], copy[i + 1])) < 0)
-			{
-			/* 	aux = ps->number[i];
-				ps->number[i] = ps->number[i + 1];
-				ps->number[i + 1] = aux;
-				swap = '1'; */
-			}
-			i++;
+			*env = new;
+			new->next = temp;
+		}
+		while(temp->next != NULL && ft_strcmp(new->line[0], temp->next->line[0]) > 0)
+			temp = temp->next;
+		if (temp->next == NULL && ft_strcmp(new->line[0], temp->line[0]) > 0)
+			temp->next = new;
+		else
+		{
+			temp2 = temp->next;
+			temp->next = new;
+			new->next = temp2;
 		}
 	}
-	return ;
 }
+
+/* static t_env	**short_line(t_env **env, char *envp)
+{
+	t_env	*temp;
+
+	temp = *env;
+	if (ft_strncmp(env))
+	return (&temp);
+}
+ */
