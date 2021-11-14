@@ -6,17 +6,17 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/03 13:11:04 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/14 17:00:32 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	valid_cmd(char **envp, char *cmd, char **final);
+static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	free_mem(char **arr);
 
 
-void	ft_exe(char *path, char **envp)
+void	ft_exe(char *path, t_env *env, char **envp)
 {
 	pid_t	pid;
 	char	*final;
@@ -24,7 +24,7 @@ void	ft_exe(char *path, char **envp)
 	char	**splitarg;
 
 	final = NULL;
-	valid_cmd(envp, path, &final);
+	valid_cmd(search_env(env, "PATH"), path, &final);
 	/* if (final == NULL)
 	{
 		if (path[0] == '/')
@@ -50,7 +50,7 @@ void	ft_exe(char *path, char **envp)
 	}
 }
 
-static void	valid_cmd(char **envp, char *cmd, char **final)
+static void	valid_cmd(t_env *env, char *cmd, char **final)
 {
 	int		i;
 	char	**path;
@@ -61,10 +61,7 @@ static void	valid_cmd(char **envp, char *cmd, char **final)
 		*final = ft_strdup(cmd);
 		return ;
 	}
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	path = ft_split(ft_strchr(envp[i], '/'), ':');
+	path = ft_split(env->line[1], ':');
 	i = 0;
 	while (path[i])
 	{
