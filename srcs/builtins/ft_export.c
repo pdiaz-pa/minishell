@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/13 21:15:13 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/14 08:10:57 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ t_env	*save_env(char **envp)
 	int		i;
 	char	find;
 
+/* i = 0;
+		printf("-------------------------------------------------\n\n");
+
+while(envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+		printf("------------------------------------------------\n\n");
+ */
 	i = 0;
 	env = NULL;
 	while(envp[i])
@@ -87,15 +97,18 @@ static void	save_line(t_env **env, char *envp)
 			*env = new;
 			new->next = temp;
 		}
-		while(temp->next != NULL && ft_strcmp(new->line[0], temp->next->line[0]) > 0)
-			temp = temp->next;
-		if (temp->next == NULL && ft_strcmp(new->line[0], temp->line[0]) > 0)
-			temp->next = new;
 		else
 		{
-			temp2 = temp->next;
-			temp->next = new;
-			new->next = temp2;
+			while(temp->next != NULL && ft_strcmp(new->line[0], temp->next->line[0]) > 0)
+				temp = temp->next;
+			if (temp->next == NULL && ft_strcmp(new->line[0], temp->line[0]) > 0)
+				temp->next = new;
+			else
+			{
+				temp2 = temp->next;
+				temp->next = new;
+				new->next = temp2;
+			}
 		}
 	}
 }
