@@ -35,12 +35,14 @@ typedef struct  s_env{
 t_mylist *ft_tokenizer(char *prompt);
 char **ft_prompt_to_array(char *prompt, t_tokenizer *tk);
 void ft_make_list(t_mylist *head, char **token_arr, int array_size);
-void ft_prompt_cmp(char *prompt, t_env *env, char **envp);
+void ft_prompt_cmp(char *prompt, t_env *env, t_env *exp, char **envp);
 void	ft_echo(char **argv);
 void	ft_cd(char *argv, t_env *env);
 void	ft_exe(char *path, t_env *env, char **envp);
+t_env	*save_exp(char **envp);
 t_env	*save_env(char **envp);
-int		ft_export(t_env *env);
+int		ft_print_export(t_env *env);
+int	    ft_print_env(t_env *env);
 void	save_line(t_env **env, char *envp); //Guarda una linea en env ordenada
 t_env   *search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
 void	free_env(t_env **env);
