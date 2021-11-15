@@ -1,57 +1,5 @@
 #include "../includes/minishell.h"
 
-void ft_stack_printer(t_mylist *stack)
-{
-    stack = stack->next; // para que no se imprima el primer 0 (head)
-    while(stack != NULL) // imprime cada nodo 
-    {
-        printf("%s->", stack->token);
-        stack = stack->next;
-    }
-    printf("NULL\n");
-}
-
-t_mylist *ft_init_t_stack(void)
-{
-    t_mylist *stack;
-    stack = (t_mylist *)malloc(sizeof(t_mylist));
-    stack->prev = NULL;
-    stack->next = NULL;
-    stack->token = NULL;
-
-    return(stack);
-}
-
-void ft_make_list(t_mylist *head, char **token_arr, int array_size)
-{
-	int		idx;
-	t_mylist	*new_node;
-
-	idx = 0;
-	while (idx < array_size)
-	{
-		new_node = (t_mylist *)malloc(sizeof(t_mylist));
-    
-		if (!new_node)
-			printf("fuckyou");
-		if (head->next == NULL)
-		{
-			new_node->token = token_arr[idx++];
-			new_node->next = NULL;
-			new_node->prev = head;
-			head->next = new_node;
-		}
-		else
-		{
-			new_node->token = token_arr[idx++];
-			new_node->next = head->next;
-			new_node->next->prev = new_node;
-			new_node->prev = head;
-			head->next = new_node;
-		}
-	}
-}
-
 int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 {
 	int size;
@@ -89,7 +37,7 @@ int ft_singleq_mode(char *prompt, t_tokenizer *tk)
 		size++;
 		printf("%d START single\n", tk->start);
 	}
-	if (prompt[tk->start] == 39) 
+	if (prompt[tk->start] == 39)
 	{
 		tk->start++;
 		tk->sizer++;
@@ -114,13 +62,9 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 		else
 		{
 			if (prompt[tk->start] == 39)
-			{
 				size = size + (ft_singleq_mode(prompt, tk));
-			}
 			if (prompt[tk->start] == 34)
-			{
 				size = size + (ft_doubleq_mode(prompt, tk));
-			}
 		}	
 	}
 	printf("%d SIZE DEL STRING\n", size);
@@ -158,7 +102,7 @@ int ft_arr_size(char *prompt, t_tokenizer *tk)
 	printf("\e[46mCALCUATING ARRAY OF *CHAR's SIZE...\e[0m\n");
 	while (prompt[tk->start] != '\0')
 	{
-		while (prompt[tk->start] == ' ' || prompt[tk->start] == 34)
+		while (prompt[tk->start] == ' ')
 		{
 			tk->start++;
 			tk->sizer++;
@@ -186,6 +130,11 @@ int ft_str_size(char *prompt, t_tokenizer *tk)
 	tk->double_flag = 0;
 	tk->single_flag = 0;
 	printf("\e[42mCALCUATING *CHAR's SIZE...\e[0m\n");
+		/*
+	34-> "
+	39-> '
+	32-> SPACE
+	*/
 	while (prompt[tk->start] != '\0')
 	{
 		while (prompt[tk->start] == ' ')
@@ -201,11 +150,7 @@ int ft_str_size(char *prompt, t_tokenizer *tk)
 			tk->arr[i] = malloc(str_size);
 			while (str_size > 0)
 			{
-				/*
-				34-> "
-				39-> '
-				32-> SPACE
-				*/
+				
 				printf("%d tkstart  %d  tksizer  %c\n", tk->start, tk->sizer, prompt[tk->sizer]);
 				tk->arr[i][j] = prompt[tk->sizer];
 				j++;
@@ -257,8 +202,6 @@ char **ft_prompt_to_array(char *prompt, t_tokenizer *tk)
 	return(tk->arr);
 }
 
-
-
 t_mylist *ft_tokenizer(char *prompt)
 {
 	t_mylist *token_list;
@@ -277,6 +220,6 @@ t_mylist *ft_tokenizer(char *prompt)
 	token_list = ft_init_t_stack();
 	ft_make_list(token_list, token_arr, tk.size);
 	ft_stack_printer(token_list);
-	free(token_arr);
+	ft_free_all(token_list, token_arr, &tk);
 	return (token_list);
 }

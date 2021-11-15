@@ -45,4 +45,10 @@ void	save_line(t_env **env, char *envp); //Guarda una linea en env ordenada
 t_env   *search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
 void	free_env(t_env **env);
 
+void	ft_free_all(t_mylist *token_list, char **token_arr, t_tokenizer *tk);
+void	ft_free_list(t_mylist *token_list);
+void ft_stack_printer(t_mylist *stack);
+t_mylist *ft_init_t_stack(void);
+
+
 #endif

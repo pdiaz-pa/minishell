@@ -21,6 +21,7 @@ SRC = 	main.c \
 		builtins/ft_export.c \
 		builtins/ft_export_utils.c \
 		exe/ft_exe.c \
+		ft_list_utils.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
