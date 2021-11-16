@@ -1,12 +1,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-typedef struct s_mylist {
-    struct s_mylist* prev;
+/*
+typedef struct s_list {
     char *token;
-    struct s_mylist* next;
-}	t_mylist;
-
+    struct s_list* next;
+}	t_list;
+*/
 typedef struct  s_tokenizer{
 	int start;
 	int sizer;
@@ -32,9 +31,9 @@ typedef struct  s_env{
 }	            t_env;
 
 //ft_tokenizer.c
-t_mylist *ft_tokenizer(char *prompt);
-char **ft_prompt_to_array(char *prompt, t_tokenizer *tk);
-void ft_make_list(t_mylist *head, char **token_arr, int array_size);
+t_list *ft_tokenizer(char *prompt);
+void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_list *token_list);
+void ft_make_list(t_list *head, char **token_arr, int array_size);
 void ft_prompt_cmp(char *prompt, t_env *env, t_env *exp, char **envp);
 void	ft_echo(char **argv);
 void	ft_cd(char *argv, t_env *env);
@@ -47,10 +46,10 @@ void	save_line(t_env **env, char *envp); //Guarda una linea en env ordenada
 t_env   *search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
 void	free_env(t_env **env);
 
-void	ft_free_all(t_mylist *token_list, char **token_arr, t_tokenizer *tk);
-void	ft_free_list(t_mylist *token_list);
-void ft_stack_printer(t_mylist *stack);
-t_mylist *ft_init_t_stack(void);
+void	ft_free_all(t_list *token_list, char **token_arr, t_tokenizer *tk);
+void	ft_free_list(t_list *token_list);
+void ft_stack_printer(t_list *stack);
+t_list *ft_init_t_stack(void);
 
 
 #endif
