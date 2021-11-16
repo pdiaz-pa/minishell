@@ -1,5 +1,5 @@
 #include "../includes/minishell.h"
-
+/*
 void	ft_free_all(t_mylist *token_list, char **token_arr, t_tokenizer *tk)
 {
 	int i;
@@ -29,16 +29,7 @@ void	ft_free_list(t_mylist *token_list)
 	}
 }
 
-void ft_stack_printer(t_mylist *stack)
-{
-    stack = stack->next; // para que no se imprima el primer 0 (head)
-    while(stack != NULL) // imprime cada nodo 
-    {
-        printf("%s->", stack->token);
-        stack = stack->next;
-    }
-    printf("NULL\n");
-}
+
 
 t_mylist *ft_init_t_stack(void)
 {
@@ -79,4 +70,15 @@ void ft_make_list(t_mylist *head, char **token_arr, int array_size)
 			head->next = new_node;
 		}
 	}
+}
+*/
+void ft_stack_printer(t_list *stack)
+{
+    stack = stack->next; // para que no se imprima el primer 0 (head)
+    while(stack != NULL) // imprime cada nodo 
+    {
+        printf("%s->", stack->content);
+        stack = stack->next;
+    }
+    printf("NULL\n");
 }
