@@ -6,18 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/16 15:05:11 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:25:36 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static void	old_pwd(t_env *env);
-
-int	ft_export(t_env exp, t_env env, char *str)
-{
-	
-}
 
 int	ft_print_export(t_env *env)
 {

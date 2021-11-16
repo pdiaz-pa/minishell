@@ -4,10 +4,10 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 {
 	int size;
 	size = 0;
-	tk->start++;
+	//tk->start++;
 	//tk->sizer++;
 	printf("\e[0;31mMODO DOBLE\e[0m\n");
-	while (prompt[tk->start] != 34 && prompt[tk->start] != '\0')
+	while (prompt[tk->start] != 32 && prompt[tk->start] != '\0')
 	{
 		printf("%c CHAR ", prompt[tk->start]);
 		tk->start++;
@@ -24,13 +24,13 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 
 int ft_singleq_mode(char *prompt, t_tokenizer *tk)
 {
-	tk->start++;
+	//tk->start++;
 	//tk->sizer++;
 	int size;
 
 	size = 0;
 	printf("\e[0;33mMODO SINGLE\e[0m\n");
-	while (prompt[tk->start] != 39 && prompt[tk->start] != '\0')
+	while (prompt[tk->start] != 32 && prompt[tk->start] != '\0')
 	{
 		printf("%c CHAR ", prompt[tk->start]);
 		tk->start++;

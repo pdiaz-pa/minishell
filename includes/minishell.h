@@ -30,12 +30,6 @@ typedef struct  s_env{
     struct s_env	*next;
 }	            t_env;
 
-typedef struct	s_exp
-{
-	t_env	*env;
-	t_env	*exp;
-}				t_exp;
-
 //ft_tokenizer.c
 t_list *ft_tokenizer(char *prompt);
 void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_list *token_list);
@@ -44,7 +38,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, t_env *exp, char **envp);
 void	ft_echo(char **argv);
 void	ft_cd(char *argv, t_env *env);
 void	ft_exe(char *path, t_env *env, char **envp);
-t_env	*save_exp(t_exp exp, char **envp);
+t_env	*save_exp(char **envp);
 t_env	*save_env(char **envp);
 int		ft_print_export(t_env *env);
 int	    ft_print_env(t_env *env);

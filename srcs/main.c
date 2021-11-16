@@ -37,9 +37,11 @@ int	main(int argc, char **argv, char **envp)
 	char *prompt;
 	(void)argc;
 	(void)argv;
-	t_exp	exp;
+	t_env	*exp;
+	t_env	*env;
 
-	save_exp(exp, envp);
+	exp = save_exp(envp);
+	env = save_env(envp);
 	/* ft_print_export(exp);
 	ft_print_env(env);
 	free_env(&exp);

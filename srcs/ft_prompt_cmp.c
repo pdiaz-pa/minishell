@@ -28,7 +28,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, t_env *exp, char **envp)
 	}
 	else if (ft_strncmp("cd", prompt, 2) == 0)
 	{
-		ft_cd(&prompt[1], env);
+		ft_cd(&prompt[2], env);
 	}
 	else if (ft_strncmp("export", prompt, 6) == 0)
 	{
