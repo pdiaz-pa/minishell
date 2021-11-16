@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-void ft_prompt_cmp(char *prompt, t_env *env, t_env *exp, char **envp)
+void ft_prompt_cmp(char *prompt, t_env *env, char **envp)
 {
 	extern char **environ;
 	int i;
@@ -32,7 +32,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, t_env *exp, char **envp)
 	}
 	else if (ft_strncmp("export", prompt, 6) == 0)
 	{
-		ft_print_export(exp);
+		ft_print_export(env);
 	}
 	else if (ft_strncmp("unset", prompt, 5) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:47:47 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/16 18:26:45 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/16 20:26:43 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_env	*save_env(char **envp)
 		save_line_env(&env, envp[i]);
 		i++;
 	}
-	// old_pwd(env);
 	return (env);
 }
 
