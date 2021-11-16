@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 08:53:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/14 14:19:29 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:26:52 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ static char	**ft_split_env(char const *s)
 	while (s[i] != '\0' && (s[i] != '='))
 		i++;
 	split[0] = ft_substr(s, 0, i);
-	split[1] = ft_substr(s, i + 1, len - (i + 1));
+	if (s[i] == '=')
+		split[1] = ft_substr(s, i + 1, len - (i + 1));
+	else
+		split[1] = NULL;
 	split[2] = NULL;
 	return (split);
 }
