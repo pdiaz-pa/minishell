@@ -1,11 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-/*
-typedef struct s_list {
-    char *token;
-    struct s_list* next;
-}	t_list;
-*/
+
 typedef struct  s_tokenizer{
 	int start;
 	int sizer;
