@@ -77,7 +77,7 @@ void ft_stack_printer(t_list *stack)
     stack = stack->next; // para que no se imprima el primer 0 (head)
     while(stack != NULL) // imprime cada nodo 
     {
-        // printf("%s->", stack->content);
+        printf("%s->", stack->content);
         stack = stack->next;
     }
     printf("NULL\n");
