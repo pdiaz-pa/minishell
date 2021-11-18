@@ -55,7 +55,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			again = 0;
 			prompt = readline("minishell$ ");
-			add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
+			if (prompt[0] != '\0')
+				add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas
 			if (prompt == NULL || ft_strcmp("exit", prompt) == 0) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 				exit(1);
 			
@@ -64,11 +65,11 @@ int	main(int argc, char **argv, char **envp)
 				token_list = ft_tokenizer(prompt, token_list); //en desarrollo. comentar esta  función si se quiere probar algo
 				ft_stack_printer(token_list);
 				//token_list = NULL;
-			}
 			ft_prompt_cmp(prompt, env, envp, token_list);
-			ft_stack_printer(token_list);
-			printf("\nprintf%s\n", token_list->content);
 			free(prompt);
+			}
+			//ft_stack_printer(token_list);
+			//printf("\nprintf%s\n", token_list->content);
 		}
 	}
 	
