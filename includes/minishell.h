@@ -1,6 +1,10 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#define DOUBLEQ 34
+#define SINGLEQ 39
+#define SPACE 32
+
 typedef struct  s_tokenizer{
 	int start;
 	int sizer;
@@ -26,7 +30,7 @@ typedef struct  s_env{
 }	            t_env;
 
 //ft_tokenizer.c
-t_list *ft_tokenizer(char *prompt);
+t_list *ft_tokenizer(char *prompt, t_list *token_list);
 void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_list *token_list);
 void ft_make_list(t_list *head, char **token_arr, int array_size);
 void ft_prompt_cmp(char *prompt, t_env *env, char **envp);
