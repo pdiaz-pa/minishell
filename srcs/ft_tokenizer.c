@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/18 13:00:58 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/19 12:37:48 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,38 @@ int ft_last_spaces(char *prompt, t_tokenizer *tk)
 	32-> SPACE
 	*/
 
-int ft_str_size(char *prompt, t_tokenizer *tk, t_list *token_list)
+int ft_tk_delimiter(char *content)
+{
+	if (ft_strcmp(content, "|") == 0)
+		return(1);
+	else if (ft_strcmp(content, "<") == 0)
+		return(1);
+	else if (ft_strcmp(content, ">") == 0)
+		return(1);
+	else if (ft_strcmp(content, "<<") == 0)
+		return(1);
+	else if (ft_strcmp(content, ">>") == 0)
+		return(1);
+	else if (ft_strcmp(content, "|") == 0)
+		return(1);
+	else
+		return(0);
+}
+
+void ft_tk_recognizer(t_mylist *tk_l)
+{
+	while (tk_l != NULL)
+	{
+		if (ft_tk_delimiter(tk_l->content) == 1)
+			tk_l->tk_type = DELIMITER;
+		else
+			tk_l->tk_type = TEXT;
+		printf("%d tipo de token \n", tk_l->tk_type);
+		tk_l = tk_l->next;
+	}
+}
+
+int ft_str_size(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 {
 	int j;
 	char *buff;
@@ -165,7 +196,7 @@ int ft_str_size(char *prompt, t_tokenizer *tk, t_list *token_list)
 			}
 			buff[j] = '\0';
 			//printf("buffer---->%s\n", buff);
-			ft_lstadd_back(&token_list, ft_lstnew(buff));
+			ft_mylstadd_back(&token_list, ft_mylstnew(buff));
 			//ft_stack_printer(token_list);
 			j = 0;
 			buff = NULL;
@@ -173,6 +204,7 @@ int ft_str_size(char *prompt, t_tokenizer *tk, t_list *token_list)
 	}
 	//printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
 	//printf("\e[42m %d --------\e[0m\n\n", tk->size);
+	ft_tk_recognizer(token_list->next);
 	return (tk->size);
 }
 
@@ -186,12 +218,12 @@ void ft_init_tk(t_tokenizer *tk)
 	tk->ch = 32;
 }
 
-t_list *ft_tokenizer(char *prompt, t_list *token_list)
+t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
 {
 	t_tokenizer tk;
 
 	ft_init_tk(&tk);
-	token_list = ft_lstnew("head");
+	token_list = ft_mylstnew("head");
 	ft_str_size(prompt, &tk, token_list);
 	return (token_list);
 }

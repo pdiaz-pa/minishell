@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	t_env	*env;
-	t_list *token_list;
+	t_mylist *token_list;
 	env = save_env(envp);
 	/* ft_print_export(exp);
 	ft_print_env(env);
@@ -72,6 +72,5 @@ int	main(int argc, char **argv, char **envp)
 			//printf("\nprintf%s\n", token_list->content);
 		}
 	}
-	
 	return (0);
 }

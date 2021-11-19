@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 08:38:02 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/18 16:41:20 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/19 11:29:44 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(t_list *tk_l)
+void	ft_echo(t_mylist *tk_l)
 {
 	char	flag;
 	int		i;

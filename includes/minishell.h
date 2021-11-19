@@ -4,6 +4,14 @@
 #define DOUBLEQ 34
 #define SINGLEQ 39
 #define SPACE 32
+#define TEXT 0
+#define DELIMITER 1
+
+typedef struct s_mylist{
+    char *content;
+    int tk_type;
+    struct s_mylist *next;
+} t_mylist;
 
 typedef struct  s_tokenizer{
 	int start;
@@ -30,11 +38,11 @@ typedef struct  s_env{
 }	            t_env;
 
 //ft_tokenizer.c
-t_list *ft_tokenizer(char *prompt, t_list *token_list);
-void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_list *token_list);
+t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list);
+void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
 void ft_make_list(t_list *head, char **token_arr, int array_size);
-void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_list *tk_l);
-void	ft_echo(t_list *tk_l);
+void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l);
+void	ft_echo(t_mylist *tk_l);
 void	ft_cd(char *argv, t_env *env);
 void	ft_exe(char *path, t_env *env, char **envp);
 t_env	*save_env(char **envp);
@@ -45,8 +53,11 @@ void	free_env(t_env **env);
 
 void	ft_free_all(t_list *token_list, char **token_arr, t_tokenizer *tk);
 void	ft_free_list(t_list *token_list);
-void ft_stack_printer(t_list *stack);
-t_list *ft_init_t_stack(void);
+void ft_stack_printer(t_mylist *stack);
+void	ft_mylstadd_back(t_mylist **lst, t_mylist *new);
+t_mylist	*ft_mylstnew(void *content);
+t_mylist	*ft_mylstlast(t_mylist *lst);
+t_mylist *ft_init_t_stack(void);
 
 
 #endif
