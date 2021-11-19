@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/19 12:37:48 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/19 15:19:00 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,16 +134,23 @@ void ft_tk_recognizer(t_mylist *tk_l)
 {
 	while (tk_l != NULL)
 	{
+		printf("%s ", tk_l->content);
 		if (ft_tk_delimiter(tk_l->content) == 1)
+		{
 			tk_l->tk_type = DELIMITER;
+			printf("tipo DELIMITER\n");			
+		}
+			
 		else
+		{
 			tk_l->tk_type = TEXT;
-		printf("%d tipo de token \n", tk_l->tk_type);
+			printf("tipo TEXT\n");
+		}
 		tk_l = tk_l->next;
 	}
 }
 
-int ft_str_size(char *prompt, t_tokenizer *tk, t_mylist *token_list)
+int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 {
 	int j;
 	char *buff;
@@ -224,6 +231,6 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
 
 	ft_init_tk(&tk);
 	token_list = ft_mylstnew("head");
-	ft_str_size(prompt, &tk, token_list);
+	ft_tk_creator(prompt, &tk, token_list);
 	return (token_list);
 }
