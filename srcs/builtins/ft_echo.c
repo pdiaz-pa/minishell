@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 08:38:02 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/19 11:29:44 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:00:16 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 void	ft_echo(t_mylist *tk_l)
 {
 	char	flag;
-	int		i;
 
 	flag = '0';
-	i = 0;
-	if ((ft_strcmp(tk_l->content, "-n") == 0))
+	if (tk_l != NULL && (ft_strcmp(tk_l->content, "-n") == 0))
 	{
 		flag = '1';
 		tk_l = tk_l->next;
 	}
-	while (tk_l != NULL && ft_strcmp(tk_l->content, "|") != 0)
+	while (tk_l != NULL && tk_l->tk_type == 0)
 	{
 		printf("%s", tk_l->content);
-		if (tk_l->next != NULL)
+		if (tk_l->next != NULL && tk_l->next != NULL && tk_l->next->tk_type == 0)
 			printf(" ");
 		tk_l = tk_l->next;
 	}
