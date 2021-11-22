@@ -38,7 +38,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l)
 	}
 	else if (ft_strcmp("export", tk_l->content) == 0)
 	{
-		ft_print_export(env);
+		ft_export(&env, tk_l->next);
 	}
 	else if (ft_strcmp("unset", tk_l->content) == 0)
 	{
