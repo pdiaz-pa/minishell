@@ -61,6 +61,7 @@ t_mylist	*ft_mylstnew(void *content);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist *ft_init_t_stack(void);
 void ft_expander(char *token, char *savedtk);
+char	**ft_split_env(char const *s);
 
 
 #endif

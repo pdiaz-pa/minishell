@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:47:47 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/23 09:24:49 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:20:52 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_save_env_line(t_env **env, char *envp)
 	}
 }
 
-static char	**ft_split_env(char const *s)
+char	**ft_split_env(char const *s)
 {
 	char	**split;
 	int		i;
