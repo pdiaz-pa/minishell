@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/14 17:00:32 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:15:45 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exe(char *path, t_env *env, char **envp)
 	char	**splitarg;
 
 	final = NULL;
-	valid_cmd(search_env(env, "PATH"), path, &final);
+	valid_cmd(ft_search_env(env, "PATH"), path, &final);
 	/* if (final == NULL)
 	{
 		if (path[0] == '/')

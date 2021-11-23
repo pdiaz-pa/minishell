@@ -45,17 +45,17 @@ void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l);
 void	ft_echo(t_mylist *tk_l);
 void	ft_cd(char *argv, t_env *env);
 void	ft_exe(char *path, t_env *env, char **envp);
-t_env	*save_env(char **envp);
+t_env	*ft_save_env(char **envp);
 int		ft_print_export(t_env *env);
 int	    ft_print_env(t_env *env);
-t_env   *search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
-void	free_env(t_env **env);
+t_env   *ft_search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
+void	ft_free_env(t_env **env);
 int	    ft_export(t_env **env, t_mylist *tk_l);
 void	ft_free_all(t_list *token_list, char **token_arr, t_tokenizer *tk);
 void	ft_free_list(t_list *token_list);
 void    ft_stack_printer(t_mylist *stack);
 void	ft_mylstadd_back(t_mylist **lst, t_mylist *new);
-void	save_line_env(t_env **env, char *envp);
+void	ft_save_env_line(t_env **env, char *envp);
 t_mylist	*ft_mylstnew(void *content);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist *ft_init_t_stack(void);

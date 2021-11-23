@@ -6,17 +6,17 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/22 17:49:16 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:24:45 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // static void	old_pwd(t_env *env);
-static t_env	*save_exp(t_env *env);
-static void	free_export(t_env **env);
-static void	save_line(t_env **env, char **line);
-static void	save_line_2(t_env *new, t_env *temp);
+static t_env	*ft_save_exp(t_env *env);
+static void	ft_free_export(t_env **env);
+static void	ft_save_line(t_env **env, char **line);
+static void	ft_save_line_2(t_env *new, t_env *temp);
 
 
 int	ft_print_export(t_env *env)
@@ -24,7 +24,7 @@ int	ft_print_export(t_env *env)
 	t_env	*temp;
 	t_env	*temp2;
 
-	temp = save_exp(env);
+	temp = ft_save_exp(env);
 	temp2 = temp;
 	while (temp2 != NULL)
 	{
@@ -40,11 +40,11 @@ int	ft_print_export(t_env *env)
 			printf("\n");
 		temp2 = temp2->next;
 	}
-	free_export(&temp);
+	ft_free_export(&temp);
 	return (0);
 }
 
-static t_env	*save_exp(t_env *env)
+static t_env	*ft_save_exp(t_env *env)
 {
 	t_env	*ret;
 	t_env	*temp;
@@ -54,10 +54,10 @@ static t_env	*save_exp(t_env *env)
 	temp = env;
 	while (temp != NULL)
 	{
-		save_line(&ret, temp->line);
+		ft_save_line(&ret, temp->line);
 		temp = temp->next;
 	}
-	temp = search_env(ret, "OLDPWD");
+	temp = ft_search_env(ret, "OLDPWD");
 	if (temp == NULL)
 	{
 		old = (char **)malloc(sizeof(char *) * 2);
@@ -65,12 +65,12 @@ static t_env	*save_exp(t_env *env)
 			perror ("Malloc fail");
 		old[0] = ft_strdup("OLDPWD");
 		old[1] = NULL;
-		save_line(&ret, old);
+		ft_save_line(&ret, old);
 	}
 	return (ret);
 }
 
-static void	save_line(t_env **env, char **line)
+static void	ft_save_line(t_env **env, char **line)
 {
 	t_env	*new;
 	t_env	*temp;
@@ -91,11 +91,11 @@ static void	save_line(t_env **env, char **line)
 			new->next = temp;
 		}
 		else
-			save_line_2(new, temp);
+			ft_save_line_2(new, temp);
 	}
 }
 
-static void	save_line_2(t_env *new, t_env *temp)
+static void	ft_save_line_2(t_env *new, t_env *temp)
 {
 	t_env	*temp2;
 
@@ -112,13 +112,13 @@ static void	save_line_2(t_env *new, t_env *temp)
 	}
 }
 
-static void	free_export(t_env **env)
+static void	ft_free_export(t_env **env)
 {
 	t_env	*temp;
 	t_env	*temp2;
 
 	temp2 = *env;
-	temp = search_env(temp2, "OLDPWD");
+	temp = ft_search_env(temp2, "OLDPWD");
 	if (temp->line[1] == NULL)
 	{
 		free (temp->line[0]);

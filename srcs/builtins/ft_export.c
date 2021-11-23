@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:49:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/22 18:36:59 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:30:37 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ int	ft_export(t_env **env, t_mylist *tk_l)
 	{
 		if (ft_isdigit(tk_l->content[0]))
 			printf("minishell: export: `%s': not a valid identifier\n", tk_l->content);
+		else if (ft_search_env(*env, tk_l->content) != NULL)
+			printf("\nNO ES NULL\n");
+			// ft_edit_env(t_env *env, char *content);
 		else
-			save_line_env(env, temp->content);
+			ft_save_env_line(env, temp->content);
 		temp = temp->next;
 	}
 	return (0);

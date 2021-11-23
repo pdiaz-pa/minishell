@@ -39,11 +39,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	t_env	*env;
 	t_mylist *token_list;
-	env = save_env(envp);
+	env = ft_save_env(envp);
 	/* ft_print_export(exp);
 	ft_print_env(env);
-	free_env(&exp);
-	free_env(&env);
+	ft_free_env(&exp);
+	ft_free_env(&env);
  */
 
 	while (1)
