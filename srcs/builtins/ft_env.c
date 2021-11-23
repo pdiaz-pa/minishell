@@ -6,13 +6,11 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:47:47 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/23 17:20:52 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:25:47 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	**ft_split_env(char const *s);
 
 t_env	*ft_save_env(char **envp)
 {

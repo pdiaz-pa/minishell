@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/23 17:00:12 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:30:05 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 	}
 	//printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
 	//printf("\e[42m %d --------\e[0m\n\n", tk->size);
-	ft_tk_recognizer(token_list->next);
+	// ft_tk_recognizer(token_list->next);
 	return (tk->size);
 }
 
