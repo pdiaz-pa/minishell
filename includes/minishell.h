@@ -9,6 +9,7 @@
 
 typedef struct s_mylist{
     char *content;
+    char *exp;
     int tk_type;
     struct s_mylist *next;
 } t_mylist;
@@ -59,6 +60,7 @@ void	ft_save_env_line(t_env **env, char *envp);
 t_mylist	*ft_mylstnew(void *content);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist *ft_init_t_stack(void);
+void ft_expander(char *token, char *savedtk);
 
 
 #endif

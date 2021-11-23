@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/19 15:19:00 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:00:12 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int ft_last_spaces(char *prompt, t_tokenizer *tk)
 	int count;
 
 	count = tk->start;
-
 	while (prompt[count] != '\0')
 	{
 		if(prompt[count] != SPACE && prompt[count] != '\0')
@@ -105,7 +104,6 @@ int ft_last_spaces(char *prompt, t_tokenizer *tk)
 	}
 	return(0);
 }
-
 	/*
 	34-> "
 	39-> '
@@ -124,8 +122,6 @@ int ft_tk_delimiter(char *content)
 		return(1);
 	else if (ft_strcmp(content, ">>") == 0)
 		return(1);
-	else if (ft_strcmp(content, "|") == 0)
-		return(1);
 	else
 		return(0);
 }
@@ -138,14 +134,14 @@ void ft_tk_recognizer(t_mylist *tk_l)
 		if (ft_tk_delimiter(tk_l->content) == 1)
 		{
 			tk_l->tk_type = DELIMITER;
-			printf("tipo DELIMITER\n");			
+			printf("tipo DELIMITER\n");
 		}
-			
 		else
 		{
 			tk_l->tk_type = TEXT;
 			printf("tipo TEXT\n");
 		}
+		//ft_expander(tk_l->content, tk_l->exp);
 		tk_l = tk_l->next;
 	}
 }

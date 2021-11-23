@@ -24,6 +24,7 @@ SRC = 	main.c \
 		builtins/ft_env.c \
 		exe/ft_exe.c \
 		ft_list_utils.c \
+		ft_expander.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
