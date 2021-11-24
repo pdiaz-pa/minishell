@@ -13,7 +13,8 @@ char *ft_final_finder(char *token)
 		j++;
 	while (token[i] != '$')
 		i++;
-	while (token[i] != SPACE && token[i] != '\0')
+	
+	while (token[i] != SPACE)
 		i++;
 	final = ft_substr(token, i, j);
 	return(final);
@@ -27,7 +28,6 @@ char *ft_key_finder(char *token)
 
 	size = 0;
 	i = 0;
-
 	while (token[i] != '$')
 		i++;
 	i++;
@@ -36,33 +36,40 @@ char *ft_key_finder(char *token)
 		i++;
 		size++;
 	}
-	key = ft_substr(token, (i - size), i);
+	key = ft_substr(token, (i - size), size);
 	return (key);
 }
 
-void ft_expander(char *token, char *savedtk)
+void	ft_expander(char *token, char *savedtk)
 {
 	int i;
 	char *expanded;
+	char *expkey;
 	char *key;
 	char *final;
+	char *first;
 
 	final = NULL;
 	expanded = NULL;
 	i = 0;
 	while (token[i] != '\0' && token[i] != '$')
-		i++;
+		i++;	
 	if (token[i] == '$')
 	{
 			key = ft_key_finder(token);
-			final = ft_strcpy(final, ft_final_finder(final));
+			expkey = getenv(key);
+			printf("%s KEY\n", key);
+			printf("%s expKEY\n", expkey);
+			final = ft_final_finder(token);
+			printf("%s FINAL\n", final);
 			savedtk = token;
 			i = 0;
 			while (token[i] != '$')
 				i++;
-			expanded = ft_substr(token, 0, i - 1);
-			expanded = ft_strjoin(expanded, getenv(key));
+			first = ft_substr(token, 0, i);
+			printf("%sFIRST\n", first);
+			expanded = ft_strjoin(first, expkey);
 			expanded = ft_strjoin(expanded, final);
+			printf("%s expanded\n", expanded);
 	}
-	printf("%s EXPANDED \n", expanded);
 }
