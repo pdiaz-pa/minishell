@@ -1,20 +1,18 @@
 #include "../includes/minishell.h"
 
-char *ft_final_finder(char *token)
+char *ft_final_finder(char *token, int i)
 {
-	int i;
+	//int i;
 	int j;
 	char *final;
 	
 	j = 0;
-	i = 0;
 
 	while (token[j] != '\0')
 		j++;
 	while (token[i] != '$')
 		i++;
-	
-	while (token[i] != SPACE)
+	while (token[i] != SPACE && token[i] != '\0')
 		i++;
 	final = ft_substr(token, i, j);
 	return(final);
@@ -31,7 +29,7 @@ char *ft_key_finder(char *token)
 	while (token[i] != '$')
 		i++;
 	i++;
-	while (token[i] != SPACE && token[i] != '\0')
+	while (token[i] != SPACE && token[i] != '\0' && token[i] != '$')
 	{
 		i++;
 		size++;
@@ -40,7 +38,21 @@ char *ft_key_finder(char *token)
 	return (key);
 }
 
-void	ft_expander(char *token, char *savedtk)
+int ft_dollar_finder(char *str)
+{
+	int i;
+	i = 0;
+
+	while(str[i] != '\0')
+	{
+		if (str[i] == '$')
+			return(1);
+		i++;
+	}
+	return(0);
+}
+
+void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 {
 	int i;
 	char *expanded;
@@ -52,24 +64,28 @@ void	ft_expander(char *token, char *savedtk)
 	final = NULL;
 	expanded = NULL;
 	i = 0;
-	while (token[i] != '\0' && token[i] != '$')
-		i++;	
-	if (token[i] == '$')
+	while (ft_dollar_finder(tk_l->content) == 1)
 	{
-			key = ft_key_finder(token);
-			expkey = getenv(key);
-			printf("%s KEY\n", key);
-			printf("%s expKEY\n", expkey);
-			final = ft_final_finder(token);
-			printf("%s FINAL\n", final);
-			savedtk = token;
-			i = 0;
-			while (token[i] != '$')
-				i++;
-			first = ft_substr(token, 0, i);
-			printf("%sFIRST\n", first);
-			expanded = ft_strjoin(first, expkey);
-			expanded = ft_strjoin(expanded, final);
-			printf("%s expanded\n", expanded);
+		while (token[i] != '\0' && token[i] != '$')
+			i++;	
+		if (token[i] == '$')
+		{
+				key = ft_key_finder(tk_l->content);
+				expkey = getenv(key);
+				printf("%s KEY\n", key);
+				printf("%s expKEY\n", expkey);
+				final = ft_final_finder(tk_l->content, i);
+				printf("%s FINAL\n", final);
+				savedtk = token;
+				i = 0;
+				while (tk_l->content[i] != '$')
+					i++;
+				first = ft_substr(tk_l->content, 0, i);
+				printf("%sFIRST\n", first);
+				expanded = ft_strjoin(first, expkey);
+				expanded = ft_strjoin(expanded, final);
+				tk_l->content = expanded;
+		}
+		printf("%s expanded token\n", tk_l->content);
 	}
 }

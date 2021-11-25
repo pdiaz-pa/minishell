@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/24 16:40:22 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:45:41 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void ft_tk_recognizer(t_mylist *tk_l)
 			tk_l->tk_type = TEXT;
 			printf("tipo TEXT\n");
 		}
-		ft_expander(tk_l->content, tk_l->exp);
+		ft_expander(tk_l->content, tk_l->exp, tk_l);
 		tk_l = tk_l->next;
 	}
 }
