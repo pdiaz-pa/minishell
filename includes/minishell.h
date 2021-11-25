@@ -60,7 +60,7 @@ void	ft_save_env_line(t_env **env, char *envp);
 t_mylist	*ft_mylstnew(void *content);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist *ft_init_t_stack(void);
-void    ft_expander(char *token, char *savedtk);
+void    ft_expander(char *token, char *savedtk, t_mylist *tk_l);
 char	**ft_split_env(char const *s);
 
 
