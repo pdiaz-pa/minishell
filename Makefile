@@ -22,6 +22,7 @@ SRC = 	main.c \
 		builtins/ft_print_export.c \
 		builtins/ft_env_utils.c \
 		builtins/ft_env.c \
+		builtins/ft_unset.c \
 		exe/ft_exe.c \
 		ft_list_utils.c \
 		ft_expander.c \

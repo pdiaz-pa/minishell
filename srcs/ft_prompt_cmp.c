@@ -42,7 +42,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l)
 	}
 	else if (ft_strcmp("unset", tk_l->content) == 0)
 	{
-		printf("función unset\n");
+		ft_unset(&env, tk_l->next);
 	}
 	else if (ft_strcmp("env", tk_l->content) == 0)
 		ft_print_env(env);

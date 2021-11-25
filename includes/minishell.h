@@ -52,6 +52,7 @@ int	    ft_print_env(t_env *env);
 t_env   *ft_search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
 void	ft_free_env(t_env **env);
 int	    ft_export(t_env **env, t_mylist *tk_l);
+int	    ft_unset(t_env **env, t_mylist *tk_l);
 void	ft_free_all(t_list *token_list, char **token_arr, t_tokenizer *tk);
 void	ft_free_list(t_list *token_list);
 void    ft_stack_printer(t_mylist *stack);
