@@ -44,7 +44,7 @@ void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
 void ft_make_list(t_list *head, char **token_arr, int array_size);
 void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l);
 void	ft_echo(t_mylist *tk_l);
-void	ft_cd(char *argv, t_env *env);
+void	ft_cd(t_env **env, t_mylist *tk_l);
 void	ft_exe(char *path, t_env *env, char **envp);
 t_env	*ft_save_env(char **envp);
 int		ft_print_export(t_env *env);

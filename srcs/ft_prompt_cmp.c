@@ -34,7 +34,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l)
 	}
 	else if (ft_strcmp("cd", tk_l->content) == 0)
 	{
-		ft_cd(&prompt[2], env);
+		ft_cd(&env, tk_l->next);
 	}
 	else if (ft_strcmp("export", tk_l->content) == 0)
 	{
