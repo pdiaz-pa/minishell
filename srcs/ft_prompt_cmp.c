@@ -16,7 +16,7 @@ void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l)
 	{
 	if (ft_strcmp("pwd", tk_l->content) == 0) //compara este string con lo que está en prompt (lo que metemos)
 	{
-		printf("%s\n", getcwd(NULL, 0));
+		ft_pwd();
 		tk_l = tk_l->next;
 	}
 	else if (ft_strcmp("exit", tk_l->content) == 0)

@@ -6,13 +6,12 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/23 09:24:45 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/27 15:05:04 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static void	old_pwd(t_env *env);
 static t_env	*ft_save_exp(t_env *env);
 static void	ft_free_export(t_env **env);
 static void	ft_save_line(t_env **env, char **line);
@@ -48,7 +47,6 @@ static t_env	*ft_save_exp(t_env *env)
 {
 	t_env	*ret;
 	t_env	*temp;
-	char	**old;
 
 	ret = NULL;
 	temp = env;
@@ -56,16 +54,6 @@ static t_env	*ft_save_exp(t_env *env)
 	{
 		ft_save_line(&ret, temp->line);
 		temp = temp->next;
-	}
-	temp = ft_search_env(ret, "OLDPWD");
-	if (temp == NULL)
-	{
-		old = (char **)malloc(sizeof(char *) * 2);
-		if (old == NULL)
-			perror ("Malloc fail");
-		old[0] = ft_strdup("OLDPWD");
-		old[1] = NULL;
-		ft_save_line(&ret, old);
 	}
 	return (ret);
 }
@@ -117,13 +105,6 @@ static void	ft_free_export(t_env **env)
 	t_env	*temp;
 	t_env	*temp2;
 
-	temp2 = *env;
-	temp = ft_search_env(temp2, "OLDPWD");
-	if (temp->line[1] == NULL)
-	{
-		free (temp->line[0]);
-		free (temp->line);
-	}
 	temp = *env;
 	while (temp != NULL)
 	{
