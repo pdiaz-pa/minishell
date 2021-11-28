@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 				token_list = ft_tokenizer(prompt, token_list); //en desarrollo. comentar esta  función si se quiere probar algo
 				ft_stack_printer(token_list);
 				//token_list = NULL;
-			ft_prompt_cmp(prompt, env, envp, token_list);
+			ft_prompt_cmp(env, token_list);
 			free(prompt);
 			}
 			//ft_stack_printer(token_list);

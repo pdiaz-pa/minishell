@@ -42,10 +42,10 @@ typedef struct  s_env{
 t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list);
 void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
 void ft_make_list(t_list *head, char **token_arr, int array_size);
-void ft_prompt_cmp(char *prompt, t_env *env, char **envp, t_mylist *tk_l);
+void ft_prompt_cmp(t_env *env, t_mylist *tk_l);
 int 	ft_echo(t_mylist *tk_l);
 int 	ft_cd(t_env **env, t_mylist *tk_l);
-void	ft_exe(char *path, t_env *env, char **envp);
+void	ft_exe(t_env **env, t_mylist *tk_l);
 t_env	*ft_save_env(char **envp);
 int		ft_print_export(t_env *env);
 int	    ft_print_env(t_env *env);

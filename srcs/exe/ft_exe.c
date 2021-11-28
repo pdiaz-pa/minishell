@@ -6,17 +6,17 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/23 09:15:45 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/28 18:46:05 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+/*
 static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	free_mem(char **arr);
 
 
-void	ft_exe(char *path, t_env *env, char **envp)
+void	ft_exe(t_env **env, t_mylist *tk_l)
 {
 	pid_t	pid;
 	char	*final;
@@ -25,7 +25,7 @@ void	ft_exe(char *path, t_env *env, char **envp)
 
 	final = NULL;
 	valid_cmd(ft_search_env(env, "PATH"), path, &final);
-	/* if (final == NULL)
+	 if (final == NULL)
 	{
 		if (path[0] == '/')
 			printf("minishell: %s: No such file or directory\n", path);
@@ -33,7 +33,7 @@ void	ft_exe(char *path, t_env *env, char **envp)
 			printf("minishell: %s: command not found\n", path);
 		return ;
 	} */
-	splitarg = ft_split(path, ' ');
+/*	splitarg = ft_split(path, ' ');
 	pid = fork();
 	if (pid == -1)
 		perror("pid error");
@@ -95,3 +95,4 @@ static void	free_mem(char **arr)
 	free (arr);
 	arr = NULL;
 }
+*/
