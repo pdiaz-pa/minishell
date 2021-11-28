@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 08:53:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/23 09:38:27 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:46:01 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,3 @@ void	ft_free_env(t_env **env)
 	}
 	*env = NULL;
 }
-
-/* void	ft_edit_env(t_env *env, char *content)
-{
-	
-} */
-
-

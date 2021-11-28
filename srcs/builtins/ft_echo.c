@@ -6,13 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 08:38:02 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/20 22:00:16 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:45:42 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(t_mylist *tk_l)
+int	ft_echo(t_mylist *tk_l)
 {
 	char	flag;
 
@@ -31,5 +31,5 @@ void	ft_echo(t_mylist *tk_l)
 	}
 	if (flag == '0')
 		printf("\n");
-	return ;
+	return (0);
 }

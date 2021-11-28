@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:10:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/27 18:03:47 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/28 15:19:02 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_cd_home(t_env **env);
 static void	ft_update_pwd(t_env **env, char *old);
 
-void	ft_cd(t_env **env, t_mylist *tk_l)
+int	ft_cd(t_env **env, t_mylist *tk_l)
 {
 	int		ret;
 	char	*old;
@@ -33,7 +33,7 @@ void	ft_cd(t_env **env, t_mylist *tk_l)
 	if (ret == 0)
 		ft_update_pwd(env, old);
 	free (old);
-	return ;
+	return (ret);
 }
 
 static int	ft_cd_home(t_env **env)
