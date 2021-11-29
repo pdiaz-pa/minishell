@@ -45,7 +45,7 @@ void ft_make_list(t_list *head, char **token_arr, int array_size);
 void ft_prompt_cmp(t_env *env, t_mylist *tk_l);
 int 	ft_echo(t_mylist *tk_l);
 int 	ft_cd(t_env **env, t_mylist *tk_l);
-void	ft_exe(t_env **env, t_mylist *tk_l);
+void	ft_exe(t_env *env, t_mylist *tk_l);
 t_env	*ft_save_env(char **envp);
 int		ft_print_export(t_env *env);
 int	    ft_print_env(t_env *env);
@@ -64,6 +64,7 @@ t_mylist *ft_init_t_stack(void);
 void    ft_expander(char *token, char *savedtk, t_mylist *tk_l);
 char	**ft_split_env(char const *s);
 int     ft_pwd();
-
+char	**ft_make_argv(t_mylist *tk_l);
+char	**ft_make_envp(t_env *env);
 
 #endif

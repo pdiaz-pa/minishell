@@ -6,82 +6,84 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/28 18:46:05 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/29 09:29:37 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-/*
+
 static void	valid_cmd(t_env *env, char *cmd, char **final);
-static void	free_mem(char **arr);
+static void	valid_cmd_2(t_env *env, char *cmd, char **final);
+static void	ft_free_mem(char **arr);
+static void	ft_execve(char *cmd, char **argv, char **envp);
 
-
-void	ft_exe(t_env **env, t_mylist *tk_l)
+void	ft_exe(t_env *env, t_mylist *tk_l)
 {
-	pid_t	pid;
 	char	*final;
-	int		status;
-	char	**splitarg;
+	char	**argv;
+	char	**envp;
 
 	final = NULL;
-	valid_cmd(ft_search_env(env, "PATH"), path, &final);
-	 if (final == NULL)
+	valid_cmd(ft_search_env(env, "PATH"), tk_l->content, &final);
+	if (final == NULL)
 	{
-		if (path[0] == '/')
-			printf("minishell: %s: No such file or directory\n", path);
+		if (tk_l->content[0] == '/')
+			printf("minishell: %s: No such file or directory\n", tk_l->content);
 		else
-			printf("minishell: %s: command not found\n", path);
-		return ;
-	} */
-/*	splitarg = ft_split(path, ' ');
-	pid = fork();
-	if (pid == -1)
-		perror("pid error");
-	else if (pid == 0)
-	{
-		if (execve(final, splitarg, envp) == -1)
-			perror("execve");
+			printf("minishell: %s: command not found\n", tk_l->content);
 	}
-	else if (pid > 0)
+	else
 	{
-		pid = waitpid(-1, &status, 0);
-		free_mem(splitarg);
+		argv = ft_make_argv(tk_l);
+		envp = ft_make_envp(env);
+		ft_execve(final, argv, envp);
 		free(final);
+		free(argv);
+		ft_free_mem(envp);
 	}
+	return ;
 }
 
 static void	valid_cmd(t_env *env, char *cmd, char **final)
 {
+	if (access(cmd, F_OK) != -1)
+		*final = ft_strdup(cmd);
+	else if (env == NULL)
+		return ;
+	else
+		valid_cmd_2(env, cmd, final);
+	return ;
+}
+
+static void	valid_cmd_2(t_env *env, char *cmd, char **final)
+{
 	int		i;
 	char	**path;
-	char	*tmp[2];
+	char	*tmp;
+	char	*check;
 
-	if (access(cmd, F_OK) != -1)
-	{
-		*final = ft_strdup(cmd);
-		return ;
-	}
 	path = ft_split(env->line[1], ':');
 	i = 0;
 	while (path[i])
 	{
-		tmp[0] = ft_strjoin(path[i], "/");
-		tmp[1] = ft_strjoin(tmp[0], cmd);
-		free(tmp[0]);
-		tmp[0] = NULL;
-		if (access(tmp[1], F_OK) != -1)
+		tmp = ft_strjoin(path[i], "/");
+		check = ft_strjoin(tmp, cmd);
+		free(tmp);
+		tmp = NULL;
+		if (access(check, F_OK) != -1)
 		{
-			*final = tmp[1];
+			*final = check;
 			break ;
 		}
-		free(tmp[1]);
-		tmp[1] = NULL;
+		free(check);
+		check = NULL;
 		i++;
 	}
-	free_mem(path);
+	ft_free_mem(path);
+	return ;
 }
 
-static void	free_mem(char **arr)
+static void	ft_free_mem(char **arr)
 {
 	int	i;
 
@@ -95,4 +97,22 @@ static void	free_mem(char **arr)
 	free (arr);
 	arr = NULL;
 }
-*/
+
+static void	ft_execve(char *cmd, char **argv, char **envp)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == -1)
+		perror("pid error");
+	else if (pid == 0)
+	{
+		if (execve(cmd, argv, envp) == -1)
+			perror("execve");
+	}
+	else if (pid > 0)
+	{
+		pid = waitpid(-1, &status, 0);
+	}
+}

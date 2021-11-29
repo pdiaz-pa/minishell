@@ -48,7 +48,7 @@ void ft_prompt_cmp(t_env *env, t_mylist *tk_l)
 		ft_print_env(env);
 	else
 	{
-		//ft_exe(&env, tk_l->next);
+		ft_exe(env, tk_l);
 	}
 	if (tk_l != NULL)
 		tk_l = tk_l->next;
