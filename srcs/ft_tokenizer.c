@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/26 12:13:29 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:56:55 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int ft_singleq_mode(char *prompt, t_tokenizer *tk)
 	while (prompt[tk->start] != SINGLEQ && prompt[tk->start] != '\0')
 	{
 		//printf("%c CHAR ", prompt[tk->start]);
+		if (prompt[tk->start] == '$')
+			tk->expand = 1;
 		tk->start++;
 		size++;
 		//printf("%d START single\n", tk->start);
@@ -115,13 +117,13 @@ int ft_tk_delimiter(char *content)
 	if (ft_strcmp(content, "|") == 0)
 		return(1);
 	else if (ft_strcmp(content, "<") == 0)
-		return(1);
+		return(2);
 	else if (ft_strcmp(content, ">") == 0)
-		return(1);
+		return(2);
 	else if (ft_strcmp(content, "<<") == 0)
-		return(1);
+		return(2);
 	else if (ft_strcmp(content, ">>") == 0)
-		return(1);
+		return(2);
 	else
 		return(0);
 }
@@ -133,15 +135,22 @@ void ft_tk_recognizer(t_mylist *tk_l)
 		printf("%s ", tk_l->content);
 		if (ft_tk_delimiter(tk_l->content) == 1)
 		{
-			tk_l->tk_type = DELIMITER;
-			printf("tipo DELIMITER\n");
+			tk_l->tk_type = PIPE;
+			printf("tipo PIPE\n");
+		}
+		else if (ft_tk_delimiter(tk_l->content) == 2)
+		{
+			tk_l->tk_type = REDIR;
+			printf("tipo REDIR\n");
 		}
 		else
 		{
 			tk_l->tk_type = TEXT;
 			printf("tipo TEXT\n");
 		}
-		ft_expander(tk_l->content, tk_l->exp, tk_l);
+		printf("%d el isexp\n", tk_l->isexp);
+		if (tk_l->isexp == 0)
+			ft_expander(tk_l->content, tk_l->exp, tk_l);
 		tk_l = tk_l->next;
 	}
 }
@@ -155,6 +164,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 	//printf("\e[42mCALCUATING *CHAR's SIZE...\e[0m\n");
 	while (prompt[tk->start] != '\0')
 	{
+		tk->expand = 0;
 		while (prompt[tk->start] == SPACE)
 		{
 			tk->start++;
@@ -164,6 +174,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 		if(ft_last_spaces(prompt, tk) == 1)
 		{
 			ft_normal_mode(prompt, tk);
+			
 			//printf("%d STRING SIZE \n", (tk->start - tk->sizer));
 			buff = malloc((tk->start - tk->sizer) + 1);
 			while (tk->sizer < tk->start)
@@ -199,7 +210,8 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			}
 			buff[j] = '\0';
 			//printf("buffer---->%s\n", buff);
-			ft_mylstadd_back(&token_list, ft_mylstnew(buff));
+			printf("%d tk expand\n", tk->expand);
+			ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
 			//ft_stack_printer(token_list);
 			j = 0;
 			buff = NULL;
@@ -218,6 +230,7 @@ void ft_init_tk(t_tokenizer *tk)
 	tk->start = 0;
 	tk->single_flag = 0;
 	tk->double_flag = 0;
+	tk->expand = 0;
 	tk->ch = 32;
 }
 
@@ -226,7 +239,7 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
 	t_tokenizer tk;
 
 	ft_init_tk(&tk);
-	token_list = ft_mylstnew("head");
+	token_list = ft_mylstnew("head", 0);
 	ft_tk_creator(prompt, &tk, token_list);
 	return (token_list);
 }

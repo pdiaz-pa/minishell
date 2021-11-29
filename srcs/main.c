@@ -67,8 +67,7 @@ int	main(int argc, char **argv, char **envp)
 				//token_list = NULL;
 			ft_prompt_cmp(env, token_list);
 			free(prompt);
-			}
-			//ft_stack_printer(token_list);
+			}			//ft_stack_printer(token_list);
 			//printf("\nprintf%s\n", token_list->content);
 		}
 	}

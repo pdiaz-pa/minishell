@@ -60,9 +60,11 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 	char *key;
 	char *final;
 	char *first;
+	//t_env *temp;
 
 	final = NULL;
 	expanded = NULL;
+
 	i = 0;
 	while (ft_dollar_finder(tk_l->content) == 1)
 	{
@@ -71,6 +73,8 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 		if (token[i] == '$')
 		{
 				key = ft_key_finder(tk_l->content);
+				/*temp = ft_search_env(env, key);
+				expkey = temp->content[1];*/
 				expkey = getenv(key);
 				printf("%s KEY\n", key);
 				printf("%s expKEY\n", expkey);

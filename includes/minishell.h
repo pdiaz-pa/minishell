@@ -5,11 +5,13 @@
 #define SINGLEQ 39
 #define SPACE 32
 #define TEXT 0
-#define DELIMITER 1
+#define PIPE 1
+#define REDIR 1
 
 typedef struct s_mylist{
     char *content;
     char *exp;
+    int isexp;
     int tk_type;
     struct s_mylist *next;
 } t_mylist;
@@ -19,6 +21,7 @@ typedef struct  s_tokenizer{
 	int sizer;
 	int size;
     char ch;
+    int expand;
     int single_flag;
     int double_flag;
     char **arr;
@@ -58,7 +61,7 @@ void	ft_free_list(t_list *token_list);
 void    ft_stack_printer(t_mylist *stack);
 void	ft_mylstadd_back(t_mylist **lst, t_mylist *new);
 void	ft_save_env_line(t_env **env, char *envp);
-t_mylist	*ft_mylstnew(void *content);
+t_mylist	*ft_mylstnew(void *content, int isexp);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist *ft_init_t_stack(void);
 void    ft_expander(char *token, char *savedtk, t_mylist *tk_l);

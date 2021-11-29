@@ -38,7 +38,7 @@ void	ft_mylstadd_back(t_mylist **lst, t_mylist *new)
 	return ;
 }
 
-t_mylist	*ft_mylstnew(void *content)
+t_mylist	*ft_mylstnew(void *content, int isexp)
 {
 	t_mylist	*new;
 
@@ -47,5 +47,7 @@ t_mylist	*ft_mylstnew(void *content)
 		return (NULL);
 	new->content = content;
 	new->next = NULL;
+	new->exp = content;
+	new->isexp = isexp;
 	return (new);
 }
