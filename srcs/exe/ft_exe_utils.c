@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 08:47:17 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/29 09:23:01 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/11/29 11:22:55 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	**ft_make_envp(t_env *env)
 {
 	char		**envp;
 	t_env		*temp;
+	char		*temp2;
 	int			i;
 
 	temp = env;
@@ -57,8 +58,12 @@ char	**ft_make_envp(t_env *env)
 	i = 0;
 	while (temp != NULL)
 	{
-		if (temp->line[1] && i++)
-			envp[i] = ft_strjoin(temp->line[0], temp->line[1]);
+		if (temp->line[1])
+		{
+			temp2 = ft_strjoin(temp->line[0], "=");
+			envp[i] = ft_strjoin(temp2, temp->line[1]);
+			i++;
+		}
 		temp = temp->next;
 	}
 	envp[i] = NULL;
