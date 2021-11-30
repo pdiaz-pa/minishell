@@ -72,7 +72,11 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 			i++;	
 		if (token[i] == '$')
 		{
-				key = ft_key_finder(tk_l->content);
+			key = ft_key_finder(tk_l->content);
+			if (ft_strcmp(key, "?") == 0)
+				ft_strcpy(tk_l->content, "INTERROGACIÓN");
+			else
+			{
 				/*temp = ft_search_env(env, key);
 				expkey = temp->content[1];*/
 				expkey = getenv(key);
@@ -85,10 +89,11 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 				while (tk_l->content[i] != '$')
 					i++;
 				first = ft_substr(tk_l->content, 0, i);
-				printf("%sFIRST\n", first);
+				//printf("%sFIRST\n", first);
 				expanded = ft_strjoin(first, expkey);
 				expanded = ft_strjoin(expanded, final);
 				tk_l->content = expanded;
+			}
 		}
 		printf("%s expanded token\n", tk_l->content);
 	}

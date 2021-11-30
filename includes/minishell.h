@@ -6,7 +6,7 @@
 #define SPACE 32
 #define TEXT 0
 #define PIPE 1
-#define REDIR 1
+#define REDIR 2
 
 typedef struct s_mylist{
     char *content;

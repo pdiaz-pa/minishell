@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/29 15:56:55 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:22:31 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 	}
 	//printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
 	//printf("\e[42m %d --------\e[0m\n\n", tk->size);
-	ft_tk_recognizer(token_list->next);
 	return (tk->size);
 }
 
@@ -241,5 +240,6 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
 	ft_init_tk(&tk);
 	token_list = ft_mylstnew("head", 0);
 	ft_tk_creator(prompt, &tk, token_list);
+	ft_tk_recognizer(token_list->next);
 	return (token_list);
 }
