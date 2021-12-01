@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/11/30 15:22:31 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/01 12:33:22 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,57 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 {
 	int size;
 	size = 0;
-	//printf("\e[1;34mMODO NORMAL\e[0m\n");
-	while(prompt[tk->start] != SPACE && prompt[tk->start] != '\0')
+	printf("\e[1;34mMODO NORMAL\e[0m\n");
+	if (prompt[tk->start] == '|')
 	{
-		//printf("%c CHAR ", prompt[tk->start]);
-		if (prompt[tk->start] != DOUBLEQ && prompt[tk->start] != SINGLEQ)
+		size++;
+		tk->start++;
+	}
+	else if (prompt[tk->start] == '<')
+	{
+		size++;
+		tk->start++;
+		if (prompt[tk->start] == '<')
 		{
 			size++;
-			tk->start++;
-			//printf("%d START \n", tk->start);
+			tk->start++;			
 		}
-		else
+	}
+	else if (prompt[tk->start] == '>')
+	{
+		size++;
+		tk->start++;
+		if (prompt[tk->start] == '<')
 		{
-			if (prompt[tk->start] == SINGLEQ)
-				size = size + (ft_singleq_mode(prompt, tk));
-			if (prompt[tk->start] == DOUBLEQ)
-				size = size + (ft_doubleq_mode(prompt, tk));
+			size++;
+			tk->start++;			
 		}	
 	}
-	//printf("%d SIZE DEL STRING\n", size);
-	if (prompt[tk->start] == SPACE || prompt[tk->start] == '\0')
+	else
 	{
-		tk->size++;
-		//printf("%d +1 SIZE NORMAL\n", tk->size);
+		while(prompt[tk->start] != SPACE && prompt[tk->start] != '<' && prompt[tk->start] != '>' && prompt[tk->start] != '|' && prompt[tk->start] != '\0')
+		{
+			printf("%c CHAR ", prompt[tk->start]);
+			if (prompt[tk->start] != DOUBLEQ && prompt[tk->start] != SINGLEQ)
+			{
+				size++;
+				tk->start++;
+				printf("%d START \n", tk->start);
+			}
+			else
+			{
+				if (prompt[tk->start] == SINGLEQ)
+					size = size + (ft_singleq_mode(prompt, tk));
+				if (prompt[tk->start] == DOUBLEQ)
+					size = size + (ft_doubleq_mode(prompt, tk));
+			}	
+		}
+		printf("%d SIZE DEL STRING\n", size);
+		if (prompt[tk->start] == SPACE || prompt[tk->start] == '\0')
+		{
+			tk->size++;
+			printf("%d +1 SIZE NORMAL\n", tk->size);
+		}
 	}
 	return (size);
 }
@@ -161,6 +189,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 	char *buff;
 	buff = NULL;
 	j = 0;
+	
 	//printf("\e[42mCALCUATING *CHAR's SIZE...\e[0m\n");
 	while (prompt[tk->start] != '\0')
 	{
@@ -212,7 +241,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			//printf("buffer---->%s\n", buff);
 			printf("%d tk expand\n", tk->expand);
 			ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
-			//ft_stack_printer(token_list);
+			ft_stack_printer(token_list);
 			j = 0;
 			buff = NULL;
 		}
@@ -240,6 +269,6 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
 	ft_init_tk(&tk);
 	token_list = ft_mylstnew("head", 0);
 	ft_tk_creator(prompt, &tk, token_list);
-	ft_tk_recognizer(token_list->next);
+	//ft_tk_recognizer(token_list->next);
 	return (token_list);
 }
