@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/01 12:33:22 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:45:29 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 {
 	int size;
 	size = 0;
-	printf("\e[1;34mMODO NORMAL\e[0m\n");
+	//printf("\e[1;34mMODO NORMAL\e[0m\n");
 	if (prompt[tk->start] == '|')
 	{
 		size++;
@@ -89,19 +89,19 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 		if (prompt[tk->start] == '<')
 		{
 			size++;
-			tk->start++;			
+			tk->start++;
 		}	
 	}
 	else
 	{
 		while(prompt[tk->start] != SPACE && prompt[tk->start] != '<' && prompt[tk->start] != '>' && prompt[tk->start] != '|' && prompt[tk->start] != '\0')
 		{
-			printf("%c CHAR ", prompt[tk->start]);
+			//printf("%c CHAR ", prompt[tk->start]);
 			if (prompt[tk->start] != DOUBLEQ && prompt[tk->start] != SINGLEQ)
 			{
 				size++;
 				tk->start++;
-				printf("%d START \n", tk->start);
+				//printf("%d START \n", tk->start);
 			}
 			else
 			{
@@ -111,11 +111,11 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 					size = size + (ft_doubleq_mode(prompt, tk));
 			}	
 		}
-		printf("%d SIZE DEL STRING\n", size);
+		//printf("%d SIZE DEL STRING\n", size);
 		if (prompt[tk->start] == SPACE || prompt[tk->start] == '\0')
 		{
 			tk->size++;
-			printf("%d +1 SIZE NORMAL\n", tk->size);
+			//printf("%d +1 SIZE NORMAL\n", tk->size);
 		}
 	}
 	return (size);
@@ -158,28 +158,31 @@ int ft_tk_delimiter(char *content)
 
 void ft_tk_recognizer(t_mylist *tk_l)
 {
+	int i;
+	i = 0;
 	while (tk_l != NULL)
 	{
 		printf("%s ", tk_l->content);
 		if (ft_tk_delimiter(tk_l->content) == 1)
 		{
 			tk_l->tk_type = PIPE;
-			printf("tipo PIPE\n");
+			//printf("tipo PIPE\n");
 		}
 		else if (ft_tk_delimiter(tk_l->content) == 2)
 		{
 			tk_l->tk_type = REDIR;
-			printf("tipo REDIR\n");
+			//printf("tipo REDIR\n");
 		}
 		else
 		{
 			tk_l->tk_type = TEXT;
-			printf("tipo TEXT\n");
+			//printf("tipo TEXT\n");
 		}
-		printf("%d el isexp\n", tk_l->isexp);
+		//printf("%d el isexp\n", tk_l->isexp);
 		if (tk_l->isexp == 0)
 			ft_expander(tk_l->content, tk_l->exp, tk_l);
 		tk_l = tk_l->next;
+		i++;
 	}
 }
 
@@ -239,9 +242,9 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			}
 			buff[j] = '\0';
 			//printf("buffer---->%s\n", buff);
-			printf("%d tk expand\n", tk->expand);
+			//printf("%d tk expand\n", tk->expand);
 			ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
-			ft_stack_printer(token_list);
+			//ft_stack_printer(token_list);
 			j = 0;
 			buff = NULL;
 		}
@@ -269,6 +272,6 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
 	ft_init_tk(&tk);
 	token_list = ft_mylstnew("head", 0);
 	ft_tk_creator(prompt, &tk, token_list);
-	//ft_tk_recognizer(token_list->next);
+	ft_tk_recognizer(token_list->next);
 	return (token_list);
 }
