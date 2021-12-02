@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/01 18:25:39 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/02 11:18:08 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	ft_count_pipes(t_mylist *tk_l);
 void	ft_command_table(t_env *env, t_mylist *tk_l)
 {
 	int	nProc;
+	t_proc	**proc;
 	if (env){}
 	
 	nProc = ft_count_pipes(tk_l);
-	printf("\n\nEL NUMERO DE PROCESOS ES %d\n\n", nProc);
+	proc = (t_proc **)malloc(sizeof (t_proc) * nProc + 1);
 }
 
 static int	ft_count_pipes(t_mylist *tk_l)
