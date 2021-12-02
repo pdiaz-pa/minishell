@@ -2,18 +2,17 @@
 
 void ft_prompt_cmp(t_env *env, t_mylist *tk_l)
 {
-	t_mylist *temp;
+	/* t_mylist *temp;
 
 	temp = tk_l;
 	while (temp != NULL)
 	{
 		printf("line %s, %d, %p\n", temp->content, temp->tk_type, temp->next);
 		temp = temp->next;
-	}
+	} */
 	tk_l = tk_l->next;
-	if(tk_l){}
-	while(tk_l != NULL)
-	{
+	// while(tk_l != NULL)
+	// {
 	if (ft_strcmp("pwd", tk_l->content) == 0) //compara este string con lo que está en prompt (lo que metemos)
 	{
 		ft_pwd();
@@ -50,7 +49,7 @@ void ft_prompt_cmp(t_env *env, t_mylist *tk_l)
 	{
 		ft_exe(env, tk_l);
 	}
-	if (tk_l != NULL)
-		tk_l = tk_l->next;
-	}
+	// if (tk_l != NULL)
+		// tk_l = tk_l->next;
+	// }
 }
