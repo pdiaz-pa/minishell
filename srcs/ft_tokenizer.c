@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/01 17:45:29 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:45:33 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ int ft_singleq_mode(char *prompt, t_tokenizer *tk)
 {
 	tk->start++;
 	//tk->sizer++;	
-	tk->sizer++;
 	int size;
 
 	size = 0;
 	//printf("\e[0;33mMODO SINGLE\e[0m\n");
-	tk->single_flag = 1;
+	//tk->single_flag = 1;
 	while (prompt[tk->start] != SINGLEQ && prompt[tk->start] != '\0')
 	{
 		//printf("%c CHAR ", prompt[tk->start]);
@@ -109,7 +108,7 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 					size = size + (ft_singleq_mode(prompt, tk));
 				if (prompt[tk->start] == DOUBLEQ)
 					size = size + (ft_doubleq_mode(prompt, tk));
-			}	
+			}
 		}
 		//printf("%d SIZE DEL STRING\n", size);
 		if (prompt[tk->start] == SPACE || prompt[tk->start] == '\0')
@@ -206,7 +205,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 		if(ft_last_spaces(prompt, tk) == 1)
 		{
 			ft_normal_mode(prompt, tk);
-			
+			 
 			//printf("%d STRING SIZE \n", (tk->start - tk->sizer));
 			buff = malloc((tk->start - tk->sizer) + 1);
 			while (tk->sizer < tk->start)
@@ -234,16 +233,24 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 				}
 				else
 				{
-					buff[j] = prompt[tk->sizer];
+					if (prompt[tk->sizer] == '$' && (tk->double_flag == 1 || (tk->double_flag == 0 && tk->single_flag == 0)))
+						buff[j] = '#';
+					else
+						buff[j] = prompt[tk->sizer];
 					j++;
 					tk->sizer++;
 				}
-
 			}
 			buff[j] = '\0';
 			//printf("buffer---->%s\n", buff);
 			//printf("%d tk expand\n", tk->expand);
 			ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
+			//printf("%s FIRST TOKEN\n", token_list->next->content);
+			if (ft_strcmp(token_list->next->content, "|") == 0)
+			{
+				printf("minishell: syntax error near unexpected token '|'\n");
+				return(-1);
+			}
 			//ft_stack_printer(token_list);
 			j = 0;
 			buff = NULL;

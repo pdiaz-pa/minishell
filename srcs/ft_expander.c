@@ -10,7 +10,7 @@ char *ft_final_finder(char *token, int i)
 
 	while (token[j] != '\0')
 		j++;
-	while (token[i] != '$')
+	while (token[i] != '#')
 		i++;
 	while (token[i] != SPACE && token[i] != '\0')
 		i++;
@@ -26,10 +26,10 @@ char *ft_key_finder(char *token)
 
 	size = 0;
 	i = 0;
-	while (token[i] != '$')
+	while (token[i] != '#')
 		i++;
 	i++;
-	while (token[i] != SPACE && token[i] != '\0' && token[i] != '$')
+	while (token[i] != SPACE && token[i] != '\0' && token[i] != '$' && token[i] != '#')
 	{
 		i++;
 		size++;
@@ -45,7 +45,7 @@ int ft_dollar_finder(char *str)
 
 	while(str[i] != '\0')
 	{
-		if (str[i] == '$')
+		if (str[i] == '#')
 			return(1);
 		i++;
 	}
@@ -68,9 +68,9 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 	i = 0;
 	while (ft_dollar_finder(tk_l->content) == 1)
 	{
-		while (token[i] != '\0' && token[i] != '$')
+		while (token[i] != '\0' && token[i] != '#')
 			i++;	
-		if (token[i] == '$')
+		if (token[i] == '#')
 		{
 			key = ft_key_finder(tk_l->content);
 			if (ft_strcmp(key, "?") == 0)
@@ -86,10 +86,10 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 				printf("%s FINAL\n", final);
 				savedtk = token;
 				i = 0;
-				while (tk_l->content[i] != '$')
+				while (tk_l->content[i] != '#')
 					i++;
 				first = ft_substr(tk_l->content, 0, i);
-				//printf("%sFIRST\n", first);
+				printf("%sFIRST\n", first);
 				expanded = ft_strjoin(first, expkey);
 				expanded = ft_strjoin(expanded, final);
 				tk_l->content = expanded;
