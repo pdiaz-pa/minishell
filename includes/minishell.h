@@ -41,7 +41,13 @@ typedef struct  s_env{
 	struct s_env	*next;
 }	            t_env;
 
+typedef struct	s_cont{
+	char			*content;
+	struct s_list	*next;
+}				t_cont;
+
 typedef struct  s_proc{
+	int				total;
 	int				num;
 	char			great;
 	char			great2;
@@ -51,7 +57,7 @@ typedef struct  s_proc{
 	char			*output;
 	int				fd[2];
 	pid_t			pid;
-	t_mylist		*list;
+	struct s_cont	*list;
 	struct s_proc	*next;	
 }               t_proc;
 //ft_tokenizer.c
@@ -83,6 +89,6 @@ int     ft_pwd();
 char	**ft_make_argv(t_mylist *tk_l);
 char	**ft_make_envp(t_env *env);
 void	ft_command_table(t_env *env, t_mylist *tk_l);
-void	ft_save_command(t_proc **proc,	t_mylist *tk_l);
+void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total);
 
 #endif
