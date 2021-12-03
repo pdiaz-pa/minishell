@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/03 15:54:02 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/03 16:35:36 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int ft_double_pipe(t_mylist *tk_l)
 	return (0);
 }
 
-void ft_tk_recognizer(t_mylist *tk_l, t_env *env)
+int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 {
 	int i;
 	i = 0;
@@ -172,11 +172,12 @@ void ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 	{
 		if (ft_double_pipe(tk_l) == -1)
 		{
-			printf("Error de tal\n");
+			
+			return(-1);
 		}
 		else
 		{
-			printf("%s ", tk_l->content);
+			//printf("%s ", tk_l->content);
 			if (ft_tk_delimiter(tk_l->content) == 1)
 			{
 				tk_l->tk_type = PIPE;
@@ -199,6 +200,7 @@ void ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 			tk_l = tk_l->next;
 			i++;
 	}
+	return (0);
 }
 
 int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
@@ -298,12 +300,16 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env)
 	token_list = ft_mylstnew("head", 0);
 	if(ft_tk_creator(prompt, &tk, token_list) == -1)
 	{
-		printf("Error: Minishell doesn't support open quotes.\n");
+		printf("Error: Minishell does not support open quotes\n");
 		token_list->isexp = -1;
 	}
 	else
 	{
-		ft_tk_recognizer(token_list->next, env);
+		if(ft_tk_recognizer(token_list->next, env) == -1)
+		{
+			printf("Error: Minishell does not support || \n");
+			token_list->isexp = -1;
+		}
 	}
 	return (token_list);
 }
