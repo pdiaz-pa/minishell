@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/03 15:43:48 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/03 16:29:58 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ static int	ft_count_pipes(t_mylist *tk_l);
 
 void	ft_command_table(t_env *env, t_mylist *tk_l)
 {
-	int	nProc;
+	int		nProc;
 	t_proc	*proc;
+	int		i;
 	if (env){}
 	
+	i = 0;
 	proc = NULL;
 	nProc = ft_count_pipes(tk_l);
-	ft_save_command(&proc, tk_l, nProc);
+	while (++i <= nProc)
+		ft_save_command(&proc, tk_l, nProc, i);
 }
 
 static int	ft_count_pipes(t_mylist *tk_l)

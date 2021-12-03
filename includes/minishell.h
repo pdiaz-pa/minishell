@@ -89,6 +89,6 @@ int     ft_pwd();
 char	**ft_make_argv(t_mylist *tk_l);
 char	**ft_make_envp(t_env *env);
 void	ft_command_table(t_env *env, t_mylist *tk_l);
-void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total);
+void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num);
 
 #endif
