@@ -9,22 +9,22 @@
 #define REDIR 2
 
 typedef struct s_mylist{
-    char *content;
-    char *exp;
-    int isexp;
-    int tk_type;
-    struct s_mylist *next;
+	char *content;
+	char *exp;
+	int isexp;
+	int tk_type;
+	struct s_mylist *next;
 } t_mylist;
 
 typedef struct  s_tokenizer{
 	int start;
 	int sizer;
 	int size;
-    char ch;
-    int expand;
-    int single_flag;
-    int double_flag;
-    char **arr;
+	char ch;
+	int expand;
+	int single_flag;
+	int double_flag;
+	char **arr;
 }	t_tokenizer;
 
 # include <stdio.h>
@@ -37,18 +37,22 @@ typedef struct  s_tokenizer{
 # include <readline/history.h>
 
 typedef struct  s_env{
-    char			**line;
-    struct s_env	*next;
+	char			**line;
+	struct s_env	*next;
 }	            t_env;
 
 typedef struct  s_proc{
-    char		great;
-    char		great2;
-    char		less;
-    char		less2;
-    char		*input;
-    char		*output;
-    t_mylist	*list;
+	int				num;
+	char			great;
+	char			great2;
+	char			less;
+	char			less2;
+	char			*input;
+	char			*output;
+	int				fd[2];
+	pid_t			pid;
+	t_mylist		*list;
+	struct s_proc	*next;	
 }               t_proc;
 //ft_tokenizer.c
 t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env);
@@ -79,5 +83,6 @@ int     ft_pwd();
 char	**ft_make_argv(t_mylist *tk_l);
 char	**ft_make_envp(t_env *env);
 void	ft_command_table(t_env *env, t_mylist *tk_l);
+void	ft_save_command(t_proc **proc,	t_mylist *tk_l);
 
 #endif
