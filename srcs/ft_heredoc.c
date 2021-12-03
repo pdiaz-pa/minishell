@@ -13,6 +13,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 int ft_heredoc(char *str)
 {
+    //SIGNALS???
     char *keyword;
     int again;
 

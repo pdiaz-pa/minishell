@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/03 10:44:07 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/03 15:54:02 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 	while (prompt[tk->start] != DOUBLEQ && prompt[tk->start] != '\0')
 	{
 		//printf("%c CHAR ", prompt[tk->start]);
+		if (prompt[tk->start] == '$')
+			tk->expand = 0;
 		tk->start++;
 		size++;
 		//printf("%d START double\n", tk->start);
@@ -155,33 +157,47 @@ int ft_tk_delimiter(char *content)
 		return(0);
 }
 
+int ft_double_pipe(t_mylist *tk_l)
+{
+	if (ft_strcmp(tk_l->content, "|") == 0 && ft_strcmp(tk_l->next->content, "|") == 0)
+		return(-1);
+	return (0);
+}
+
 void ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 {
 	int i;
 	i = 0;
 	while (tk_l != NULL)
 	{
-		printf("%s ", tk_l->content);
-		if (ft_tk_delimiter(tk_l->content) == 1)
+		if (ft_double_pipe(tk_l) == -1)
 		{
-			tk_l->tk_type = PIPE;
-			//printf("tipo PIPE\n");
-		}
-		else if (ft_tk_delimiter(tk_l->content) == 2)
-		{
-			tk_l->tk_type = REDIR;
-			//printf("tipo REDIR\n");
+			printf("Error de tal\n");
 		}
 		else
 		{
-			tk_l->tk_type = TEXT;
-			//printf("tipo TEXT\n");
+			printf("%s ", tk_l->content);
+			if (ft_tk_delimiter(tk_l->content) == 1)
+			{
+				tk_l->tk_type = PIPE;
+				//printf("tipo PIPE\n");
+			}
+			else if (ft_tk_delimiter(tk_l->content) == 2)
+			{
+				tk_l->tk_type = REDIR;
+				//printf("tipo REDIR\n");
+			}
+			else
+			{
+				tk_l->tk_type = TEXT;
+				//printf("tipo TEXT\n");
+			}
+			//printf("%d el isexp\n", tk_l->isexp);
+			//if (tk_l->isexp == 0)
+				ft_expander(tk_l->content, tk_l->exp, tk_l, env);
 		}
-		//printf("%d el isexp\n", tk_l->isexp);
-		if (tk_l->isexp == 0)
-			ft_expander(tk_l->content, tk_l->exp, tk_l, env);
-		tk_l = tk_l->next;
-		i++;
+			tk_l = tk_l->next;
+			i++;
 	}
 }
 
@@ -256,6 +272,8 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			buff = NULL;
 		}
 	}
+	if (tk->double_flag == 1 || tk->single_flag == 1)
+		return(-1);
 	//printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
 	//printf("\e[42m %d --------\e[0m\n\n", tk->size);
 	return (tk->size);
@@ -278,7 +296,14 @@ t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env)
 
 	ft_init_tk(&tk);
 	token_list = ft_mylstnew("head", 0);
-	ft_tk_creator(prompt, &tk, token_list);
-	ft_tk_recognizer(token_list->next, env);
+	if(ft_tk_creator(prompt, &tk, token_list) == -1)
+	{
+		printf("Error: Minishell doesn't support open quotes.\n");
+		token_list->isexp = -1;
+	}
+	else
+	{
+		ft_tk_recognizer(token_list->next, env);
+	}
 	return (token_list);
 }
