@@ -26,7 +26,7 @@ void ft_prompt_cmp(t_env *env, t_mylist *tk_l)
 	else if (ft_strcmp("echo", tk_l->content) == 0)
 	{
 		tk_l = tk_l->next;
-		printf("echo send%p\n", tk_l);
+		//printf("echo send%p\n", tk_l);
 		ft_echo(tk_l);
 		while (tk_l != NULL && tk_l->next != NULL && tk_l->next->tk_type == 0)
 			tk_l = tk_l->next;

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/03 16:31:49 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/03 18:00:40 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	ft_init_proc(t_proc *new, int total, int num);
 
 void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num)
 {
-	t_proc		*new;
-	//t_mylist	*temp;
+	t_proc	*new;
+	t_proc	*temp;
 
 	if (tk_l){}
 	new = malloc(sizeof (t_proc));
@@ -27,13 +27,13 @@ void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num)
 
 	if (*proc == NULL)
 		*proc = new;
-	/*else
+	else
 	{
-	temp = *env;
+	temp = *proc;
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
-	}*/
+	}
 }
 
 static void	ft_init_proc(t_proc *new, int total, int num)
