@@ -52,7 +52,20 @@ int ft_dollar_finder(char *str)
 	return(0);
 }
 
-void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
+char *ft_get_my_env(char *key, t_env *env)
+{
+	t_env *temp;
+	char *expkey;
+	
+	expkey = NULL;
+	temp = ft_search_env(env, key);
+	if (temp != NULL)
+		expkey = temp->line[1];
+
+	return(expkey);
+}
+
+void	ft_expander(char *token, char *savedtk, t_mylist *tk_l, t_env *env)
 {
 	int i;
 	char *expanded;
@@ -60,7 +73,7 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 	char *key;
 	char *final;
 	char *first;
-	//t_env *temp;
+	
 
 	final = NULL;
 	expanded = NULL;
@@ -77,9 +90,8 @@ void	ft_expander(char *token, char *savedtk, t_mylist *tk_l)
 				ft_strcpy(tk_l->content, "INTERROGACIÓN");
 			else
 			{
-				/*temp = ft_search_env(env, key);
-				expkey = temp->content[1];*/
-				expkey = getenv(key);
+
+				expkey = ft_get_my_env(key, env);
 				printf("%s KEY\n", key);
 				printf("%s expKEY\n", expkey);
 				final = ft_final_finder(tk_l->content, i);

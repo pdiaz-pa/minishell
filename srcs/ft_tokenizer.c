@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/02 17:45:33 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/03 10:44:07 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 	if (prompt[tk->start] == DOUBLEQ) 
 	{
 		tk->start++;
-		//tk->sizer++;		
+		//tk->sizer++;
 	}
 	return(size);
 }
@@ -155,7 +155,7 @@ int ft_tk_delimiter(char *content)
 		return(0);
 }
 
-void ft_tk_recognizer(t_mylist *tk_l)
+void ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 {
 	int i;
 	i = 0;
@@ -179,7 +179,7 @@ void ft_tk_recognizer(t_mylist *tk_l)
 		}
 		//printf("%d el isexp\n", tk_l->isexp);
 		if (tk_l->isexp == 0)
-			ft_expander(tk_l->content, tk_l->exp, tk_l);
+			ft_expander(tk_l->content, tk_l->exp, tk_l, env);
 		tk_l = tk_l->next;
 		i++;
 	}
@@ -272,13 +272,13 @@ void ft_init_tk(t_tokenizer *tk)
 	tk->ch = 32;
 }
 
-t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list)
+t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env)
 {
 	t_tokenizer tk;
 
 	ft_init_tk(&tk);
 	token_list = ft_mylstnew("head", 0);
 	ft_tk_creator(prompt, &tk, token_list);
-	ft_tk_recognizer(token_list->next);
+	ft_tk_recognizer(token_list->next, env);
 	return (token_list);
 }

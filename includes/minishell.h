@@ -51,7 +51,7 @@ typedef struct  s_proc{
     t_mylist	*list;
 }               t_proc;
 //ft_tokenizer.c
-t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list);
+t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env);
 void    ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
 void ft_make_list(t_list *head, char **token_arr, int array_size);
 void ft_prompt_cmp(t_env *env, t_mylist *tk_l);
@@ -73,7 +73,7 @@ void	ft_save_env_line(t_env **env, char *envp);
 t_mylist	*ft_mylstnew(void *content, int isexp);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist *ft_init_t_stack(void);
-void    ft_expander(char *token, char *savedtk, t_mylist *tk_l);
+void    ft_expander(char *token, char *savedtk, t_mylist *tk_l, t_env *env);
 char	**ft_split_env(char const *s);
 int     ft_pwd();
 char	**ft_make_argv(t_mylist *tk_l);
