@@ -43,16 +43,16 @@ typedef struct  s_env{
 
 typedef struct	s_cont{
 	char			*content;
-	struct s_list	*next;
+	struct s_cont	*next;
 }				t_cont;
 
 typedef struct  s_proc{
 	int				total;
 	int				num;
-	char			great;
-	char			great2;
-	char			less;
-	char			less2;
+	char			in;
+	char			in2;
+	char			out;
+	char			out2;
 	char			*input;
 	char			*output;
 	int				fd[2];

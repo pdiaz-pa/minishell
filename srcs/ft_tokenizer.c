@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/03 16:35:36 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:21:31 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 	{
 		size++;
 		tk->start++;
-		if (prompt[tk->start] == '<')
+		if (prompt[tk->start] == '>')
 		{
 			size++;
 			tk->start++;

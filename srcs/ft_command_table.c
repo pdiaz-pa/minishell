@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/03 18:03:05 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:09:34 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 {
 	int		nProc;
 	t_proc	*proc;
-					t_proc	*temp;
 	int		i;
 	if (env){}
 	
@@ -30,11 +29,19 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	
 	
 	
-	
+	t_proc	*temp;
+	t_cont	*t2;
 	temp = proc;
 	while (temp != NULL)
 	{
-		printf("%d %d %c %c %c %c %p %p %p %p\n", temp->total, temp->num, temp->great, temp->great2, temp->less, temp->less2, temp->input ,temp->output , temp->list ,temp->next);
+		t2 = temp->list;
+		printf("t:%d n:%d i:%c i2:%c o:%c o2:%c input:%s output:%s next:%p\n", temp->total, temp->num, temp->in, temp->in2, temp->out, temp->out2, temp->input ,temp->output ,temp->next);
+		while (t2 != NULL)
+		{
+			printf("%s ", t2->content);
+			t2 = t2->next;
+		}
+		printf("\n");
 		temp = temp->next;
 	}
 }

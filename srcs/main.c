@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 				if(token_list->isexp != -1)
 				{
 					ft_stack_printer(token_list);
-					ft_command_table(env, token_list);
+					ft_command_table(env, token_list->next);
 					ft_prompt_cmp(env, token_list);
 				}
 				free(prompt);
