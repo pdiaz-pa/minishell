@@ -6,13 +6,14 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/04 15:47:20 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 21:10:06 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static int	ft_count_pipes(t_mylist *tk_l);
+static void ft_free_ct(t_proc **proc);
 
 void	ft_command_table(t_env *env, t_mylist *tk_l)
 {
@@ -38,6 +39,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 		temp = temp->next; 
 
 	}
+	ft_free_ct(&proc);
 	/* while (temp != NULL)
 	{
 		t2 = temp->list;
@@ -66,5 +68,29 @@ static int	ft_count_pipes(t_mylist *tk_l)
 		temp = temp->next;
 	}
 	return (i);
+}
+
+static void ft_free_ct(t_proc **proc)
+{
+	t_proc	*temp;
+	t_proc	*temp2;
+	t_cont	*ctemp;
+	t_cont	*ctemp2;
+
+	temp = *proc;
+	while (temp != NULL)
+	{
+		ctemp = temp->list;
+		while(ctemp != NULL)
+		{
+			ctemp2 = ctemp;
+			ctemp = ctemp->next;
+			free (ctemp2);
+		}
+		temp2 = temp;
+		temp = temp->next;
+		free (temp2);
+	}
+
 }
  
