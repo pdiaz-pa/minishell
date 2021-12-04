@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/27 15:05:04 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:28:21 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static t_env	*ft_save_exp(t_env *env);
 static void	ft_free_export(t_env **env);
 static void	ft_save_line(t_env **env, char **line);
 static void	ft_save_line_2(t_env *new, t_env *temp);
-
 
 int	ft_print_export(t_env *env)
 {

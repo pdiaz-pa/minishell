@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 				{
 					ft_stack_printer(token_list);
 					ft_command_table(env, token_list->next);
-					ft_prompt_cmp(env, token_list);
+					// ft_prompt_cmp(env, token_list);
 				}
 				free(prompt);
 			}			//ft_stack_printer(token_list);

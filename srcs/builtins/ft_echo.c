@@ -6,28 +6,28 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 08:38:02 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/28 17:45:42 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:22:30 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_echo(t_mylist *tk_l)
+int	ft_echo(t_cont *command)
 {
 	char	flag;
 
 	flag = '0';
-	if (tk_l != NULL && (ft_strcmp(tk_l->content, "-n") == 0))
+	if (command != NULL && (ft_strcmp(command->content, "-n") == 0))
 	{
 		flag = '1';
-		tk_l = tk_l->next;
+		command = command->next;
 	}
-	while (tk_l != NULL && tk_l->tk_type == 0)
+	while (command != NULL)
 	{
-		printf("%s", tk_l->content);
-		if (tk_l->next != NULL && tk_l->next != NULL && tk_l->next->tk_type == 0)
+		printf("%s", command->content);
+		if (command->next != NULL)
 			printf(" ");
-		tk_l = tk_l->next;
+		command = command->next;
 	}
 	if (flag == '0')
 		printf("\n");

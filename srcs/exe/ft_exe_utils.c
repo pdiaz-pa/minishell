@@ -6,29 +6,29 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 08:47:17 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/29 11:22:55 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:38:56 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**ft_make_argv(t_mylist *tk_l)
+char	**ft_make_argv(t_cont *command)
 {
 	char		**argv;
-	t_mylist	*temp;
+	t_cont	*temp;
 	int			i;
 
-	temp = tk_l;
+	temp = command;
 	i = 1;
-	while (temp != NULL && temp->tk_type == 0)
+	while (temp != NULL)
 	{
 		i++;
 		temp = temp->next;
 	}
 	argv = (char **)malloc(sizeof(char *) * i);
-	temp = tk_l;
+	temp = command;
 	i = 0;
-	while (temp != NULL && temp->tk_type == 0)
+	while (temp != NULL)
 	{
 		argv[i] = temp->content;
 		i++;

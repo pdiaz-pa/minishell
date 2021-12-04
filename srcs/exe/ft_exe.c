@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/29 09:29:37 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:34:58 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ static void	valid_cmd_2(t_env *env, char *cmd, char **final);
 static void	ft_free_mem(char **arr);
 static void	ft_execve(char *cmd, char **argv, char **envp);
 
-void	ft_exe(t_env *env, t_mylist *tk_l)
+void	ft_exe(t_env *env, t_cont *command)
 {
 	char	*final;
 	char	**argv;
 	char	**envp;
 
 	final = NULL;
-	valid_cmd(ft_search_env(env, "PATH"), tk_l->content, &final);
+	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
 	if (final == NULL)
 	{
-		if (tk_l->content[0] == '/')
-			printf("minishell: %s: No such file or directory\n", tk_l->content);
+		if (command->content[0] == '/')
+			printf("minishell: %s: No such file or directory\n", command->content);
 		else
-			printf("minishell: %s: command not found\n", tk_l->content);
+			printf("minishell: %s: command not found\n", command->content);
 	}
 	else
 	{
-		argv = ft_make_argv(tk_l);
+		argv = ft_make_argv(command);
 		envp = ft_make_envp(env);
 		ft_execve(final, argv, envp);
 		free(final);

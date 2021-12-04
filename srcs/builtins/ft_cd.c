@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:10:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/28 15:19:02 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:16:42 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 static int	ft_cd_home(t_env **env);
 static void	ft_update_pwd(t_env **env, char *old);
 
-int	ft_cd(t_env **env, t_mylist *tk_l)
+int	ft_cd(t_env **env,  t_cont *command)
 {
 	int		ret;
 	char	*old;
 
 	ret = 0;
 	old = getcwd(NULL, 0);
-	if (tk_l == NULL /* || (ft_strcmp(tk_l->content, "~")) == 0 */)
+	if (command == NULL /* || (ft_strcmp(tk_l->content, "~")) == 0 */)
 		ret = ft_cd_home(env);
 	else 
 	{
-		if ((chdir(tk_l->content)) == -1 && ret++)
+		if ((chdir(command->content)) == -1 && ret++)
 			printf("minishell: cd: %s: No such file or directory\n",
-				tk_l->content);
+				command->content);
 	}
 	if (ret == 0)
 		ft_update_pwd(env, old);
