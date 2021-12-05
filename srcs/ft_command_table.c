@@ -6,12 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/05 09:36:31 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/05 14:57:44 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static int	ft_syntax_error(t_mylist *tk_l);
 static int	ft_count_pipes(t_mylist *tk_l);
 static void ft_free_ct(t_proc **proc);
 
@@ -22,8 +23,8 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	int		i;
 	
 	if (env){}//
-	if (tk_l == NULL)
-		return;
+	if (tk_l == NULL || ft_syntax_error(tk_l) > 0)
+		return ;
 	i = 1;
 	proc = NULL;
 	nProc = ft_count_pipes(tk_l);
@@ -40,7 +41,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	temp = proc;
 	while (temp != NULL)
 	{
-		//ft_prompt_cmp(env, temp->list);
+		ft_prompt_cmp(env, temp->list);
 		temp = temp->next; 
 
 	}
@@ -59,12 +60,33 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	} */
 }
 
+static int	ft_syntax_error(t_mylist *tk_l)
+{
+	t_mylist	*temp;
+	int			i;
+
+	temp = tk_l;
+	i = 0;
+	while (temp != NULL)
+	{
+		if ((temp->tk_type == 1 || temp->tk_type == 2) && temp->next == NULL && i++)
+			printf("minishell: aun no se que poner aqui'\n"); // revisar
+		if (temp->tk_type == 2 && temp->next == NULL && i++)
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		if (temp->tk_type == 2 && temp->next != NULL && temp->next->tk_type == 1 && i++)
+			printf("minishell: syntax error near unexpected token `|'\n");
+		if (temp->tk_type == 1 && temp->next == NULL && i++)
+			printf("minishell: syntax error `|' end not support\n");
+		temp = temp->next;
+	}
+	return (i);
+}
+
 static int	ft_count_pipes(t_mylist *tk_l)
 {
 	int			i;
 	t_mylist	*temp;
 
-	
 	temp = tk_l;
 	i = 1;
 	while (temp != NULL)
