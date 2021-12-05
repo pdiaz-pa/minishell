@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/04 12:04:29 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/05 11:19:26 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,13 @@ static t_mylist	*ft_advance_list(t_mylist *tk_l, int num)
 	t_mylist	*temp;
 	int			i;
 
-	if (num == 1)
-		temp = tk_l;
-	else
+	i = 1;
+	temp = tk_l;
+	while (temp != NULL && i < num)
 	{
-		i = 1;
-		temp = tk_l;
-		while (i < num && temp != NULL)
-		{
-			if (temp->tk_type == 1)
-				i++;
-			temp = temp->next;
-		}
+		if (temp->tk_type == 1)
+			i++;
+		temp = temp->next;
 	}
 	return (temp);
 }
@@ -119,6 +114,7 @@ static void	ft_save_line(t_proc *proc, char *content)
 	if (new == NULL)
 		perror("malloc error");
 	new->content = content;
+	new->next = NULL;
 	if (proc->list == NULL)
 		proc->list = new;
 	else
