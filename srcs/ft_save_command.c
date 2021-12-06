@@ -6,13 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/05 11:19:26 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/06 09:44:29 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	ft_init_proc(t_proc *new, int total, int num);
+static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num);
 static t_mylist	*ft_advance_list(t_mylist *tk_l, int num);
 static void	ft_analize_command(t_proc *new, t_mylist *tk_l);
 static void	ft_save_line(t_proc *proc, char *content);
@@ -25,7 +25,7 @@ void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num)
 	new = malloc(sizeof (t_proc));
 	if (new == NULL)
 		perror("malloc error");
-	ft_init_proc(new, total, num);
+	ft_init_proc(proc, new, total, num);
 	ft_analize_command(new, ft_advance_list(tk_l, num));
 	if (*proc == NULL)
 		*proc = new;
@@ -38,8 +38,14 @@ void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num)
 	}
 }
 
-static void	ft_init_proc(t_proc *new, int total, int num)
+static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 {
+	t_proc	*temp;
+
+	temp = *proc;
+	while (temp != NULL && temp->next != NULL)
+		temp = temp->next;
+	new->prev = temp;
 	new->total = total;
 	new->num = num;
 	new->in = '0';

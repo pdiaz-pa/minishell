@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/05 14:57:44 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/06 09:42:58 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	}
 	
 	
-	
 	t_proc	*temp;
-	// t_cont	*t2;
 	temp = proc;
 	while (temp != NULL)
 	{
@@ -45,11 +43,13 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 		temp = temp->next; 
 
 	}
-	ft_free_ct(&proc);
-	/* while (temp != NULL)
+	
+	temp = proc;
+	t_cont	*t2;
+	while (temp != NULL)
 	{
 		t2 = temp->list;
-		printf("t:%d n:%d i:%c i2:%c o:%c o2:%c input:%s output:%s next:%p\n", temp->total, temp->num, temp->in, temp->in2, temp->out, temp->out2, temp->input ,temp->output ,temp->next);
+		printf("prev: %p t:%d n:%d i:%c i2:%c o:%c o2:%c input:%s output:%s next:%p\n",temp->prev, temp->total, temp->num, temp->in, temp->in2, temp->out, temp->out2, temp->input ,temp->output ,temp->next);
 		while (t2 != NULL)
 		{
 			printf("%s ", t2->content);
@@ -57,7 +57,8 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 		}
 		printf("\n");
 		temp = temp->next;
-	} */
+	}
+	ft_free_ct(&proc);
 }
 
 static int	ft_syntax_error(t_mylist *tk_l)
@@ -91,7 +92,7 @@ static int	ft_count_pipes(t_mylist *tk_l)
 	i = 1;
 	while (temp != NULL)
 	{
-		if (temp->tk_type == PIPE)
+		if (temp->tk_type == PIPE && temp->next != NULL)
 			i++;
 		temp = temp->next;
 	}
