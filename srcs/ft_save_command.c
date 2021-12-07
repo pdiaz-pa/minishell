@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/06 09:44:29 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/06 17:52:44 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 	new->output = NULL;
 	new->list	= NULL;
 	new->next = NULL;
+
 	return ;
 }
 
@@ -131,3 +132,4 @@ static void	ft_save_line(t_proc *proc, char *content)
 	temp->next = new;
 	}
 }
+
