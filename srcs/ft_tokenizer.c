@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/04 12:21:31 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/09 10:22:21 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,11 @@ int ft_tk_delimiter(char *content)
 
 int ft_double_pipe(t_mylist *tk_l)
 {
-	if (ft_strcmp(tk_l->content, "|") == 0 && ft_strcmp(tk_l->next->content, "|") == 0)
-		return(-1);
+	if (ft_strcmp(tk_l->content, "|") == 0 && tk_l->next != NULL)
+	{
+		if (ft_strcmp(tk_l->next->content, "|") == 0)
+			return(-1);
+	}
 	return (0);
 }
 
@@ -172,7 +175,6 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 	{
 		if (ft_double_pipe(tk_l) == -1)
 		{
-			
 			return(-1);
 		}
 		else
@@ -220,7 +222,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			tk->sizer++;
 			//printf("%d SKIPPING SPACE\n", tk->start);
 		}
-		if(ft_last_spaces(prompt, tk) == 1)
+		if (ft_last_spaces(prompt, tk) == 1)
 		{
 			ft_normal_mode(prompt, tk);
 			 
