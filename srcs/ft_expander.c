@@ -15,6 +15,7 @@ char *ft_final_finder(char *token, int i)
 	while (token[i] != SPACE && token[i] != '\0')
 		i++;
 	final = ft_substr(token, i, j);
+
 	return(final);
 }
 

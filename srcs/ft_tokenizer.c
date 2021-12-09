@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/09 10:22:21 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/09 16:00:18 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 				}
 				else
 				{
-					if (prompt[tk->sizer] == '$' && (tk->double_flag == 1 || (tk->double_flag == 0 && tk->single_flag == 0)))
+					if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer] == '$' && (tk->double_flag == 1 || (tk->double_flag == 0 && tk->single_flag == 0)))
 						buff[j] = '#';
 					else
 						buff[j] = prompt[tk->sizer];
@@ -293,12 +293,33 @@ void ft_init_tk(t_tokenizer *tk)
 	tk->expand = 0;
 	tk->ch = 32;
 }
-
+/*
+char *ft_prompt_hack(char *prompt)
+{
+	int i;
+	i = 0;
+	char *temp;
+	
+	while (prompt[i] != '\0')
+	{
+		if (prompt[i] == '$' && prompt[i + 1] != '\0' && (prompt[i + 1] == DOUBLEQ || prompt[i + 1] == SINGLEQ))
+		{
+			temp = &prompt[i + 1];
+			prompt[i] = '\0';
+			prompt = ft_strjoin(prompt, temp);
+		}	
+		i++;
+	}
+	printf("%s el prompt\n", prompt);
+	return(prompt);
+}
+*/
 t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env)
 {
 	t_tokenizer tk;
 
 	ft_init_tk(&tk);
+	//prompt = ft_prompt_hack(prompt);
 	token_list = ft_mylstnew("head", 0);
 	if(ft_tk_creator(prompt, &tk, token_list) == -1)
 	{
