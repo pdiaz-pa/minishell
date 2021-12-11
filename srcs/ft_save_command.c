@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/06 17:52:44 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/11 12:03:28 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 	new->output = NULL;
 	new->list	= NULL;
 	new->next = NULL;
+	new->ret = 424242;
 
 	return ;
 }

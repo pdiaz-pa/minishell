@@ -50,13 +50,14 @@ typedef struct  s_proc{
 	struct s_proc	*prev;
 	int				total;
 	int				num;
+	int				fd[2];
+	int				ret;
 	char			in;
 	char			in2;
 	char			out;
 	char			out2;
 	char			*input;
 	char			*output;
-	int				fd[2];
 	pid_t			pid;
 	struct s_cont	*list;
 	struct s_proc	*next;
@@ -66,7 +67,7 @@ typedef struct  s_proc{
 t_mylist	*ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env);
 void		ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
 void		ft_make_list(t_list *head, char **token_arr, int array_size);
-void		ft_prompt_cmp(t_env *env, t_cont *command);
+int			ft_prompt_cmp(t_env *env, t_cont *command);
 int			ft_echo(t_cont *command);
 int			ft_cd(t_env **env,  t_cont *command);
 void		ft_exe(t_env *env, t_cont *command);

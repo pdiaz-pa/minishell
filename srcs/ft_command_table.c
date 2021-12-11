@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/06 17:53:45 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/11 12:44:23 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_syntax_error(t_mylist *tk_l);
 static int	ft_count_pipes(t_mylist *tk_l);
 static void ft_free_ct(t_proc **proc);
-static void	ft_fd_manager(t_proc *new);
+// static void	ft_fd_manager(t_proc *new);
 
 
 void	ft_command_table(t_env *env, t_mylist *tk_l)
@@ -41,8 +41,8 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	temp = proc;
 	while (temp != NULL)
 	{
-		if (temp->total > 1)
-			ft_fd_manager(temp);
+		// if (temp->total > 1)
+			// ft_fd_manager(temp);
 		ft_prompt_cmp(env, temp->list);
 		temp = temp->next; 
 
@@ -132,7 +132,7 @@ static void ft_free_ct(t_proc **proc)
 	}
 }
  
-static void	ft_fd_manager(t_proc *new)
+/* static void	ft_fd_manager(t_proc *new)
 {
 if (new->num == 1)
 		{
@@ -155,4 +155,4 @@ if (new->num == 1)
 			dup2(new->prev->fd[0], STDIN_FILENO);
 			close(new->prev->fd[0]);
 		}
-}
+} */

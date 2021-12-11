@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:10:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/04 15:16:42 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/11 11:53:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int	ft_cd(t_env **env,  t_cont *command)
 		ret = ft_cd_home(env);
 	else 
 	{
-		if ((chdir(command->content)) == -1 && ret++)
+		if ((chdir(command->content)) == -1)
+		{
 			printf("minishell: cd: %s: No such file or directory\n",
 				command->content);
+			ret++;
+		}
 	}
 	if (ret == 0)
 		ft_update_pwd(env, old);
