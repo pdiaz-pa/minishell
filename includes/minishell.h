@@ -93,5 +93,7 @@ char		**ft_make_argv(t_cont *command);
 char		**ft_make_envp(t_env *env);
 void		ft_command_table(t_env *env, t_mylist *tk_l);
 void		ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num);
+void		ft_process_manager(t_env *env, t_proc *process);
+void		ft_single_process(t_env *env, t_proc *process);
 
 #endif

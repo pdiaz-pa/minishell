@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/11 12:44:23 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:25:05 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static int	ft_syntax_error(t_mylist *tk_l);
 static int	ft_count_pipes(t_mylist *tk_l);
 static void ft_free_ct(t_proc **proc);
-// static void	ft_fd_manager(t_proc *new);
-
 
 void	ft_command_table(t_env *env, t_mylist *tk_l)
 {
@@ -35,17 +33,16 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 		ft_save_command(&proc, tk_l, nProc, i);
 		i++;
 	}
-	
-	
 	t_proc	*temp;
 	temp = proc;
 	while (temp != NULL)
 	{
-		// if (temp->total > 1)
-			// ft_fd_manager(temp);
-		ft_prompt_cmp(env, temp->list);
+		if (temp->total > 1)
+			ft_process_manager(env, temp);
+		else
+			ft_single_process(env, temp);
+		//ft_prompt_cmp(env, temp->list);
 		temp = temp->next; 
-
 	}
 	
 	temp = proc;
@@ -131,28 +128,3 @@ static void ft_free_ct(t_proc **proc)
 		
 	}
 }
- 
-/* static void	ft_fd_manager(t_proc *new)
-{
-if (new->num == 1)
-		{
-			pipe(new->fd);
-			close(new->fd[0]);
-			dup2(new->fd[1], STDOUT_FILENO);
-			close(new->fd[1]);
-		}
-		else if (new->num > 1 && new->num < new->total)
-		{
-			pipe(new->fd);
-			close(new->fd[0]);
-			dup2(new->prev->fd[0], STDIN_FILENO);
-			close(new->prev->fd[0]);
-			dup2(new->fd[1], STDOUT_FILENO);
-			close(new->fd[1]);
-		}
-		else if (new->num ==  new->total)
-		{
-			dup2(new->prev->fd[0], STDIN_FILENO);
-			close(new->prev->fd[0]);
-		}
-} */
