@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/11 12:03:28 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/12 17:43:07 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num)
 		*proc = new;
 	else
 	{
-	temp = *proc;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
+		temp = *proc;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
 	}
 }
 
@@ -48,6 +48,7 @@ static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 	new->prev = temp;
 	new->total = total;
 	new->num = num;
+	new->err = '0';
 	new->in = '0';
 	new->in2 = '0';
 	new->out = '0';
@@ -57,7 +58,6 @@ static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 	new->list	= NULL;
 	new->next = NULL;
 	new->ret = 424242;
-
 	return ;
 }
 
@@ -86,30 +86,13 @@ static void	ft_analize_command(t_proc *new, t_mylist *tk_l)
 	{
 		if (temp->tk_type == 2)
 		{
-			if (ft_strcmp(temp->content, "<") == 0)
-			{
-				new->in = '1';
-				temp = temp->next;
-				new->input = temp->content;
-			}
-			else if (ft_strcmp(temp->content, "<<") == 0)
-				new->in2 = '1';
-			else if (ft_strcmp(temp->content, ">") == 0)
-			{
-				new->out = '1';
-				temp = temp->next;
-				new->output = temp->content;
-			}
-			else if (ft_strcmp(temp->content, ">>") == 0)
-			{
-				new->out2 = '1';
-				temp = temp->next;
-				new->output = temp->content;
-			}
+			ft_check_redir(new, temp);
+			temp = temp->next;
 		}
 		else if (temp->tk_type == 0)
 			ft_save_line(new, temp->content);
-		temp = temp->next;
+		if (temp != NULL && temp->tk_type != 1)
+			temp = temp->next;
 	}
 }
 

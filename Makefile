@@ -30,6 +30,7 @@ SRC = 	main.c \
 		ft_expander.c \
 		ft_command_table.c \
 		ft_save_command.c \
+		ft_save_command_utils.c \
 		ft_process_manager.c \
 		ft_process_manager_utils.c \
 

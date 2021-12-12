@@ -30,6 +30,7 @@ typedef struct  s_tokenizer{
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <errno.h>
 # include <signal.h>
@@ -52,6 +53,7 @@ typedef struct  s_proc{
 	int				num;
 	int				fd[2];
 	int				ret;
+	char			err;
 	char			in;
 	char			in2;
 	char			out;
@@ -95,5 +97,6 @@ void		ft_command_table(t_env *env, t_mylist *tk_l);
 void		ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num);
 void		ft_process_manager(t_env *env, t_proc *process);
 void		ft_single_process(t_env *env, t_proc *process);
+void		ft_check_redir(t_proc *process, t_mylist *temp);
 
 #endif
