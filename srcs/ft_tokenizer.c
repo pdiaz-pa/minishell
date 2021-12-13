@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/13 11:58:25 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:46:29 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,14 +235,15 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 					tk->single_flag = 0;
 				else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ)
 					tk->single_flag = 1;
-				if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer] == '$' 
-					&& ((tk->double_flag == 1 && tk->single_flag == 0)|| (tk->double_flag == 0 && tk->single_flag == 0)))
+				if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer + 1] != DOUBLEQ
+					 && prompt[tk->sizer] == '$' 
+					&& ((tk->double_flag == 1 && tk->single_flag == 0) 
+					|| (tk->double_flag == 0 && tk->single_flag == 0)))
 					buff[j] = '#';
 				else
 					buff[j] = prompt[tk->sizer];
 				j++;
 				tk->sizer++;
-
 			}
 			buff[j] = '\0';
 			//printf("buffer---->%s\n", buff);
