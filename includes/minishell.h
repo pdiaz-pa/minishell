@@ -99,4 +99,6 @@ void		ft_process_manager(t_env *env, t_proc *process);
 void		ft_single_process(t_env *env, t_proc *process);
 void		ft_check_redir(t_proc *process, t_mylist *temp);
 
+char 		*ft_quote_remover(char *str);
+
 #endif

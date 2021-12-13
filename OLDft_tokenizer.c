@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenizer.c                                     :+:      :+:    :+:   */
+/*   OLDft_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/13 11:58:25 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:40:31 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 {
 	int size;
 	size = 0;
-	size++;
 	tk->start++;
 	//tk->sizer++;
 	//tk->double_flag = 1;
@@ -33,7 +32,6 @@ int ft_doubleq_mode(char *prompt, t_tokenizer *tk)
 	if (prompt[tk->start] == DOUBLEQ) 
 	{
 		tk->start++;
-		size++;
 		//tk->sizer++;
 	}
 	return(size);
@@ -137,6 +135,11 @@ int ft_last_spaces(char *prompt, t_tokenizer *tk)
 	}
 	return(0);
 }
+	/*
+	34-> "
+	39-> '
+	32-> SPACE
+	*/
 
 int ft_tk_delimiter(char *content)
 {
@@ -195,7 +198,6 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 			//printf("%d el isexp\n", tk_l->isexp);
 			//if (tk_l->isexp == 0)
 				ft_expander(tk_l->content, tk_l->exp, tk_l, env);
-				tk_l->content = ft_quote_remover(tk_l->content);
 		}
 			tk_l = tk_l->next;
 			i++;
@@ -207,9 +209,10 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 {
 	int j;
 	char *buff;
-	
 	buff = NULL;
 	j = 0;
+	
+	//printf("\e[42mCALCUATING *CHAR's SIZE...\e[0m\n");
 	while (prompt[tk->start] != '\0')
 	{
 		tk->expand = 0;
@@ -227,22 +230,36 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			buff = malloc((tk->start - tk->sizer) + 1);
 			while (tk->sizer < tk->start)
 			{
+				//printf("%d tkstart  %d  tksizer  %c\n", tk->start, tk->sizer, prompt[tk->sizer]);
 				if (tk->double_flag == 1 && prompt[tk->sizer] == DOUBLEQ)
+				{
+					tk->sizer++;
 					tk->double_flag = 0;
-				else if (tk->double_flag == 0 && prompt[tk->sizer] == DOUBLEQ)
+				}
+				else if (tk->double_flag == 0 && prompt[tk->sizer] == DOUBLEQ && tk->single_flag == 0)
+				{
+					tk->sizer++;
 					tk->double_flag = 1;
+				}
 				else if (tk->single_flag == 1 && prompt[tk->sizer] == SINGLEQ)
+				{
+					tk->sizer++;
 					tk->single_flag = 0;
-				else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ)
+				}
+				else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ && tk->double_flag == 0)
+				{
+					tk->sizer++;
 					tk->single_flag = 1;
-				if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer] == '$' 
-					&& ((tk->double_flag == 1 && tk->single_flag == 0)|| (tk->double_flag == 0 && tk->single_flag == 0)))
-					buff[j] = '#';
+				}
 				else
-					buff[j] = prompt[tk->sizer];
-				j++;
-				tk->sizer++;
-
+				{
+					if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer] == '$' && (tk->double_flag == 1 || (tk->double_flag == 0 && tk->single_flag == 0)))
+						buff[j] = '#';
+					else
+						buff[j] = prompt[tk->sizer];
+					j++;
+					tk->sizer++;
+				}
 			}
 			buff[j] = '\0';
 			//printf("buffer---->%s\n", buff);
