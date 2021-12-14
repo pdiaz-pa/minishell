@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process_manager.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/14 12:48:15 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/14 14:58:50 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	ft_single_process(t_env *env, t_proc *process)
 	}
 	else if (process->in2 == '1')
 	{
-
+		
+		//process->in_fd = open(process->input, O_RDONLY);
+		/*if (process->in_fd == -1)
+			exit(0);*/
+		
+		ft_heredoc(process);
+		dup2(process->in_fd, STDIN_FILENO);
+		close (process->in_fd);
 	}
 	if (process->out == '1')
 	{

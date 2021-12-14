@@ -1,36 +1,27 @@
 #include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-
-int ft_heredoc(char *str)
+int ft_heredoc(t_proc *process)
 {
     //SIGNALS???
     char *keyword;
     int again;
-
     again = 1;
+    dup2(process->out_fd, STDOUT_FILENO);
+		close(process->out_fd);
     while (again)
     {
         keyword = readline("> ");
-        if (ft_strcmp(keyword, str) == 0)
+        if (ft_strcmp(keyword, process->input) == 0)
             again = 0;
+        else
+        {
+            write(process->in_fd, keyword, ft_strlen(keyword));
+            write(process->in_fd, "\n", 1);
+        }
     }
+    close(process->in_fd);
     free(keyword);
-    return(0);
-}
 
-int main()
-{
-    char test[5] = "hola\0";
-    ft_heredoc(test);
     return(0);
 }

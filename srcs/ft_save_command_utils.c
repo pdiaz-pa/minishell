@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_command_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/14 12:45:59 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/14 14:38:15 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_check_redir(t_proc *process, t_mylist *temp)
 		process->in2 = '0';
 		process->input = temp->next->content;
 	}
-	else if (ft_strcmp(temp->content, "<<") == 0 && ft_check_in_access(process, temp->next) == 0)
+	else if (ft_strcmp(temp->content, "<<") == 0)
 	{
 		process->in = '0';
 		process->in2 = '1';

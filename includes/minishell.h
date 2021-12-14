@@ -100,6 +100,7 @@ void		ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num);
 void		ft_process_manager(t_env *env, t_proc *process);
 void		ft_single_process(t_env *env, t_proc *process);
 void		ft_check_redir(t_proc *process, t_mylist *temp);
+int			ft_heredoc(t_proc *process);
 
 char 		*ft_quote_remover(char *str);
 
