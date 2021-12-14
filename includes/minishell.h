@@ -52,6 +52,8 @@ typedef struct  s_proc{
 	int				total;
 	int				num;
 	int				fd[2];
+	int				in_fd;
+	int				out_fd;
 	int				ret;
 	char			err;
 	char			in;

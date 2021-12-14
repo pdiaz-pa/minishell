@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/12 18:31:28 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/14 12:00:16 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	}
 	t_proc	*temp;
 	temp = proc;
-	/* while (temp != NULL)
+	while (temp != NULL)
 	{
 		if (temp->total > 1)
 			ft_process_manager(env, temp);
@@ -43,7 +43,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 			ft_single_process(env, temp);
 		//ft_prompt_cmp(env, temp->list);
 		temp = temp->next; 
-	} */
+	}
 	
 	temp = proc;
 /* 	t_cont	*t2;
