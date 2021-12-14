@@ -14,7 +14,7 @@ int ft_prompt_cmp(t_env *env, t_cont *command)
 	// {
 	int	ret;
 	
-	ret = 0;
+	ret = 4242;
 	if (ft_strcmp("pwd", command->content) == 0) //compara este string con lo que está en prompt (lo que metemos)
 	{
 		ret = ft_pwd();
