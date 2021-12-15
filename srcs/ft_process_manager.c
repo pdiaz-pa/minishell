@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process_manager.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/14 14:58:50 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/15 21:48:14 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_single_process(t_env *env, t_proc *process)
 {
 	if (env){}
 	if (process){}
-	
+	int		or_fd[2];
+	or_fd[0] = dup(STDIN_FILENO);
+	or_fd[1] = dup(STDOUT_FILENO);
+
 	if (process->in == '1')
 	{
 		process->in_fd = open(process->input, O_RDONLY);
@@ -55,4 +58,8 @@ void	ft_single_process(t_env *env, t_proc *process)
 		close(process->out_fd);
 	}
 	ft_prompt_cmp(env, process->list);
+	dup2(or_fd[0], STDIN_FILENO);
+	close(or_fd[0]);
+	dup2(or_fd[1], STDIN_FILENO);
+	close(or_fd[1]);
 }

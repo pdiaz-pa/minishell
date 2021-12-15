@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/14 12:11:23 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/15 21:33:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 		temp = temp->next; 
 	}
 	
-	temp = proc;
+//	temp = proc;
 /* 	t_cont	*t2;
 	while (temp != NULL)
 	{

@@ -33,6 +33,7 @@ SRC = 	main.c \
 		ft_save_command_utils.c \
 		ft_process_manager.c \
 		ft_process_manager_utils.c \
+		ft_heredoc.c	\
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
