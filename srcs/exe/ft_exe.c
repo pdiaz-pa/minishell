@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/14 12:59:07 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:01:14 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_exe(t_env *env, t_cont *command)
 
 static void	valid_cmd(t_env *env, char *cmd, char **final)
 {
-	if (access(cmd, F_OK) != -1)
+	if (access(cmd, X_OK) != -1)
 		*final = ft_strdup(cmd);
 	else if (env == NULL)
 		return ;
