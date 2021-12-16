@@ -175,6 +175,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	expanded = NULL;
 	tk_l->nonexp = ft_strdup(tk_l->content);
 	tk_l->nonexp = ft_dollarizer(tk_l->nonexp);
+	tk_l->nonexp = ft_quote_remover(tk_l->nonexp);
 	i = 0;
 	while (ft_dollar_finder(tk_l->content) == 1)
 	{
@@ -192,7 +193,6 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 					printf("%s expKEY\n", expkey);
 					final = ft_final_finder(tk_l->content, i);
 					printf("%s FINAL\n", final);
-					
 					i = 0;
 					while (tk_l->content[i] != '#')
 						i++;
@@ -203,7 +203,5 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 					tk_l->content = expanded;
 				}
 		}
-		printf("%s ----expanded token----\n", tk_l->content);
-		printf("%s ----non expanded token----\n", tk_l->nonexp);
 	}
 }
