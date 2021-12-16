@@ -6,9 +6,10 @@ int ft_heredoc(t_proc *process)
     //SIGNALS???
     char *keyword;
     int again;
+    int fd;
+
     again = 1;
-    dup2(process->out_fd, STDOUT_FILENO);
-		close(process->out_fd);
+    fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
     while (again)
     {
         keyword = readline("> ");
@@ -16,12 +17,10 @@ int ft_heredoc(t_proc *process)
             again = 0;
         else
         {
-            write(process->in_fd, keyword, ft_strlen(keyword));
-            write(process->in_fd, "\n", 1);
+            write(fd, keyword, ft_strlen(keyword));
+            write(fd, "\n", 1);
         }
+        free(keyword);
     }
-    close(process->in_fd);
-    free(keyword);
-
     return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 08:22:45 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/16 09:30:22 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_single_process(t_env *env, t_proc *process)
 			exit(0);*/
 		
 		ft_heredoc(process);
+		process->in_fd = open(".heredoc", O_RDONLY);
 		dup2(process->in_fd, STDIN_FILENO);
 		close (process->in_fd);
 	}
