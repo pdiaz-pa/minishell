@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 15:01:14 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/16 21:19:53 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	valid_cmd_2(t_env *env, char *cmd, char **final);
 static void	ft_free_mem(char **arr);
-static void	ft_execve(char *cmd, char **argv, char **envp);
+static int	ft_execve(char *cmd, char **argv, char **envp, char mode);
 
-void	ft_exe(t_env *env, t_cont *command)
+int	ft_exe(t_env *env, t_cont *command, char mode)
 {
 	char	*final;
 	char	**argv;
 	char	**envp;
+	int		ret;
 
 	final = NULL;
+	ret = -4242;
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
 	if (final == NULL)
 	{
@@ -36,12 +38,12 @@ void	ft_exe(t_env *env, t_cont *command)
 	{
 		argv = ft_make_argv(command);
 		envp = ft_make_envp(env);
-		ft_execve(final, argv, envp);
+		ret = ft_execve(final, argv, envp, mode);
 		free(final);
 		free(argv);
 		ft_free_mem(envp);
 	}
-	return ;
+	return (ret);
 }
 
 static void	valid_cmd(t_env *env, char *cmd, char **final)
@@ -98,21 +100,32 @@ static void	ft_free_mem(char **arr)
 	arr = NULL;
 }
 
-static void	ft_execve(char *cmd, char **argv, char **envp)
+static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
 {
 	pid_t	pid;
 	int		status;
 
-	pid = fork();
-	if (pid == -1)
-		perror("pid error");
-	else if (pid == 0)
+	status = -4242;
+	if (mode == 'a')
+	{
+		pid = fork();
+		if (pid == -1)
+			perror("pid error");
+		else if (pid == 0)
+		{
+			if (execve(cmd, argv, envp) == -1)
+				perror("execve");
+		}
+		else if (pid > 0)
+		{
+			pid = waitpid(-1, &status, 0);
+		}
+		return (status);
+	}
+	else if (mode == 'b')
 	{
 		if (execve(cmd, argv, envp) == -1)
-			perror("execve");
+				perror("execve");
 	}
-	else if (pid > 0)
-	{
-		pid = waitpid(-1, &status, 0);
-	}
+	return (status);
 }

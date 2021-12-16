@@ -71,10 +71,10 @@ typedef struct  s_proc{
 t_mylist	*ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env);
 void		ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
 void		ft_make_list(t_list *head, char **token_arr, int array_size);
-int			ft_prompt_cmp(t_env *env, t_cont *command);
+int			ft_prompt_cmp(t_env *env, t_cont *command, char mode);
 int			ft_echo(t_cont *command);
 int			ft_cd(t_env **env,  t_cont *command);
-void		ft_exe(t_env *env, t_cont *command);
+int			ft_exe(t_env *env, t_cont *command, char mode);
 t_env		*ft_save_env(char **envp);
 int			ft_print_export(t_env *env);
 int			ft_print_env(t_env *env);
@@ -104,5 +104,7 @@ int			ft_heredoc(t_proc *process);
 void		ft_sig_int(int signal);
 char 		*ft_dollarizer (char *content);
 char 		*ft_quote_remover(char *str);
+void		ft_redir_in(t_proc *process);
+void		ft_redir_out(t_proc *process);
 
 #endif

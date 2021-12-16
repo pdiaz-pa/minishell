@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int ft_prompt_cmp(t_env *env, t_cont *command)
+int ft_prompt_cmp(t_env *env, t_cont *command, char mode)
 {
 	/* t_mylist *temp;
 
@@ -44,7 +44,7 @@ int ft_prompt_cmp(t_env *env, t_cont *command)
 		ret = ft_print_env(env);
 	else
 	{
-		ft_exe(env, command);
+		ft_exe(env, command, mode);
 	}
 	return (ret);
 	// if (tk_l != NULL)
