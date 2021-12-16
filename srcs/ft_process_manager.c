@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 09:30:22 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/16 12:11:07 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ if (env){}
 
 void	ft_single_process(t_env *env, t_proc *process)
 {
-	if (env){}
-	if (process){}
 	int		or_fd[2];
 	or_fd[0] = dup(STDIN_FILENO);
 	or_fd[1] = dup(STDOUT_FILENO);
@@ -58,7 +56,8 @@ void	ft_single_process(t_env *env, t_proc *process)
 		dup2(process->out_fd, STDOUT_FILENO);
 		close(process->out_fd);
 	}
-	ft_prompt_cmp(env, process->list);
+	if (process->list != NULL)
+		ft_prompt_cmp(env, process->list);
 	dup2(or_fd[0], STDIN_FILENO);
 	close(or_fd[0]);
 	dup2(or_fd[1], STDOUT_FILENO);
