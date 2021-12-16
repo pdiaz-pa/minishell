@@ -1,6 +1,5 @@
 #include "../includes/minishell.h"
 
-
 int ft_heredoc(t_proc *process)
 {
     //SIGNALS???

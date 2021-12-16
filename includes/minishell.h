@@ -90,7 +90,7 @@ void		ft_save_env_line(t_env **env, char *envp);
 t_mylist	*ft_mylstnew(void *content, int isexp);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist	*ft_init_t_stack(void);
-void		ft_expander(char *token, char *savedtk, t_mylist *tk_l, t_env *env);
+void		ft_expander(char *token, t_mylist *tk_l, t_env *env);
 char		**ft_split_env(char const *s);
 int			ft_pwd();
 char		**ft_make_argv(t_cont *command);
@@ -101,6 +101,7 @@ void		ft_process_manager(t_env *env, t_proc *process);
 void		ft_single_process(t_env *env, t_proc *process);
 void		ft_check_redir(t_proc *process, t_mylist *temp);
 int			ft_heredoc(t_proc *process);
+void		ft_sig_int(int signal);
 
 char 		*ft_quote_remover(char *str);
 

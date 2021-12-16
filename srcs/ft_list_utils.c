@@ -47,7 +47,6 @@ t_mylist	*ft_mylstnew(void *content, int isexp)
 		return (NULL);
 	new->content = content;
 	new->next = NULL;
-	new->exp = content;
 	new->isexp = isexp;
 	return (new);
 }
