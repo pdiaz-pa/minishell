@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/12 17:43:07 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/17 11:25:04 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 	new->out = '0';
 	new->out2 = '0';
 	new->input = NULL;
+	new->nonexp = NULL;
 	new->output = NULL;
 	new->list	= NULL;
 	new->next = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_command_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 15:01:32 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/17 11:47:55 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_check_redir(t_proc *process, t_mylist *temp)
 	{
 		process->in = '0';
 		process->in2 = '1';
-		process->input = temp->next->content;
+		process->input = temp->next->nonexp;
+		ft_heredoc(process);
 	}
 	else if (ft_strcmp(temp->content, ">") == 0 && ft_check_out_access(process, temp->next) == 0)
 	{
@@ -62,7 +63,6 @@ static int	ft_check_in_access(t_proc *process, t_mylist *temp)
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 		process->err = '1';
 		return (1);
-
 	}
 	return (0);
 }

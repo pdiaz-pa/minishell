@@ -189,15 +189,15 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 				else
 				{
 					expkey = ft_get_my_env(key, env);
-					printf("%s KEY\n", key);
-					printf("%s expKEY\n", expkey);
+					//printf("%s KEY\n", key);
+					//printf("%s expKEY\n", expkey);
 					final = ft_final_finder(tk_l->content, i);
-					printf("%s FINAL\n", final);
+					//printf("%s FINAL\n", final);
 					i = 0;
 					while (tk_l->content[i] != '#')
 						i++;
 					first = ft_substr(tk_l->content, 0, i);
-					printf("%s FIRST\n", first);
+					//printf("%s FIRST\n", first);
 					expanded = ft_strjoin(first, expkey);
 					expanded = ft_strjoin(expanded, final);
 					tk_l->content = expanded;

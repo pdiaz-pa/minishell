@@ -61,6 +61,7 @@ typedef struct  s_proc{
 	char			out;
 	char			out2;
 	char			*input;
+	char 			*nonexp;
 	char			*output;
 	pid_t			pid;
 	struct s_cont	*list;

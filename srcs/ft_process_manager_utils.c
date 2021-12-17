@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process_manager_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:28:24 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 21:01:44 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/17 11:48:40 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_redir_in(t_proc *process)
 	}
 	else if (process->in2 == '1')
 	{
-		ft_heredoc(process);
+		//ft_heredoc(process);
 		process->in_fd = open(".heredoc", O_RDONLY);
 		dup2(process->in_fd, STDIN_FILENO);
 		close (process->in_fd);

@@ -25,7 +25,6 @@ int ft_heredoc(t_proc *process)
     {
         signal(SIGINT, &ft_sig_int_here); // cambia el funcionamiento de ctrl + "C"  
         keyword = readline("> ");
-             
         if (ft_strcmp(keyword, process->input) == 0)
             again = 0;
         else
