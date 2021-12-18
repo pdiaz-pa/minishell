@@ -6,17 +6,19 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 08:47:17 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/04 15:38:56 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/18 20:48:02 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static int	ft_env_lines(t_env *env);
+
 char	**ft_make_argv(t_cont *command)
 {
-	char		**argv;
+	char	**argv;
 	t_cont	*temp;
-	int			i;
+	int		i;
 
 	temp = command;
 	i = 1;
@@ -45,15 +47,10 @@ char	**ft_make_envp(t_env *env)
 	char		*temp2;
 	int			i;
 
-	temp = env;
-	i = 1;
-	while (temp != NULL)
-	{
-		if (temp->line[1])
-			i++;
-		temp = temp->next;
-	}
+	i = ft_env_lines(env);
 	envp = (char **)malloc(sizeof(char *) * i);
+	if (envp == NULL)
+		perror("malloc error");
 	temp = env;
 	i = 0;
 	while (temp != NULL)
@@ -62,10 +59,27 @@ char	**ft_make_envp(t_env *env)
 		{
 			temp2 = ft_strjoin(temp->line[0], "=");
 			envp[i] = ft_strjoin(temp2, temp->line[1]);
+			free(temp2);
 			i++;
 		}
 		temp = temp->next;
 	}
 	envp[i] = NULL;
 	return (envp);
+}
+
+static int	ft_env_lines(t_env *env)
+{
+	t_env		*temp;
+	int			i;
+
+	i = 1;
+	temp = env;
+	while (temp != NULL)
+	{
+		if (temp->line[1])
+			i++;
+		temp = temp->next;
+	}
+	return (i);
 }
