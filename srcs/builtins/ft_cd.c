@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:10:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/17 21:41:01 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:14:18 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_cd(t_env **env, t_cont *command)
 			ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 			ft_putstr_fd(command->content, STDERR_FILENO);
 			ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-			ret++;
+			ret = 1;
 		}
 	}
 	if (ret == 0)

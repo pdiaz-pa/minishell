@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:47:47 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/27 14:53:46 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/18 18:07:25 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	ft_save_env_line(t_env **env, char *envp)
 	new->next = NULL;
 	if (*env == NULL)
 		*env = new;
-	else 
+	else
 	{
-	temp = *env;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
+		temp = *env;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
 	}
 }
 

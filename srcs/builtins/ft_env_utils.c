@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 08:53:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/11/28 17:46:01 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/18 18:08:03 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	ft_free_env(t_env **env)
 		if (temp->line[1] != NULL)
 			free(temp->line[1]);
 		temp->line[1] = NULL;
+		free(temp->line);
+		temp->line = NULL;
 		temp = temp->next;
 		free(temp2);
 		temp2 = NULL;
 	}
-	*env = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:49:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/04 15:37:22 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:09:41 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,29 @@ static void	ft_export_2(t_env **env, char *content);
 int	ft_export(t_env **env, t_cont *command)
 {
 	t_cont	*temp;
-	char		ret;
+	int		ret;
 
-	ret = '0';
+	ret = 0;
 	if (command == NULL)
 	{
 		ft_print_export(*env);
 		return (0);
 	}
 	temp = command;
-	while(temp != NULL)
+	while (temp != NULL)
 	{
 		if (ft_isdigit(temp->content[0]))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", command->content);
-			ret = '1';
+			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+			ft_putstr_fd(command->content, STDERR_FILENO);
+			ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
+			ret = 1;
 		}
 		else
 			ft_export_2(env, temp->content);
 		temp = temp->next;
 	}
-	if (ret == '1')
-		return (1);
-	return (0);
+	return (ret);
 }
 
 static void	ft_export_2(t_env **env, char *content)

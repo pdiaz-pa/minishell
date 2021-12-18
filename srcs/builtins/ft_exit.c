@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 18:07:25 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 19:12:00 by antgonza         ###   ########.fr       */
+/*   Created: 2021/12/18 17:49:21 by antgonza          #+#    #+#             */
+/*   Updated: 2021/12/18 19:32:49 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(void)
+void	ft_exit(t_env **env)
 {
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
-	{
-		perror("Error: ");
-		return (1);
-	}
-	printf("%s\n", pwd);
-	free(pwd);
-	return (0);
+	ft_free_env(env);
+	exit(0);
 }

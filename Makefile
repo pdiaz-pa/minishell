@@ -24,6 +24,7 @@ SRC = 	main.c \
 		builtins/ft_env.c \
 		builtins/ft_unset.c \
 		builtins/ft_pwd.c \
+		builtins/ft_exit.c \
 		exe/ft_exe.c \
 		exe/ft_exe_utils.c \
 		ft_list_utils.c \

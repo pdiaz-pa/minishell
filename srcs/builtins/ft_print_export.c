@@ -6,16 +6,16 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/04 15:28:21 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/18 18:55:22 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static t_env	*ft_save_exp(t_env *env);
-static void	ft_free_export(t_env **env);
-static void	ft_save_line(t_env **env, char **line);
-static void	ft_save_line_2(t_env *new, t_env *temp);
+static void		ft_free_export(t_env **env);
+static void		ft_save_line(t_env **env, char **line);
+static void		ft_save_line_2(t_env *new, t_env *temp);
 
 int	ft_print_export(t_env *env)
 {
@@ -26,14 +26,9 @@ int	ft_print_export(t_env *env)
 	temp2 = temp;
 	while (temp2 != NULL)
 	{
-		printf("declare -x ");
-		printf("%s", temp2->line[0]);
+		printf("declare -x %s", temp2->line[0]);
 		if (temp2->line[1])
-		{
-			printf("=\"");
-			printf("%s", temp2->line[1]);
-			printf("\"\n");
-		}
+			printf("=\"%s\"\n", temp2->line[1]);
 		else
 			printf("\n");
 		temp2 = temp2->next;
@@ -110,6 +105,6 @@ static void	ft_free_export(t_env **env)
 		temp2 = temp;
 		temp = temp->next;
 		free(temp2);
+		temp2 = NULL;
 	}
-	*env = NULL;
 }
