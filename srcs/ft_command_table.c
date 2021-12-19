@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 15:03:01 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:34:51 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 	int		nProc;
 	int		i;
 	
-	if (env){}// eliminar
 	if (tk_l == NULL || ft_syntax_error(tk_l) > 0)
 		return ;
 	i = 1;
@@ -41,24 +40,8 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 			ft_process_manager(env, temp);
 		else
 			ft_single_process(env, temp);
-		//ft_prompt_cmp(env, temp->list);
 		temp = temp->next; 
 	}
-	
-	/* temp = proc;
- 	t_cont	*t2;
-	while (temp != NULL)
-	{
-		t2 = temp->list;
-		printf("prev: %p t:%d n:%d e:%c i:%c i2:%c o:%c o2:%c input:%s output:%s next:%p\n",temp->prev, temp->total, temp->num, temp->err, temp->in, temp->in2, temp->out, temp->out2, temp->input ,temp->output ,temp->next);
-		while (t2 != NULL)
-		{
-			printf("%s ", t2->content);
-			t2 = t2->next;
-		}
-		printf("\n");
-		temp = temp->next;
-	} */
 	ft_free_ct(&proc);
 }
 

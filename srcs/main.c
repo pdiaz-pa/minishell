@@ -1,5 +1,7 @@
 #include "../includes/minishell.h"
 
+int	exit_status;
+
 int ft_only_spaces(char *prompt)
 {
 	int count;
@@ -32,7 +34,6 @@ int	main(int argc, char **argv, char **envp)
 		-Control + C no salga del programa
 		-Control + D salga del programa (cuando prompt == NULL)
 	igual que en bash */
-
 	int again;
 	char *prompt;
 	(void)argc;
@@ -53,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		again = 1;
 		while (again)
 		{
+			exit_status = -424242;
 			again = 0;
 			prompt = readline("minishell$ ");
 			if (prompt[0] != '\0')
@@ -70,6 +72,9 @@ int	main(int argc, char **argv, char **envp)
 				}
 				ft_command_table(env, token_list->next);
 			}
+			if (prompt[0] == '\0')
+				exit_status = 0;
+			printf ("exit: %d\n", exit_status);
 			//ft_stack_printer(token_list);
 			//printf("\nprintf%s\n", token_list->content);
 		}

@@ -44,7 +44,7 @@ int ft_prompt_cmp(t_env *env, t_cont *command, char mode)
 		ret = ft_print_env(env);
 	else
 	{
-		ft_exe(env, command, mode);
+		ret = ft_exe(env, command, mode);
 	}
 	return (ret);
 	// if (tk_l != NULL)
