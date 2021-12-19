@@ -1,7 +1,5 @@
 #include "../includes/minishell.h"
 
-int	exit_status;
-
 int ft_only_spaces(char *prompt)
 {
 	int count;

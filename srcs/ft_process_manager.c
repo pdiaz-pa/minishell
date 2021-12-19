@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process_manager.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/17 11:52:36 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/19 20:37:53 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_process_manager(t_env *env, t_proc *process)
 		ft_intermediate_process(env, process);
 	else if (process->num == process->total)
 		ft_last_process(env, process);
+	unlink(".heredoc");
 	dup2(or_fd[0], STDIN_FILENO);
 	close(or_fd[0]);
 	dup2(or_fd[1], STDOUT_FILENO);
@@ -43,7 +44,7 @@ void	ft_single_process(t_env *env, t_proc *process)
 	ft_redir_in(process);
 	ft_redir_out(process);
 	if (process->list != NULL)
-		ft_prompt_cmp(env, process->list, 'a');
+		exit_status = ft_prompt_cmp(env, process->list, 'a');
 	//if (process->in2 == '1')
 		unlink(".heredoc");
 	dup2(or_fd[0], STDIN_FILENO);
@@ -114,9 +115,10 @@ static void	ft_last_process(t_env *env, t_proc *process)
 		close(process->prev->fd[0]);
 		while(i < process->total)
 		{
-		process->pid = waitpid(-1, &process->ret, 0);
-		i++;
+			process->pid = waitpid(-1, &process->ret, 0);
+			i++;
 		}
+		exit_status = process->ret;
 	}
 	
 }
