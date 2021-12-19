@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 08:47:17 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 20:48:02 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:06:31 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,19 @@ static int	ft_env_lines(t_env *env)
 		temp = temp->next;
 	}
 	return (i);
+}
+
+void	ft_free_mem(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free (arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free (arr);
+	arr = NULL;
 }

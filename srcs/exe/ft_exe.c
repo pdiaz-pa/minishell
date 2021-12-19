@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/16 21:19:53 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:21:19 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	valid_cmd_2(t_env *env, char *cmd, char **final);
-static void	ft_free_mem(char **arr);
+static int	ft_print_valid_error(char *command);
 static int	ft_execve(char *cmd, char **argv, char **envp, char mode);
 
 int	ft_exe(t_env *env, t_cont *command, char mode)
@@ -27,13 +27,8 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	final = NULL;
 	ret = -4242;
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
-	if (final == NULL)
-	{
-		if (command->content[0] == '/')
-			printf("minishell: %s: No such file or directory\n", command->content);
-		else
-			printf("minishell: %s: command not found\n", command->content);
-	}
+	if (final == NULL && (ft_print_valid_error(command->content)) == 0)
+		return (127);
 	else
 	{
 		argv = ft_make_argv(command);
@@ -48,12 +43,21 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 
 static void	valid_cmd(t_env *env, char *cmd, char **final)
 {
-	if (access(cmd, X_OK) != -1)
-		*final = ft_strdup(cmd);
-	else if (env == NULL)
-		return ;
+	if (env == NULL)
+	{
+		if (access(cmd, X_OK) != -1)
+			*final = ft_strdup(cmd);
+	}
 	else
-		valid_cmd_2(env, cmd, final);
+	{
+		if (cmd[0] == '/')
+		{
+			if (access(cmd, X_OK) != -1)
+				*final = ft_strdup(cmd);
+		}
+		else
+			valid_cmd_2(env, cmd, final);
+	}
 	return ;
 }
 
@@ -72,7 +76,7 @@ static void	valid_cmd_2(t_env *env, char *cmd, char **final)
 		check = ft_strjoin(tmp, cmd);
 		free(tmp);
 		tmp = NULL;
-		if (access(check, F_OK) != -1)
+		if (access(check, X_OK) != -1)
 		{
 			*final = check;
 			break ;
@@ -85,19 +89,21 @@ static void	valid_cmd_2(t_env *env, char *cmd, char **final)
 	return ;
 }
 
-static void	ft_free_mem(char **arr)
+static int	ft_print_valid_error(char *command)
 {
-	int	i;
-
-	i = 0;
-	while (arr[i])
+	if (command[0] == '/')
 	{
-		free (arr[i]);
-		arr[i] = NULL;
-		i++;
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
-	free (arr);
-	arr = NULL;
+	else
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+	}
+	return (0);
 }
 
 static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
@@ -117,15 +123,12 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
 				perror("execve");
 		}
 		else if (pid > 0)
-		{
 			pid = waitpid(-1, &status, 0);
-		}
-		return (status);
 	}
 	else if (mode == 'b')
 	{
 		if (execve(cmd, argv, envp) == -1)
-				perror("execve");
+			perror("execve");
 	}
 	return (status);
 }

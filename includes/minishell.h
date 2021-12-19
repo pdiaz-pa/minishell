@@ -108,5 +108,6 @@ char 		*ft_quote_remover(char *str);
 void		ft_redir_in(t_proc *process);
 void		ft_redir_out(t_proc *process);
 void		ft_exit(t_env **env);
+void		ft_free_mem(char **arr);
 
 #endif
