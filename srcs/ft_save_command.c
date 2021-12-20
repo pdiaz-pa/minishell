@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/17 11:25:04 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:43:07 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num);
+static void		ft_init_proc(t_proc **proc, t_proc *new, int total, int num);
 static t_mylist	*ft_advance_list(t_mylist *tk_l, int num);
-static void	ft_analize_command(t_proc *new, t_mylist *tk_l);
-static void	ft_save_line(t_proc *proc, char *content);
+static void		ft_analize_command(t_proc *new, t_mylist *tk_l);
+static void		ft_save_line(t_proc *proc, char *content);
 
 void	ft_save_command(t_proc **proc,	t_mylist *tk_l, int total, int num)
 {

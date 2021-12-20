@@ -130,6 +130,9 @@
 - Check that $USER exists or set it. VVV
 - echo "$USER" should print the value of $USER VVV
 
+------NUEVOS FALLOS-------
+
+- Unificar la gestion de los syntax error fallo al pasar solo | tk_type vale 0
 
 
 -----ORDEN TONI-----------SUCCESS----

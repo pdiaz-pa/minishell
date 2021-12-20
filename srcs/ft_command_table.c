@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/19 19:34:51 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:48:15 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,26 @@
 
 static int	ft_syntax_error(t_mylist *tk_l);
 static int	ft_count_pipes(t_mylist *tk_l);
-static void ft_free_ct(t_proc **proc);
+static void	ft_free_ct(t_proc **proc);
+static void	ft_free_cont(t_cont **cont);
 
 void	ft_command_table(t_env *env, t_mylist *tk_l)
 {
 	t_proc	*proc;
-	int		nProc;
+	t_proc	*temp;
+	int		n_proc;
 	int		i;
-	
-	if (tk_l == NULL || ft_syntax_error(tk_l) > 0)
+
+	if (tk_l == NULL || (ft_syntax_error(tk_l)) != 0)
 		return ;
 	i = 1;
 	proc = NULL;
-	nProc = ft_count_pipes(tk_l);
-	while (i <= nProc)
+	n_proc = ft_count_pipes(tk_l);
+	while (i <= n_proc)
 	{
-		ft_save_command(&proc, tk_l, nProc, i);
+		ft_save_command(&proc, tk_l, n_proc, i);
 		i++;
 	}
-	t_proc	*temp;
 	temp = proc;
 	while (temp != NULL)
 	{
@@ -40,7 +41,7 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 			ft_process_manager(env, temp);
 		else
 			ft_single_process(env, temp);
-		temp = temp->next; 
+		temp = temp->next;
 	}
 	ft_free_ct(&proc);
 }
@@ -48,23 +49,25 @@ void	ft_command_table(t_env *env, t_mylist *tk_l)
 static int	ft_syntax_error(t_mylist *tk_l)
 {
 	t_mylist	*temp;
-	int			i;
 
 	temp = tk_l;
-	i = 0;
 	while (temp != NULL)
 	{
-		if ((temp->tk_type == 1 || temp->tk_type == 2) && temp->next == NULL && i++)
-			printf("minishell: aun no se que poner aqui'\n"); // revisar
-		if (temp->tk_type == 2 && temp->next == NULL && i++)
-			printf("minishell: syntax error near unexpected token `newline'\n");
-		if (temp->tk_type == 2 && temp->next != NULL && temp->next->tk_type == 1 && i++)
-			printf("minishell: syntax error near unexpected token `|'\n");
-		if (temp->tk_type == 1 && temp->next == NULL && i++)
-			printf("minishell: syntax error `|' end not support\n");
+		if (temp->tk_type == 1 && temp->next == NULL)
+		{
+			ft_putendl_fd("minishell: syntax error near unexpected token `|'",
+				2);
+			return (1);
+		}
+		else if (temp->tk_type == 2 && temp->next == NULL)
+		{
+			ft_putendl_fd
+				("minishell: syntax error near unexpected token `newline'", 2);
+			return (1);
+		}
 		temp = temp->next;
 	}
-	return (i);
+	return (0);
 }
 
 static int	ft_count_pipes(t_mylist *tk_l)
@@ -83,31 +86,41 @@ static int	ft_count_pipes(t_mylist *tk_l)
 	return (i);
 }
 
-static void ft_free_ct(t_proc **proc)
+static void	ft_free_ct(t_proc **proc)
 {
 	t_proc	*temp;
 	t_proc	*temp2;
-	t_cont	*ctemp;
-	t_cont	*ctemp2;
 
 	temp = *proc;
 	while (temp != NULL)
 	{
-		/* if (temp->num < temp->total)
-		{
-		close(temp->fd[0]);
-		close(temp->fd[1]);
-		} */
-		ctemp = temp->list;
-		while(ctemp != NULL)
-		{
-			ctemp2 = ctemp;
-			ctemp = ctemp->next;
-			free (ctemp2);
-		}
+		ft_free_cont(&temp->list);
+		if (temp->input != NULL)
+			free (temp->input);
+		if (temp->nonexp != NULL)
+			free (temp->nonexp);
+		if (temp->output != NULL)
+			free (temp->output);
 		temp2 = temp;
 		temp = temp->next;
 		free (temp2);
-		
 	}
+}
+
+static void	ft_free_cont(t_cont **cont)
+{
+	t_cont	*temp;
+	t_cont	*temp2;
+
+	temp = *cont;
+	while (temp != NULL)
+	{
+		temp2 = temp;
+		temp = temp->next;
+		//free (temp2->content);
+		//temp2->content = NULL;
+		free (temp2);
+		temp2 = NULL;
+	}
+	return ;
 }
