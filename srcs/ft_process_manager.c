@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/19 20:37:53 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/20 12:33:29 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_single_process(t_env *env, t_proc *process)
 	if (process->list != NULL)
 		exit_status = ft_prompt_cmp(env, process->list, 'a');
 	//if (process->in2 == '1')
-		unlink(".heredoc");
+	unlink(".heredoc");
 	dup2(or_fd[0], STDIN_FILENO);
 	close(or_fd[0]);
 	dup2(or_fd[1], STDOUT_FILENO);
@@ -61,8 +61,13 @@ static void	ft_first_process(t_env *env, t_proc *process)
 	if (process->pid == 0)
 	{
 		close (process->fd[0]);
-		dup2(process->fd[1], STDOUT_FILENO);
-		close(process->fd[1]);
+		if (process->output != NULL)
+			ft_redir_out(process);
+		else
+		{
+			dup2(process->fd[1], STDOUT_FILENO);
+		}
+			close(process->fd[1]);
 		if (process->list != NULL)
 			ft_prompt_cmp(env, process->list, 'b');
 	}
@@ -81,10 +86,26 @@ static void	ft_intermediate_process(t_env *env, t_proc *process)
 	if (process->pid == 0)
 	{
 		close (process->fd[0]);
+		if (process->input != NULL)
+		{
+			close(process->prev->fd[0]);
+			ft_redir_in(process);
+		}
+		else
+		{
 		dup2(process->prev->fd[0], STDIN_FILENO);
 		close(process->prev->fd[0]);
-		dup2(process->fd[1], STDOUT_FILENO);
-		close(process->fd[1]);
+		}
+		if (process->output != NULL)
+		{
+			close(process->fd[1]);
+			ft_redir_out(process);
+		}
+		else
+		{
+			dup2(process->fd[1], STDOUT_FILENO);
+			close(process->fd[1]);
+		}
 		if (process->list != NULL)
 			ft_prompt_cmp(env, process->list, 'b');
 	}
@@ -105,8 +126,13 @@ static void	ft_last_process(t_env *env, t_proc *process)
 	process->pid = fork();
 	if (process->pid == 0)
 	{
-		dup2(process->prev->fd[0], STDIN_FILENO);
-		close(process->prev->fd[0]);
+		if (process->input != NULL)
+			ft_redir_in(process);
+		else
+		{
+			dup2(process->prev->fd[0], STDIN_FILENO);
+		}
+			close(process->prev->fd[0]);
 		if (process->list != NULL)
 			ft_prompt_cmp(env, process->list, 'b');
 	}

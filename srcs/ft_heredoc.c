@@ -34,5 +34,6 @@ int ft_heredoc(t_proc *process)
         }
         free(keyword);
     }
+    close (fd);
     return(0);
 }
