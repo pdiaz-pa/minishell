@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wextra -Werror -Wall -g
+CFLAGS = -Wextra -Werror -Wall -g 
 LFLAGS = -lreadline
 NAME = minishell
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib

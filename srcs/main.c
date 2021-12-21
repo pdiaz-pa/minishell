@@ -26,6 +26,19 @@ void	ft_sig_int(int signal)
 	}
 }
 
+void	ft_free_tklist(t_mylist *token_list)
+{
+	t_mylist *temp;
+
+	while(token_list)
+	{
+		temp = token_list->next;
+		free(token_list);
+//		token_list->next = NULL;
+		token_list = temp;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	/*Antes de todo, hay que hacer que:
@@ -62,7 +75,6 @@ int	main(int argc, char **argv, char **envp)
 			if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1) // para evitar crasheo al no pasarle nada o solo espacios
 			{
 				token_list = ft_tokenizer(prompt, token_list, env); //en desarrollo. comentar esta  función si se quiere probar algo
-				free(prompt);
 				if(token_list->isexp != -1)
 				{
 					//ft_stack_printer(token_list);
@@ -70,9 +82,12 @@ int	main(int argc, char **argv, char **envp)
 				}
 				ft_command_table(env, token_list->next);
 			}
+			
 			if (prompt[0] == '\0')
 				exit_status = 0;
+			free(prompt);
 			printf ("exit: %d\n", exit_status);
+			ft_free_tklist(token_list);
 			//ft_stack_printer(token_list);
 			//printf("\nprintf%s\n", token_list->content);
 		}

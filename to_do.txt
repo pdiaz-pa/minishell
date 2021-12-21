@@ -153,3 +153,6 @@
 -Expansiones heredoc
 
 Posibles entregas? 27 y 31 diciembre
+
+
+-fsanitize=address -fno-omit-frame-pointer para compilar con sanitize
