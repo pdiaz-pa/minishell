@@ -173,7 +173,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	
 	final = NULL;
 	expanded = NULL;
-	tk_l->nonexp = ft_strdup(tk_l->content);
+	tk_l->nonexp = ft_strdup(tk_l->content); //leak!!!
 	tk_l->nonexp = ft_dollarizer(tk_l->nonexp);
 	tk_l->nonexp = ft_quote_remover(tk_l->nonexp);
 	i = 0;
@@ -198,9 +198,14 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 						i++;
 					first = ft_substr(tk_l->content, 0, i);
 					//printf("%s FIRST\n", first);
-					expanded = ft_strjoin(first, expkey);
+					expanded = ft_strjoin(first, expkey); //leak!!
 					expanded = ft_strjoin(expanded, final);
+					free(final);
+					free(first);
+					free(key);
+					free(expkey);
 					tk_l->content = expanded;
+					free(expanded);
 				}
 		}
 	}

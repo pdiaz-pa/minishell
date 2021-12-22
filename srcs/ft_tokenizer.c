@@ -171,27 +171,16 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 	while (tk_l != NULL)
 	{
 		if (ft_double_pipe(tk_l) == -1)
-		{
 			return(-1);
-		}
 		else
 		{
 			//printf("%s ", tk_l->content);
 			if (ft_tk_delimiter(tk_l->content) == 1)
-			{
 				tk_l->tk_type = PIPE;
-				//printf("tipo PIPE\n");
-			}
 			else if (ft_tk_delimiter(tk_l->content) == 2)
-			{
 				tk_l->tk_type = REDIR;
-				//printf("tipo REDIR\n");
-			}
 			else
-			{
 				tk_l->tk_type = TEXT;
-				//printf("tipo TEXT\n");
-			}
 			//printf("%d el isexp\n", tk_l->isexp);
 			//if (tk_l->isexp == 0)
 				ft_expander(tk_l->content, tk_l, env);
@@ -224,7 +213,6 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 		if (ft_last_spaces(prompt, tk) == 1)
 		{
 			ft_normal_mode(prompt, tk);
-			 
 			//printf("%d STRING SIZE \n", (tk->start - tk->sizer));
 			buff = malloc((tk->start - tk->sizer) + 1);
 			while (tk->sizer < tk->start)
@@ -259,9 +247,12 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			}
 			//ft_stack_printer(token_list);
 			j = 0;
-			buff = NULL;
+			free(buff);
+			//buff = NULL;
 		}
+		
 	}
+
 	if (tk->double_flag == 1 || tk->single_flag == 1)
 		return(-1);
 	//printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
@@ -279,33 +270,12 @@ void ft_init_tk(t_tokenizer *tk)
 	tk->expand = 0;
 	tk->ch = 32;
 }
-/*
-char *ft_prompt_hack(char *prompt)
-{
-	int i;
-	i = 0;
-	char *temp;
-	
-	while (prompt[i] != '\0')
-	{
-		if (prompt[i] == '$' && prompt[i + 1] != '\0' && (prompt[i + 1] == DOUBLEQ || prompt[i + 1] == SINGLEQ))
-		{
-			temp = &prompt[i + 1];
-			prompt[i] = '\0';
-			prompt = ft_strjoin(prompt, temp);
-		}	
-		i++;
-	}
-	printf("%s el prompt\n", prompt);
-	return(prompt);
-}
-*/
+
 t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env)
 {
 	t_tokenizer tk;
 
 	ft_init_tk(&tk);
-	//prompt = ft_prompt_hack(prompt);
 	token_list = ft_mylstnew("head", 0);
 	if(ft_tk_creator(prompt, &tk, token_list) == -1)
 	{

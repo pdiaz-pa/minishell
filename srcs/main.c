@@ -29,12 +29,17 @@ void	ft_sig_int(int signal)
 void	ft_free_tklist(t_mylist *token_list)
 {
 	t_mylist *temp;
-
+	
 	while(token_list)
 	{
 		temp = token_list->next;
+		//printf("liberando\n");
+		if (token_list->nonexp != NULL)
+			//free(token_list->nonexp);
+		if (token_list->content != NULL)
+			free(token_list->content);
 		free(token_list);
-//		token_list->next = NULL;
+		token_list->next = NULL;
 		token_list = temp;
 	}
 }
@@ -87,10 +92,11 @@ int	main(int argc, char **argv, char **envp)
 				exit_status = 0;
 			free(prompt);
 			printf ("exit: %d\n", exit_status);
-			ft_free_tklist(token_list);
 			//ft_stack_printer(token_list);
-			//printf("\nprintf%s\n", token_list->content);
+			ft_free_tklist(token_list);
+			//system("leaks minishell");
 		}
 	}
+	
 	return (0);
 }
