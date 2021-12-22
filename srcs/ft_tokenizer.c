@@ -183,8 +183,8 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 				tk_l->tk_type = TEXT;
 			//printf("%d el isexp\n", tk_l->isexp);
 			//if (tk_l->isexp == 0)
-				ft_expander(tk_l->content, tk_l, env);
-				tk_l->content = ft_quote_remover(tk_l->content);
+			ft_expander(tk_l->content, tk_l, env);
+			tk_l->content = ft_quote_remover(tk_l->content);
 		}
 		//printf("%s ----expanded token----\n", tk_l->content);
 		//printf("%s ----non expanded token----\n", tk_l->nonexp);

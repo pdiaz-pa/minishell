@@ -185,7 +185,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 			{
 				key = ft_key_finder(tk_l->content);
 				if (ft_strcmp(key, "?") == 0)
-					ft_strcpy(tk_l->content, "INTERROGACIÓN");
+					ft_strcpy(tk_l->content, ft_itoa(exit_status));
 				else
 				{
 					expkey = ft_get_my_env(key, env);
@@ -203,7 +203,6 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 					free(final);
 					free(first);
 					free(key);
-					free(expkey);
 					tk_l->content = expanded;
 					free(expanded);
 				}

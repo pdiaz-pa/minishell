@@ -59,7 +59,7 @@ t_mylist	*ft_mylstnew(void *content, int isexp)
 	new = malloc(sizeof(t_mylist));
 	if (new == NULL)
 		return (NULL);
-	new->content = content;
+	new->content = ft_strdup(content);
 	new->next = NULL;
 	new->isexp = isexp;
 	return (new);
