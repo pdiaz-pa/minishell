@@ -70,7 +70,6 @@ int	main(int argc, char **argv, char **envp)
 		again = 1;
 		while (again)
 		{
-			exit_status = -424242;
 			again = 0;
 			prompt = readline("minishell$ ");
 			if (prompt[0] != '\0')
@@ -85,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 					//ft_stack_printer(token_list);
 					// ft_prompt_cmp(env, token_list);
 				}
+				exit_status = -424242;
 				ft_command_table(env, token_list->next);
 			}
 			

@@ -86,8 +86,3 @@ static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 	}
 	return (0);
 }
-
-/* static void	ft_error_redir(t_proc *process)
-{
-
-} */
