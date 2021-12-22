@@ -6,12 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/20 12:39:46 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:06:33 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void		ft_check_redir_2(t_proc *process, t_mylist *temp);
 static int	ft_check_in_access(t_proc *process, t_mylist *temp);
 static int	ft_check_out_access(t_proc *process, t_mylist *temp);
 
@@ -19,7 +20,8 @@ void	ft_check_redir(t_proc *process, t_mylist *temp)
 {
 	if (process->err == '1')
 		return ;
-	if (ft_strcmp(temp->content, "<") == 0 && ft_check_in_access(process, temp->next) == 0)
+	if (ft_strcmp(temp->content, "<") == 0
+		&& ft_check_in_access(process, temp->next) == 0)
 	{
 		if (process->in2 == '1')
 			ft_heredoc(process);
@@ -35,18 +37,28 @@ void	ft_check_redir(t_proc *process, t_mylist *temp)
 		process->in2 = '1';
 		process->input = temp->next->nonexp;
 	}
-	else if (ft_strcmp(temp->content, ">") == 0 && ft_check_out_access(process, temp->next) == 0)
+	else
+		ft_check_redir_2(process, temp);
+	return ;
+}
+
+void	ft_check_redir_2(t_proc *process, t_mylist *temp)
+{
+	if (ft_strcmp(temp->content, ">") == 0
+		&& ft_check_out_access(process, temp->next) == 0)
 	{
 		process->out = '1';
 		process->out2 = '0';
 		process->output = temp->next->content;
 	}
-	else if (ft_strcmp(temp->content, ">>") == 0 && ft_check_out_access(process, temp->next) == 0)
+	else if (ft_strcmp(temp->content, ">>") == 0
+		&& ft_check_out_access(process, temp->next) == 0)
 	{
 		process->out = '0';
 		process->out2 = '1';
 		process->output = temp->next->content;
 	}
+	return ;
 }
 
 static int	ft_check_in_access(t_proc *process, t_mylist *temp)
@@ -69,6 +81,7 @@ static int	ft_check_in_access(t_proc *process, t_mylist *temp)
 	}
 	return (0);
 }
+
 static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 {
 	if (access(temp->content, F_OK) != -1 && access(temp->content, W_OK) == -1)

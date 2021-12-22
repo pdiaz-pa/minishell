@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 18:17:15 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/20 18:48:15 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/22 21:28:53 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,6 @@ static void	ft_free_ct(t_proc **proc)
 	while (temp != NULL)
 	{
 		ft_free_cont(&temp->list);
-		if (temp->input != NULL)
-			free (temp->input);
-		if (temp->nonexp != NULL)
-			free (temp->nonexp);
-		if (temp->output != NULL)
-			free (temp->output);
 		temp2 = temp;
 		temp = temp->next;
 		free (temp2);
@@ -117,8 +111,6 @@ static void	ft_free_cont(t_cont **cont)
 	{
 		temp2 = temp;
 		temp = temp->next;
-		//free (temp2->content);
-		//temp2->content = NULL;
 		free (temp2);
 		temp2 = NULL;
 	}

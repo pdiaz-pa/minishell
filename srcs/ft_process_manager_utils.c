@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:28:24 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/20 12:40:11 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/22 21:40:36 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,46 @@ void	ft_redir_out(t_proc *process)
 		dup2(process->out_fd, STDOUT_FILENO);
 		close(process->out_fd);
 	}
+	return ;
+}
+
+void	ft_intermediate_redir(t_proc *process)
+{
+	close (process->fd[0]);
+	if (process->input != NULL)
+	{
+		close(process->prev->fd[0]);
+		ft_redir_in(process);
+	}
+	else
+	{
+		dup2(process->prev->fd[0], STDIN_FILENO);
+		close(process->prev->fd[0]);
+	}
+	if (process->output != NULL)
+	{
+		close(process->fd[1]);
+		ft_redir_out(process);
+	}
+	else
+	{
+		dup2(process->fd[1], STDOUT_FILENO);
+		close(process->fd[1]);
+	}
+	return ;
+}
+
+void	ft_last_redir(t_proc *process)
+{
+	if (process->input != NULL)
+	{
+		close(process->prev->fd[0]);
+		ft_redir_in(process);
+	}
+	else
+	{
+		dup2(process->prev->fd[0], STDIN_FILENO);
+		close(process->prev->fd[0]);
+	}
+	return ;
 }

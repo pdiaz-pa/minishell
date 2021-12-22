@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/20 18:43:07 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:15:00 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	ft_init_proc(t_proc **proc, t_proc *new, int total, int num)
 	new->input = NULL;
 	new->nonexp = NULL;
 	new->output = NULL;
-	new->list	= NULL;
+	new->list = NULL;
 	new->next = NULL;
 	new->ret = 424242;
 	return ;
@@ -80,7 +80,7 @@ static t_mylist	*ft_advance_list(t_mylist *tk_l, int num)
 
 static void	ft_analize_command(t_proc *new, t_mylist *tk_l)
 {
-	t_mylist *temp;
+	t_mylist	*temp;
 
 	temp = tk_l;
 	while (temp != NULL && temp->tk_type != 1)
@@ -111,10 +111,9 @@ static void	ft_save_line(t_proc *proc, char *content)
 		proc->list = new;
 	else
 	{
-	temp = proc->list;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
+		temp = proc->list;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
 	}
 }
-
