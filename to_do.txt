@@ -138,8 +138,8 @@
 -----ORDEN TONI-----------SUCCESS----
 							-echo -n
 							-Leaks
--fd[2] errores
--prompt compare mayus
+							-fd[2] errores
+							-prompt compare mayus
 -env -i
 			-Return value
 							-cat cat

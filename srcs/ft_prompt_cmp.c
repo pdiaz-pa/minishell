@@ -1,55 +1,52 @@
 #include "../includes/minishell.h"
 
-int ft_prompt_cmp(t_env *env, t_cont *command, char mode)
-{
-	/* t_mylist *temp;
+static int	ft_char_dance(char *c);
 
-	temp = tk_l;
-	while (temp != NULL)
-	{
-		printf("line %s, %d, %p\n", temp->content, temp->tk_type, temp->next);
-		temp = temp->next;
-	} */
-	// while(tk_l != NULL)
-	// {
+int	ft_prompt_cmp(t_env *env, t_cont *command, char mode)
+{
 	int	ret;
-	
+	int	dance;
+
 	ret = 4242;
-	if (ft_strcmp("pwd", command->content) == 0) //compara este string con lo que está en prompt (lo que metemos)
-	{
+	dance = ft_char_dance(command->content);
+	if (dance == 1)
 		ret = ft_pwd();
-	}
-	/* else if (ft_strcmp("exit", command->content) == 0)
-	{
-		write(1, "exit\n", 5);
-		exit(11);
-	} */
-	else if (ft_strcmp("echo", command->content) == 0)
-	{
-		ret = ft_echo(command->next);
-	}
-	else if (ft_strcmp("cd", command->content) == 0)
-	{
-		ret = ft_cd(&env, command->next);
-	}
-	else if (ft_strcmp("export", command->content) == 0)
-	{
-		ret = ft_export(&env, command->next);
-	}
-	else if (ft_strcmp("unset", command->content) == 0)
-	{
-		ret = ft_unset(&env, command->next);
-	}
-	else if (ft_strcmp("env", command->content) == 0)
+	else if (dance == 2)
 		ret = ft_print_env(env);
+	else if (dance == 3)
+		ret = ft_echo(command->next);
+	else if (ft_strcmp("cd", command->content) == 0)
+		ret = ft_cd(&env, command->next);
+	else if (ft_strcmp("export", command->content) == 0)
+		ret = ft_export(&env, command->next);
+	else if (ft_strcmp("unset", command->content) == 0)
+		ret = ft_unset(&env, command->next);
 	else
-	{
 		ret = ft_exe(env, command, mode);
-	}
 	if (mode == 'b')
 		ft_exit (&env);
 	return (ret);
-	// if (tk_l != NULL)
-		// tk_l = tk_l->next;
-	// }
+}
+
+static int	ft_char_dance(char *c)
+{
+	int	len;
+
+	len = ft_strlen(c);
+	if (len == 3)
+	{
+		if ((c[0] == 'p' || c[0] == 'P') && (c[1] == 'w' || c[1] == 'W')
+			&& (c[2] == 'd' || c[2] == 'D'))
+			return (1);
+		else if ((c[0] == 'e' || c[0] == 'E') && (c[1] == 'n' || c[1] == 'N')
+			&& (c[2] == 'v' || c[2] == 'V'))
+			return (2);
+	}
+	else if (len == 4)
+	{
+		if ((c[0] == 'e' || c[0] == 'E') && (c[1] == 'c' || c[1] == 'C')
+			&& (c[2] == 'h' || c[2] == 'H') && (c[3] == 'o' || c[3] == 'O'))
+			return (3);
+	}
+	return (0);
 }
