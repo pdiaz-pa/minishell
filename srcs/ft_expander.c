@@ -10,7 +10,8 @@ char *ft_final_finder(char *token, int i)
 		j++;
 	while (token[i] != '#')
 		i++;
-	while (token[i] != SINGLEQ && token[i] != DOUBLEQ && token[i] != SPACE && token[i] != '\0')
+	while (token[i] != SINGLEQ && token[i] != DOUBLEQ && token[i] != SPACE 
+		&& token[i] != '\0')
 		i++;
 	final = ft_substr(token, i, j);
 	return(final);
@@ -27,7 +28,8 @@ char *ft_key_finder(char *token)
 	while (token[i] != '#')
 		i++;
 	i++;
-	while (token[i] != SPACE && token[i] != '\0' && token[i] != '$' && token[i] != '#' && token[i] != DOUBLEQ && token[i] != SINGLEQ)
+	while (token[i] != SPACE && token[i] != '\0' && token[i] != '$' 
+		&& token[i] != '#' && token[i] != DOUBLEQ && token[i] != SINGLEQ)
 	{
 		i++;
 		size++;
@@ -192,7 +194,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 					//printf("%s KEY\n", key);
 					//printf("%s expKEY\n", expkey);
 					final = ft_final_finder(tk_l->content, i);
-					//printf("%s FINAL\n", final);
+					printf("%s FINAL\n", final);
 					i = 0;
 					while (tk_l->content[i] != '#')
 						i++;

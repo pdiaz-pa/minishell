@@ -97,7 +97,9 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 	}
 	else
 	{
-		while(prompt[tk->start] != SPACE && prompt[tk->start] != '<' && prompt[tk->start] != '>' && prompt[tk->start] != '|' && prompt[tk->start] != '\0')
+		while(prompt[tk->start] != SPACE && prompt[tk->start] != '<' 
+			&& prompt[tk->start] != '>' && prompt[tk->start] != '|' 
+			&& prompt[tk->start] != '\0')
 		{
 			//printf("%c CHAR ", prompt[tk->start]);
 			if (prompt[tk->start] != DOUBLEQ && prompt[tk->start] != SINGLEQ)
@@ -219,11 +221,13 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			{
 				if (tk->double_flag == 1 && prompt[tk->sizer] == DOUBLEQ)
 					tk->double_flag = 0;
-				else if (tk->double_flag == 0 && prompt[tk->sizer] == DOUBLEQ && tk->single_flag == 0)
+				else if (tk->double_flag == 0 && prompt[tk->sizer] == DOUBLEQ 
+					&& tk->single_flag == 0)
 					tk->double_flag = 1;
 				else if (tk->single_flag == 1 && prompt[tk->sizer] == SINGLEQ)
 					tk->single_flag = 0;
-				else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ && tk->double_flag == 0)
+				else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ 
+					&& tk->double_flag == 0)
 					tk->single_flag = 1;
 				if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer + 1] != DOUBLEQ
 					 && prompt[tk->sizer] == '$' 
@@ -250,7 +254,6 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			free(buff);
 			//buff = NULL;
 		}
-		
 	}
 
 	if (tk->double_flag == 1 || tk->single_flag == 1)
