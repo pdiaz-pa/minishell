@@ -61,6 +61,7 @@ t_mylist	*ft_mylstnew(void *content, int isexp)
 		return (NULL);
 	new->content = ft_strdup(content);
 	new->next = NULL;
+	new->nonexp = NULL;
 	new->isexp = isexp;
 	return (new);
 }
