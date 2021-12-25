@@ -34,7 +34,7 @@ void	ft_free_tklist(t_mylist *token_list)
 	{
 		temp = token_list->next;
 		//printf("liberando\n");
-		//free(token_list->nonexp);
+		free(token_list->nonexp);
 		free(token_list->content);
 		free(token_list);
 		token_list->next = NULL;
