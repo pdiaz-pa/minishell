@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 			if (prompt[0] == '\0')
 				exit_status = 0;
 			free(prompt);
-			printf ("exit: %d\n", exit_status);
+			//printf ("exit: %d\n", exit_status);
 			//ft_stack_printer(token_list);
 			if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
 				ft_free_tklist(token_list);

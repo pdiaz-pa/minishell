@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/23 11:40:39 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:23:28 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ static void	ft_intermediate_process(t_env *env, t_proc *process)
 
 static void	ft_last_process(t_env *env, t_proc *process)
 {
-	int	i;
+	t_proc	*temp;
 
-	i = 0;
+	temp = process;
 	process->pid = fork();
 	if (process->pid == 0)
 	{
@@ -114,10 +114,12 @@ static void	ft_last_process(t_env *env, t_proc *process)
 	else
 	{
 		close(process->prev->fd[0]);
-		while (i < process->total)
+		while (temp->prev != NULL)
+			temp = temp->prev;
+		while (temp != NULL)
 		{
-			process->pid = waitpid(-1, &process->ret, 0);
-			i++;
+			temp->pid = waitpid(temp->pid, &temp->ret, 0);
+			temp = temp->next;
 		}
 		exit_status = process->ret;
 	}
