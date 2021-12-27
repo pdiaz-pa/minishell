@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/19 19:21:19 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/27 15:47:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	valid_cmd_2(t_env *env, char *cmd, char **final);
 static int	ft_print_valid_error(char *command);
-static int	ft_execve(char *cmd, char **argv, char **envp, char mode);
+static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e);
 
 int	ft_exe(t_env *env, t_cont *command, char mode)
 {
@@ -33,7 +33,7 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	{
 		argv = ft_make_argv(command);
 		envp = ft_make_envp(env);
-		ret = ft_execve(final, argv, envp, mode);
+		ret = ft_execve(final, argv, envp, mode, env);
 		free(final);
 		free(argv);
 		ft_free_mem(envp);
@@ -106,7 +106,7 @@ static int	ft_print_valid_error(char *command)
 	return (0);
 }
 
-static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
+static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 {
 	pid_t	pid;
 	int		status;
@@ -120,7 +120,10 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
 		else if (pid == 0)
 		{
 			if (execve(cmd, argv, envp) == -1)
+			{
 				perror("execve");
+				ft_exit(&e);
+			}
 		}
 		else if (pid > 0)
 			pid = waitpid(-1, &status, 0);
