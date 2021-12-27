@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 16:18:24 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:23:04 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	char	*key;
 	char	*final;
 	char	*first;
-
+	
 	ft_nonexp(tk_l);
 	final = NULL;
 	expanded = NULL;

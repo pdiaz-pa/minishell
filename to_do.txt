@@ -147,7 +147,7 @@
 
 -----ORDEN PABLO-----
 -Leaks
--Caracter no imprimible comillas
+-Caracter no imprimible comillas -- mirar con debugger
 -Signals heredoc
 -Signals
 -Expansiones heredoc

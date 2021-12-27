@@ -101,6 +101,5 @@ int	main(int argc, char **argv, char **envp)
 			//system("leaks minishell");
 		}
 	}
-	
 	return (0);
 }
