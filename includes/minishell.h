@@ -36,6 +36,8 @@ typedef struct  s_tokenizer{
 # include <signal.h>
 # include "../libft/libft.h"
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 typedef struct  s_env{
 	char			**line;
@@ -67,7 +69,6 @@ typedef struct  s_proc{
 	struct s_cont	*list;
 	struct s_proc	*next;
 }               t_proc;
-//ft_tokenizer.c
 
 int		exit_status;
 
@@ -81,7 +82,7 @@ int			ft_exe(t_env *env, t_cont *command, char mode);
 t_env		*ft_save_env(char **envp);
 int			ft_print_export(t_env *env);
 int			ft_print_env(t_env *env);
-t_env		*ft_search_env(t_env *env, char *name); // Devuelve la linea buscada si no la encuentra devuelve NULL
+t_env		*ft_search_env(t_env *env, char *name);
 void		ft_free_env(t_env **env);
 int			ft_export(t_env **env, t_cont *command);
 int			ft_unset(t_env **env, t_cont *command);

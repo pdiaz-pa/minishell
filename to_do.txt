@@ -144,6 +144,9 @@
 							-Return value
 							-cat cat
 -more??
+- implementar lstat en estos casos
+	cuando outfile es una carpeta
+	$HOME
 
 -----ORDEN PABLO-----
 -Leaks
