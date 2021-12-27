@@ -146,6 +146,7 @@
 -more??
 - implementar lstat en estos casos
 	cuando outfile es una carpeta
+		se ejecuta igual por ej. ls > srcs no ejecutar si error es 1
 	$HOME
 
 -----ORDEN PABLO-----

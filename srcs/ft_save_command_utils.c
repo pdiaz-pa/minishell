@@ -6,15 +6,16 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/22 19:06:33 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/27 21:35:12 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		ft_check_redir_2(t_proc *process, t_mylist *temp);
+static void	ft_check_redir_2(t_proc *process, t_mylist *temp);
 static int	ft_check_in_access(t_proc *process, t_mylist *temp);
 static int	ft_check_out_access(t_proc *process, t_mylist *temp);
+static int	ft_is_dir(char *check);
 
 void	ft_check_redir(t_proc *process, t_mylist *temp)
 {
@@ -42,7 +43,7 @@ void	ft_check_redir(t_proc *process, t_mylist *temp)
 	return ;
 }
 
-void	ft_check_redir_2(t_proc *process, t_mylist *temp)
+static void	ft_check_redir_2(t_proc *process, t_mylist *temp)
 {
 	if (ft_strcmp(temp->content, ">") == 0
 		&& ft_check_out_access(process, temp->next) == 0)
@@ -84,6 +85,11 @@ static int	ft_check_in_access(t_proc *process, t_mylist *temp)
 
 static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 {
+	if (ft_is_dir(temp->content) == 1)
+	{
+		process->err = '1';
+		return (1);
+	}
 	if (access(temp->content, F_OK) != -1 && access(temp->content, W_OK) == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -96,6 +102,23 @@ static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 	{
 		process->out_fd = open(temp->content, O_CREAT, 0644);
 		close(process->out_fd);
+	}
+	return (0);
+}
+
+static int	ft_is_dir(char *check)
+{
+	struct stat info;
+
+	if (lstat(check, &info) == 0)
+	{
+		if (S_ISDIR(info.st_mode))
+		{
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd(check, STDERR_FILENO);
+			ft_putendl_fd(": Is a directory", STDERR_FILENO);
+			return (1);
+		}
 	}
 	return (0);
 }
