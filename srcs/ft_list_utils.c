@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/27 16:23:51 by pdiaz-pa          #+#    #+#             */
+/*   Updated: 2021/12/27 16:23:53 by pdiaz-pa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 t_mylist	*ft_mylstlast(t_mylist *lst)
@@ -9,15 +21,15 @@ t_mylist	*ft_mylstlast(t_mylist *lst)
 	return (lst);
 }
 
-void ft_stack_printer(t_mylist *stack)
+void	ft_stack_printer(t_mylist *stack)
 {
-    stack = stack->next; // para que no se imprima el primer 0 (head)
-    while(stack != NULL) // imprime cada nodo 
-    {
-        printf("%s->", stack->content);
-        stack = stack->next;
-    }
-    printf("NULL\n");
+	stack = stack->next;
+	while (stack != NULL)
+	{
+		printf("%s->", stack->content);
+		stack = stack->next;
+	}
+	printf("NULL\n");
 }
 
 void	ft_mylstadd_back(t_mylist **lst, t_mylist *new)
@@ -38,9 +50,9 @@ void	ft_mylstadd_back(t_mylist **lst, t_mylist *new)
 	return ;
 }
 
-char *ft_dollarizer(char *content)
+char	*ft_dollarizer(char *content)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (content[i] != '\0')
@@ -49,7 +61,7 @@ char *ft_dollarizer(char *content)
 			content[i] = '$';
 		i++;
 	}
-	return(content);
+	return (content);
 }
 
 t_mylist	*ft_mylstnew(void *content, int isexp)

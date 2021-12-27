@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expander.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
+/*   Updated: 2021/12/27 16:18:24 by pdiaz-pa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int ft_size_calc(char *str)
+int	ft_size_calc(char *str)
 {
-	int size;
-	int i;
+	int	size;
+	int	i;
 
 	i = 0;
 	size = 0;
@@ -40,16 +52,15 @@ int ft_size_calc(char *str)
 	return (size);
 }
 
-char *ft_dequoter(char *str, int size)
+char	*ft_dequoter(char *str, int size)
 {
-	int i;
-	int j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
 	j = 0;
 	temp = malloc(size + 1);
-
 	while (str[i] != '\0')
 	{
 		if (str[i] == SINGLEQ)
@@ -84,14 +95,13 @@ char *ft_dequoter(char *str, int size)
 		}
 	}
 	temp[i] = '\0';
-	return(temp);
+	return (temp);
 }
-
 
 void	ft_nonexp(t_mylist *tk_l)
 {
-	char *temp;
-	char *temp2;
+	char	*temp;
+	char	*temp2;
 
 	temp = ft_strdup(tk_l->content); //leak!!!
 	temp = ft_dollarizer(temp);
@@ -103,47 +113,46 @@ void	ft_nonexp(t_mylist *tk_l)
 
 void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 {
-	int i;
-	char *expanded;
-	char *expkey;
-	char *key;
-	char *final;
-	char *first;
-	
+	int		i;
+	char	*expanded;
+	char	*expkey;
+	char	*key;
+	char	*final;
+	char	*first;
+
 	ft_nonexp(tk_l);
 	final = NULL;
 	expanded = NULL;
-
 	i = 0;
 	while (ft_dollar_finder(tk_l->content) == 1)
 	{
 		while (tk_l->content[i] != '\0' && token[i] != '#')
-			i++;	
-			if (token[i] == '#')
+			i++;
+		if (token[i] == '#')
+		{
+			key = ft_key_finder(tk_l->content);
+			if (ft_strcmp(key, "?") == 0)
+				ft_strcpy(tk_l->content, ft_itoa(exit_status));
+			else
 			{
-				key = ft_key_finder(tk_l->content);
-				if (ft_strcmp(key, "?") == 0)
-					ft_strcpy(tk_l->content, ft_itoa(exit_status));
-				else
-				{
-					expkey = ft_get_my_env(key, env);
-					//printf("%s KEY\n", key);
-					//printf("%s expKEY\n", expkey);
-					final = ft_final_finder(tk_l->content, i);
-					printf("%s FINAL\n", final);
-					i = 0;
-					while (tk_l->content[i] != '#')
-						i++;
-					first = ft_substr(tk_l->content, 0, i);
-					//printf("%s FIRST\n", first);
-					expanded = ft_strjoin(first, expkey); //leak!!
-					expanded = ft_strjoin(expanded, final);
-					free(final);
-					free(first);
-					free(key);
-					tk_l->content = expanded;
-					free(expanded);
-				}
+				expkey = ft_get_my_env(key, env);
+				//printf("%s KEY\n", key);
+				//printf("%s expKEY\n", expkey);
+				final = ft_final_finder(tk_l->content, i);
+				//printf("%s FINAL\n", final);
+				i = 0;
+				while (tk_l->content[i] != '#')
+					i++;
+				first = ft_substr(tk_l->content, 0, i);
+				//printf("%s FIRST\n", first);
+				expanded = ft_strjoin(first, expkey); //leak!!
+				expanded = ft_strjoin(expanded, final);
+				free(final);
+				free(first);
+				free(key);
+				tk_l->content = expanded;
+				free(expanded);
+			}
 		}
 	}
 }
