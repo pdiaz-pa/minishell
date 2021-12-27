@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/27 15:47:27 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:31:37 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	valid_cmd(t_env *env, char *cmd, char **final)
 	}
 	else
 	{
-		if (cmd[0] == '/')
+		if (cmd[0] == '/' || cmd[0] == '.')
 		{
 			if (access(cmd, X_OK) != -1)
 				*final = ft_strdup(cmd);
