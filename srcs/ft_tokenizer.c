@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 15:22:42 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/27 15:44:15 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,20 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 	return (0);
 }
 
+void ft_flags(t_tokenizer *tk, char *prompt)
+{
+	if (tk->double_flag == 1 && prompt[tk->sizer] == DOUBLEQ)
+		tk->double_flag = 0;
+	else if (tk->double_flag == 0 && prompt[tk->sizer] == DOUBLEQ 
+		&& tk->single_flag == 0)
+		tk->double_flag = 1;
+	else if (tk->single_flag == 1 && prompt[tk->sizer] == SINGLEQ)
+		tk->single_flag = 0;
+	else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ 
+		&& tk->double_flag == 0)
+		tk->single_flag = 1;	
+}
+
 int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 {
 	int j;
@@ -174,19 +188,10 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			buff = malloc((tk->start - tk->sizer) + 1);
 			while (tk->sizer < tk->start)
 			{
-				if (tk->double_flag == 1 && prompt[tk->sizer] == DOUBLEQ)
-					tk->double_flag = 0;
-				else if (tk->double_flag == 0 && prompt[tk->sizer] == DOUBLEQ 
-					&& tk->single_flag == 0)
-					tk->double_flag = 1;
-				else if (tk->single_flag == 1 && prompt[tk->sizer] == SINGLEQ)
-					tk->single_flag = 0;
-				else if (tk->single_flag == 0 && prompt[tk->sizer] == SINGLEQ 
-					&& tk->double_flag == 0)
-					tk->single_flag = 1;
+				ft_flags(tk, prompt);
 				if (prompt[tk->sizer + 1] != '\0' && prompt[tk->sizer + 1] != DOUBLEQ
 					 && prompt[tk->sizer] == '$' 
-					&& ((tk->double_flag == 1 && tk->single_flag == 0) 
+					&& ((tk->double_flag == 1 && tk->single_flag == 0)
 					|| (tk->double_flag == 0 && tk->single_flag == 0)))
 					buff[j] = '#';
 				else

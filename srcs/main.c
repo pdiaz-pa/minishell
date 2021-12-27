@@ -86,15 +86,11 @@ int	main(int argc, char **argv, char **envp)
 			if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1) // para evitar crasheo al no pasarle nada o solo espacios
 			{
 				token_list = ft_tokenizer(prompt, token_list, env); //en desarrollo. comentar esta  función si se quiere probar algo
-				if(token_list->isexp != -1)
-				{
-					//ft_stack_printer(token_list);
-					// ft_prompt_cmp(env, token_list);
-				}
-				exit_status = -424242;
-				ft_command_table(env, token_list->next);
+				if (token_list->isexp != -1)
+					ft_command_table(env, token_list->next);
+				else
+					exit_status = 1;
 			}
-			
 			if (prompt[0] == '\0')
 				exit_status = 0;
 			free(prompt);
