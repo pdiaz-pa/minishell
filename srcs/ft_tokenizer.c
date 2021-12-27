@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/16 17:04:41 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/27 10:44:53 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,46 +126,6 @@ int ft_normal_mode(char *prompt, t_tokenizer *tk)
 	return (size);
 }
 
-int ft_last_spaces(char *prompt, t_tokenizer *tk)
-{
-	int count;
-
-	count = tk->start;
-	while (prompt[count] != '\0')
-	{
-		if(prompt[count] != SPACE && prompt[count] != '\0')
-			return(1);
-		count++;
-	}
-	return(0);
-}
-
-int ft_tk_delimiter(char *content)
-{
-	if (ft_strcmp(content, "|") == 0)
-		return(1);
-	else if (ft_strcmp(content, "<") == 0)
-		return(2);
-	else if (ft_strcmp(content, ">") == 0)
-		return(2);
-	else if (ft_strcmp(content, "<<") == 0)
-		return(2);
-	else if (ft_strcmp(content, ">>") == 0)
-		return(2);
-	else
-		return(0);
-}
-
-int ft_double_pipe(t_mylist *tk_l)
-{
-	if (ft_strcmp(tk_l->content, "|") == 0 && tk_l->next != NULL)
-	{
-		if (ft_strcmp(tk_l->next->content, "|") == 0)
-			return(-1);
-	}
-	return (0);
-}
-
 int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 {
 	int i;
@@ -255,23 +215,11 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			//buff = NULL;
 		}
 	}
-
 	if (tk->double_flag == 1 || tk->single_flag == 1)
 		return(-1);
 	//printf("\e[42m--------ENDED. TK->SIZE: \e[0m");
 	//printf("\e[42m %d --------\e[0m\n\n", tk->size);
 	return (tk->size);
-}
-
-void ft_init_tk(t_tokenizer *tk)
-{
-	tk->size = 0;
-	tk->sizer = 0;
-	tk->start = 0;
-	tk->single_flag = 0;
-	tk->double_flag = 0;
-	tk->expand = 0;
-	tk->ch = 32;
 }
 
 t_mylist *ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env)

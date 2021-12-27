@@ -15,6 +15,7 @@ DIR_O = ./
 
 SRC = 	main.c \
 		ft_tokenizer.c \
+		ft_tokenizer_utils.c \
 		ft_prompt_cmp.c \
 		builtins/ft_echo.c \
 		builtins/ft_cd.c \
@@ -29,6 +30,7 @@ SRC = 	main.c \
 		exe/ft_exe_utils.c \
 		ft_list_utils.c \
 		ft_expander.c \
+		ft_expander_utils.c \
 		ft_command_table.c \
 		ft_save_command.c \
 		ft_save_command_utils.c \
