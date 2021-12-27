@@ -61,17 +61,18 @@ char *ft_get_my_env(char *key, t_env *env)
 	temp = ft_search_env(env, key);
 	if (temp != NULL)
 		expkey = temp->line[1];
-
 	return(expkey);
 }
 
 char	*ft_quote_remover(char *str)
 {
 	int size;
+    char *temp;
+
 	size = 0;
 	size = ft_size_calc(str);
-	str = ft_dequoter(str, size);
+	temp = ft_dequoter(str, size);
 	//printf("%d el size\n", size);
 	//printf("%s el str\n", str);
-	return (str);
+	return (temp);
 }

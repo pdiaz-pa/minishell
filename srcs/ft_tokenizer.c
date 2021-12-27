@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 10:44:53 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2021/12/27 15:22:42 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,6 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 	i = 0;
 	while (tk_l != NULL)
 	{
-		if (ft_double_pipe(tk_l) == -1)
-			return(-1);
-		else
-		{
 			//printf("%s ", tk_l->content);
 			if (ft_tk_delimiter(tk_l->content) == 1)
 				tk_l->tk_type = PIPE;
@@ -147,7 +143,6 @@ int ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 			//if (tk_l->isexp == 0)
 			ft_expander(tk_l->content, tk_l, env);
 			tk_l->content = ft_quote_remover(tk_l->content);
-		}
 		//printf("%s ----expanded token----\n", tk_l->content);
 		//printf("%s ----non expanded token----\n", tk_l->nonexp);
 		tk_l = tk_l->next;
@@ -204,11 +199,6 @@ int ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 			//printf("%d tk expand\n", tk->expand);
 			ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
 			//printf("%s FIRST TOKEN\n", token_list->next->content);
-			if (ft_strcmp(token_list->next->content, "|") == 0)
-			{
-				printf("minishell: syntax error near unexpected token '|'\n");
-				return(-1);
-			}
 			//ft_stack_printer(token_list);
 			j = 0;
 			free(buff);

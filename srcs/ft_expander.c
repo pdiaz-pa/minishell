@@ -88,6 +88,19 @@ char *ft_dequoter(char *str, int size)
 }
 
 
+void	ft_nonexp(t_mylist *tk_l)
+{
+	char *temp;
+	char *temp2;
+
+	temp = ft_strdup(tk_l->content); //leak!!!
+	temp = ft_dollarizer(temp);
+	temp2 = ft_strdup(ft_quote_remover(temp));
+	free(temp);
+	tk_l->nonexp = ft_strdup(temp2);
+	free(temp2);
+}
+
 void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 {
 	int i;
@@ -97,11 +110,10 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	char *final;
 	char *first;
 	
+	ft_nonexp(tk_l);
 	final = NULL;
 	expanded = NULL;
-	tk_l->nonexp = ft_strdup(tk_l->content); //leak!!!
-	tk_l->nonexp = ft_dollarizer(tk_l->nonexp);
-	tk_l->nonexp = ft_quote_remover(tk_l->nonexp);
+
 	i = 0;
 	while (ft_dollar_finder(tk_l->content) == 1)
 	{

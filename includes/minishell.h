@@ -106,7 +106,6 @@ void		ft_check_redir(t_proc *process, t_mylist *temp);
 int			ft_heredoc(t_proc *process);
 void		ft_sig_int(int signal);
 char 		*ft_dollarizer (char *content);
-char 		*ft_quote_remover(char *str);
 void		ft_redir_in(t_proc *process);
 void		ft_redir_out(t_proc *process);
 void		ft_exit(t_env **env);
