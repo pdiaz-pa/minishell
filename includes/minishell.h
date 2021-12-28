@@ -126,6 +126,7 @@ int			ft_tk_delimiter(char *content);
 int			ft_last_spaces(char *prompt, t_tokenizer *tk);
 void		ft_flags(t_tokenizer *tk, char *prompt);
 int			ft_is_dir(char *check, char mode);
+int			ft_print_valid_error(char *command);
 
 
 #endif

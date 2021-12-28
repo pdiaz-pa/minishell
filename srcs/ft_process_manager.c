@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 12:50:30 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:35:04 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,4 @@ static void	ft_last_process(t_env *env, t_proc *process)
 		}
 		exit_status = process->ret;
 	}
-	return ;
 }

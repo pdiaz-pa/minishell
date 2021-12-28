@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 08:47:17 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/19 19:06:31 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:31:03 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,21 @@ void	ft_free_mem(char **arr)
 	}
 	free (arr);
 	arr = NULL;
+}
+
+int	ft_print_valid_error(char *command)
+{
+	if (command[0] == '/' || command[0] == '.')
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+	}
+	return (0);
 }

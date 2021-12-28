@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 18:17:05 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:30:56 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	valid_cmd_2(t_env *env, char *cmd, char **final);
-static int	ft_print_valid_error(char *command);
 static int	ft_execve(char *cmd, char **argv, char **envp, char mode);
-int			ft_mode_a(char *cmd, char **argv, char **envp);
+static int	ft_mode_a(char *cmd, char **argv, char **envp);
 
 int	ft_exe(t_env *env, t_cont *command, char mode)
 {
@@ -94,23 +93,6 @@ static void	valid_cmd_2(t_env *env, char *cmd, char **final)
 	return ;
 }
 
-static int	ft_print_valid_error(char *command)
-{
-	if (command[0] == '/' || command[0] == '.')
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(command, STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-	}
-	else
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(command, STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-	}
-	return (0);
-}
-
 static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
 {
 	int		status;
@@ -134,7 +116,7 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
 	return (status);
 }
 
-int	ft_mode_a(char *cmd, char **argv, char **envp)
+static int	ft_mode_a(char *cmd, char **argv, char **envp)
 {
 	pid_t	pid;
 	int		status;
