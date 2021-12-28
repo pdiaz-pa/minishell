@@ -156,7 +156,9 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 				first = NULL;
 				free(key);
 				key = NULL;
+				temp = tk_l->content;
 				tk_l->content = expanded;
+				free(temp);
 			}
 		}
 	}

@@ -110,6 +110,7 @@ int	ft_normal_mode(char *prompt, t_tokenizer *tk)
 int	ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 {
 	int	i;
+	char *temp;
 	i = 0;
 	while (tk_l != NULL)
 	{
@@ -120,7 +121,9 @@ int	ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 		else
 			tk_l->tk_type = TEXT;
 		ft_expander(tk_l->content, tk_l, env);
+		temp = tk_l->content;
 		tk_l->content = ft_quote_remover(tk_l->content);
+		free(temp);
 		tk_l = tk_l->next;
 		i++;
 	}
