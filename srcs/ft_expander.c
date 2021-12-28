@@ -105,7 +105,7 @@ void	ft_nonexp(t_mylist *tk_l)
 
 	temp = ft_strdup(tk_l->content); //leak!!!
 	temp = ft_dollarizer(temp);
-	temp2 = ft_strdup(ft_quote_remover(temp));
+	temp2 = ft_quote_remover(temp);
 	free(temp);
 	tk_l->nonexp = ft_strdup(temp2);
 	free(temp2);
@@ -119,7 +119,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	char	*key;
 	char	*final;
 	char	*first;
-	
+	char	*temp;
 	ft_nonexp(tk_l);
 	final = NULL;
 	expanded = NULL;
@@ -145,13 +145,18 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 					i++;
 				first = ft_substr(tk_l->content, 0, i);
 				//printf("%s FIRST\n", first);
-				expanded = ft_strjoin(first, expkey); //leak!!
-				expanded = ft_strjoin(expanded, final);
+				temp = ft_strjoin(first, expkey);
+				//expanded = ft_strjoin(first, expkey); //leak!!
+				expanded = ft_strjoin(temp, final);
+				free(temp);
+				temp = NULL;
 				free(final);
+				final = NULL;
 				free(first);
+				first = NULL;
 				free(key);
+				key = NULL;
 				tk_l->content = expanded;
-				
 			}
 		}
 	}

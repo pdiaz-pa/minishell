@@ -42,16 +42,6 @@ int	ft_tk_delimiter(char *content)
 		return (0);
 }
 
-int	ft_double_pipe(t_mylist *tk_l)
-{
-	if (ft_strcmp(tk_l->content, "|") == 0 && tk_l->next != NULL)
-	{
-		if (ft_strcmp(tk_l->next->content, "|") == 0)
-			return (-1);
-	}
-	return (0);
-}
-
 void	ft_init_tk(t_tokenizer *tk)
 {
 	tk->size = 0;
