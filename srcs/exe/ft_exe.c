@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 15:41:17 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:30:26 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	valid_cmd_2(t_env *env, char *cmd, char **final);
 static int	ft_print_valid_error(char *command);
 static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e);
+int	ft_mode_a(char *cmd, char **argv, char **envp, t_env *env);
 
 int	ft_exe(t_env *env, t_cont *command, char mode)
 {
@@ -112,28 +113,12 @@ static int	ft_print_valid_error(char *command)
 
 static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 {
-	pid_t	pid;
 	int		status;
 
 	status = -4242;
 	if (mode == 'a')
 	{
-		pid = fork();
-		if (pid == -1)
-			perror("pid error");
-		else if (pid == 0)
-		{
-			if (execve(cmd, argv, envp) == -1)
-			{
-				perror("execve");
-				free(cmd);
-				free(argv);
-				ft_free_mem(envp);
-				ft_exit(&e);
-			}
-		}
-		else if (pid > 0)
-			pid = waitpid(-1, &status, 0);
+		status = ft_mode_a(cmd, argv, envp, e);
 	}
 	else if (mode == 'b')
 	{
@@ -146,5 +131,32 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 			ft_exit(&e);
 		}
 	}
+	return (status);
+}
+
+int	ft_mode_a(char *cmd, char **argv, char **envp, t_env *env)
+{
+	pid_t	pid;
+	int		status;
+
+	status = -4242;
+	pid = fork();
+		if (pid == -1)
+			perror("pid error");
+		else if (pid == 0)
+		{
+			if (execve(cmd, argv, envp) == -1)
+			{
+				perror("execve");
+				free(cmd);
+				free(argv);
+				ft_free_mem(envp);
+				ft_exit(&env);
+			}
+		}
+		else if (pid > 0)
+		{
+			pid = waitpid(-1, &status, 0);
+		}
 	return (status);
 }
