@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 08:49:35 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:38:37 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	ft_check_in_access(t_proc *process, t_mylist *temp)
 
 static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 {
-	if (ft_is_dir(temp->content) == 1)
+	if (ft_is_dir(temp->content, 'a') == 1)
 	{
 		process->err = '1';
 		return (1);
@@ -105,7 +105,7 @@ static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 	return (0);
 }
 
-int	ft_is_dir(char *check)
+int	ft_is_dir(char *check, char mode)
 {
 	struct stat info;
 
@@ -115,7 +115,10 @@ int	ft_is_dir(char *check)
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(check, STDERR_FILENO);
-			ft_putendl_fd(": Is a directory", STDERR_FILENO);
+			if (mode == 'a')
+				ft_putendl_fd(": Is a directory", STDERR_FILENO);
+			else if (mode == 'b')
+				ft_putendl_fd(": is a directory", STDERR_FILENO);
 			return (1);
 		}
 	}

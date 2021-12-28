@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 11:49:41 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:46:04 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	char	**envp;
 	int		ret;
 
-	if (ft_is_dir(command->content) ==  1)
-		return (126);
 	final = NULL;
 	ret = -4242;
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
 	if (final == NULL && (ft_print_valid_error(command->content)) == 0)
 		return (127);
+	if (ft_is_dir(final, 'b') ==  1)
+		return (126);
 	else
 	{
 		argv = ft_make_argv(command);
@@ -133,7 +133,10 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 	else if (mode == 'b')
 	{
 		if (execve(cmd, argv, envp) == -1)
+		{
 			perror("execve");
+			ft_exit(&e);
+		}
 	}
 	return (status);
 }
