@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/27 21:38:39 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 08:52:25 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	char	**envp;
 	int		ret;
 
+	printf("command.content = %s\n", command->content);
+	if (ft_is_dir(command->content) ==  1)
+		return (126);
 	final = NULL;
 	ret = -4242;
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
@@ -91,7 +94,7 @@ static void	valid_cmd_2(t_env *env, char *cmd, char **final)
 
 static int	ft_print_valid_error(char *command)
 {
-	if (command[0] == '/')
+	if (command[0] == '/' || command[0] == '.')
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(command, STDERR_FILENO);

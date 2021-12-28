@@ -125,6 +125,7 @@ int			ft_double_pipe(t_mylist *tk_l);
 int			ft_tk_delimiter(char *content);
 int			ft_last_spaces(char *prompt, t_tokenizer *tk);
 void		ft_flags(t_tokenizer *tk, char *prompt);
+int			ft_is_dir(char *check);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/26 18:23:28 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 08:43:05 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_single_process(t_env *env, t_proc *process)
 	or_fd[1] = dup(STDOUT_FILENO);
 	ft_redir_in(process);
 	ft_redir_out(process);
-	if (process->list != NULL)
+	if (process->list != NULL && process->err == '0')
 		exit_status = ft_prompt_cmp(env, process->list, 'a');
 	unlink(".heredoc");
 	dup2(or_fd[0], STDIN_FILENO);
@@ -72,7 +72,7 @@ static void	ft_first_process(t_env *env, t_proc *process)
 			dup2(process->fd[1], STDOUT_FILENO);
 			close(process->fd[1]);
 		}
-		if (process->list != NULL)
+		if (process->list != NULL && process->err == '0')
 			ft_prompt_cmp(env, process->list, 'b');
 	}
 	else
@@ -87,7 +87,7 @@ static void	ft_intermediate_process(t_env *env, t_proc *process)
 	if (process->pid == 0)
 	{
 		ft_intermediate_redir(process);
-		if (process->list != NULL)
+		if (process->list != NULL && process->err == '0')
 			ft_prompt_cmp(env, process->list, 'b');
 	}
 	else
@@ -108,7 +108,7 @@ static void	ft_last_process(t_env *env, t_proc *process)
 	{
 		ft_last_redir(process);
 		ft_redir_out(process);
-		if (process->list != NULL)
+		if (process->list != NULL && process->err == '0')
 			ft_prompt_cmp(env, process->list, 'b');
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/27 21:35:12 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 08:49:35 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	ft_check_redir_2(t_proc *process, t_mylist *temp);
 static int	ft_check_in_access(t_proc *process, t_mylist *temp);
 static int	ft_check_out_access(t_proc *process, t_mylist *temp);
-static int	ft_is_dir(char *check);
 
 void	ft_check_redir(t_proc *process, t_mylist *temp)
 {
@@ -106,7 +105,7 @@ static int	ft_check_out_access(t_proc *process, t_mylist *temp)
 	return (0);
 }
 
-static int	ft_is_dir(char *check)
+int	ft_is_dir(char *check)
 {
 	struct stat info;
 
