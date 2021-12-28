@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 08:52:25 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 11:49:41 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	char	**envp;
 	int		ret;
 
-	printf("command.content = %s\n", command->content);
 	if (ft_is_dir(command->content) ==  1)
 		return (126);
 	final = NULL;
