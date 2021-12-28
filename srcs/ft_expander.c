@@ -61,6 +61,7 @@ char	*ft_dequoter(char *str, int size)
 	i = 0;
 	j = 0;
 	temp = malloc(size + 1);
+	printf("%d size\n", size);
 	while (str[i] != '\0')
 	{
 		if (str[i] == SINGLEQ)
@@ -95,6 +96,7 @@ char	*ft_dequoter(char *str, int size)
 		}
 	}
 	temp[i] = '\0';
+	printf("%s temp FULL\n", temp);
 	return (temp);
 }
 
@@ -151,7 +153,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 				free(first);
 				free(key);
 				tk_l->content = expanded;
-				free(expanded);
+				//free(expanded);
 			}
 		}
 	}

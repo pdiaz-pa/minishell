@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			again = 0;
 			prompt = readline("minishell$ ");
-			printf("%s --PROMPT\n", prompt);
+			//printf("%s --PROMPT\n", prompt);
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 			{
 				rl_replace_line("exittttt", 1);
