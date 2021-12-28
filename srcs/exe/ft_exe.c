@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 17:30:26 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:17:05 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	valid_cmd(t_env *env, char *cmd, char **final);
 static void	valid_cmd_2(t_env *env, char *cmd, char **final);
 static int	ft_print_valid_error(char *command);
-static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e);
-int	ft_mode_a(char *cmd, char **argv, char **envp, t_env *env);
+static int	ft_execve(char *cmd, char **argv, char **envp, char mode);
+int			ft_mode_a(char *cmd, char **argv, char **envp);
 
 int	ft_exe(t_env *env, t_cont *command, char mode)
 {
@@ -29,16 +29,16 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	ret = -4242;
 	if (command->content[0] == 0)
 		return (0);
-	if (ft_is_dir(command->content, 'b') ==  1)
+	if (ft_is_dir(command->content, 'b') == 1)
 		return (126);
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
-	if (final == NULL  && (ft_print_valid_error(command->content)) == 0)
+	if (final == NULL && (ft_print_valid_error(command->content)) == 0)
 		return (127);
 	else
 	{
 		argv = ft_make_argv(command);
 		envp = ft_make_envp(env);
-		ret = ft_execve(final, argv, envp, mode, env);
+		ret = ft_execve(final, argv, envp, mode);
 		free(final);
 		free(argv);
 		ft_free_mem(envp);
@@ -111,14 +111,14 @@ static int	ft_print_valid_error(char *command)
 	return (0);
 }
 
-static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
+static int	ft_execve(char *cmd, char **argv, char **envp, char mode)
 {
 	int		status;
 
 	status = -4242;
 	if (mode == 'a')
 	{
-		status = ft_mode_a(cmd, argv, envp, e);
+		status = ft_mode_a(cmd, argv, envp);
 	}
 	else if (mode == 'b')
 	{
@@ -128,35 +128,35 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 			free(cmd);
 			free(argv);
 			ft_free_mem(envp);
-			ft_exit(&e);
+			exit (-1);
 		}
 	}
 	return (status);
 }
 
-int	ft_mode_a(char *cmd, char **argv, char **envp, t_env *env)
+int	ft_mode_a(char *cmd, char **argv, char **envp)
 {
 	pid_t	pid;
 	int		status;
 
 	status = -4242;
 	pid = fork();
-		if (pid == -1)
-			perror("pid error");
-		else if (pid == 0)
+	if (pid == -1)
+		perror("pid error");
+	else if (pid == 0)
+	{
+		if (execve(cmd, argv, envp) == -1)
 		{
-			if (execve(cmd, argv, envp) == -1)
-			{
-				perror("execve");
-				free(cmd);
-				free(argv);
-				ft_free_mem(envp);
-				ft_exit(&env);
-			}
+			perror("execve");
+			free(cmd);
+			free(argv);
+			ft_free_mem(envp);
+			exit (-1);
 		}
-		else if (pid > 0)
-		{
-			pid = waitpid(-1, &status, 0);
-		}
+	}
+	else if (pid > 0)
+	{
+		pid = waitpid(-1, &status, 0);
+	}
 	return (status);
 }
