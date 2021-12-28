@@ -94,7 +94,7 @@ char	*ft_dequoter(char *str, int size)
 			i++;
 		}
 	}
-	temp[i] = '\0';
+	temp[j] = '\0';
 	return (temp);
 }
 
@@ -120,6 +120,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	char	*final;
 	char	*first;
 	char	*temp;
+
 	ft_nonexp(tk_l);
 	final = NULL;
 	expanded = NULL;
