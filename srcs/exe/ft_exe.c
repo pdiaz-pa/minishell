@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 12:46:04 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:23:43 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	if (final == NULL && (ft_print_valid_error(command->content)) == 0)
 		return (127);
 	if (ft_is_dir(final, 'b') ==  1)
+	{
+		free (final);
+		final = NULL;
 		return (126);
+	}
 	else
 	{
 		argv = ft_make_argv(command);
@@ -124,6 +128,9 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 			if (execve(cmd, argv, envp) == -1)
 			{
 				perror("execve");
+				free(cmd);
+				free(argv);
+				ft_free_mem(envp);
 				ft_exit(&e);
 			}
 		}
@@ -135,6 +142,9 @@ static int	ft_execve(char *cmd, char **argv, char **envp, char mode, t_env *e)
 		if (execve(cmd, argv, envp) == -1)
 		{
 			perror("execve");
+			free(cmd);
+			free(argv);
+			ft_free_mem(envp);
 			ft_exit(&e);
 		}
 	}
