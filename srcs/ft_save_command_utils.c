@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:24:30 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/28 12:38:37 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:30:58 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,11 @@ int	ft_is_dir(char *check, char mode)
 			if (mode == 'a')
 				ft_putendl_fd(": Is a directory", STDERR_FILENO);
 			else if (mode == 'b')
+			{
 				ft_putendl_fd(": is a directory", STDERR_FILENO);
+				//free(check);
+				//check = NULL;
+			}
 			return (1);
 		}
 	}
