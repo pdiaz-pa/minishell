@@ -114,6 +114,7 @@ int	ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 	i = 0;
 	while (tk_l != NULL)
 	{
+		printf("%s --CONTENT\n", tk_l->content);
 		if (ft_tk_delimiter(tk_l->content) == 1)
 			tk_l->tk_type = PIPE;
 		else if (ft_tk_delimiter(tk_l->content) == 2)
@@ -121,7 +122,9 @@ int	ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 		else
 			tk_l->tk_type = TEXT;
 		ft_expander(tk_l->content, tk_l, env);
+		printf("%s --EXPANDED CONTENT\n", tk_l->content);
 		tk_l->content = ft_quote_remover(tk_l->content);
+		printf("%s --DEQUOTED CONTENT\n", tk_l->content);
 		tk_l = tk_l->next;
 		i++;
 	}
@@ -176,6 +179,7 @@ int	ft_tk_creator(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 				tk->sizer++;
 			}
 			buff[j] = '\0';
+			printf("%s --BUFFER\n", buff);
 			ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
 			j = 0;
 			free(buff);
