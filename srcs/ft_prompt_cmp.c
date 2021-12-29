@@ -9,7 +9,9 @@ int	ft_prompt_cmp(t_env *env, t_cont *command, char mode)
 
 	ret = 4242;
 	dance = ft_char_dance(command->content);
-	if (dance == 1)
+	if (ft_strcmp("exit", command->content) == 0) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
+		ft_exit(&env, command->next);
+	else if (dance == 1)
 		ret = ft_pwd();
 	else if (dance == 2)
 		ret = ft_print_env(env);
@@ -24,7 +26,7 @@ int	ft_prompt_cmp(t_env *env, t_cont *command, char mode)
 	else
 		ret = ft_exe(env, command, mode);
 	if (mode == 'b')
-		ft_exit (&env);
+		ft_exit (&env, NULL);
 	return (ret);
 }
 
