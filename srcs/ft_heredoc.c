@@ -4,10 +4,10 @@ void	ft_sig_int_here(int signal)
 {
 	if (signal == SIGINT)
 	{
-		printf("entra\n");
+		printf("\n");
 		rl_on_new_line(); // indica a las siguientes funciones que estamos en la siguiente línea
-		rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
-		rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
+		//rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
+		//rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
 	}
 }
 
@@ -23,8 +23,10 @@ int ft_heredoc(t_proc *process)
 
     while (again)
     {
-        signal(SIGINT, &ft_sig_int_here); // cambia el funcionamiento de ctrl + "C"  
+        signal(SIGINT, &ft_sig_int_here);
         keyword = readline("> ");
+        if (keyword == NULL)
+            printf("hoder");
         if (ft_strcmp(keyword, process->input) == 0)
             again = 0;
         else

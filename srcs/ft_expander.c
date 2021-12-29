@@ -103,7 +103,7 @@ void	ft_nonexp(t_mylist *tk_l)
 	char	*temp;
 	char	*temp2;
 
-	temp = ft_strdup(tk_l->content); //leak!!!
+	temp = ft_strdup(tk_l->content);
 	temp = ft_dollarizer(temp);
 	temp2 = ft_quote_remover(temp);
 	free(temp);
@@ -142,6 +142,8 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 			else
 			{
 				expkey = ft_get_my_env(key, env);
+				if (expkey == NULL)
+					tk_l->tk_type = 3;
 				//printf("%s KEY\n", key);
 				//printf("%s expKEY\n", expkey);
 				final = ft_final_finder(tk_l->content, i);
