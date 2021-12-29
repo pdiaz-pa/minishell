@@ -109,7 +109,7 @@ void		ft_sig_int(int signal);
 char 		*ft_dollarizer (char *content);
 void		ft_redir_in(t_proc *process);
 void		ft_redir_out(t_proc *process);
-void		ft_exit(t_env **env, t_cont *command);
+int			ft_exit(t_env **env, t_cont *command);
 void		ft_free_mem(char **arr);
 void		ft_intermediate_redir(t_proc *process);
 void		ft_last_redir(t_proc *process);
