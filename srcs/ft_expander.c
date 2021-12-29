@@ -133,7 +133,12 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 		{
 			key = ft_key_finder(tk_l->content);
 			if (ft_strcmp(key, "?") == 0)
-				ft_strcpy(tk_l->content, ft_itoa(exit_status));
+			{
+				temp = tk_l->content;
+				tk_l->content = ft_itoa(exit_status);
+				free(temp);
+				free(key);
+			}
 			else
 			{
 				expkey = ft_get_my_env(key, env);
