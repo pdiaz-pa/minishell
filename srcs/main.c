@@ -74,9 +74,9 @@ int	main(int argc, char **argv, char **envp)
 			prompt = readline("minishell$ ");
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon
 			{
-				rl_replace_line("exit", 0);
-				ft_exit(&env, NULL);
+				//rl_replace_line("exit", 0);
 				rl_redisplay();
+				ft_exit(&env, NULL, 'a');
 			}
 			if (prompt != NULL && prompt[0] != '\0')
 				add_history(prompt); // añade la función de historia e implementa por sí mismo la funcionalidad de las flechas

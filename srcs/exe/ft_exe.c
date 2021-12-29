@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/29 14:58:26 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:22:53 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 
 	final = NULL;
 	ret = -4242;
-	//printf("puntero = %p, contenido = \"%s\"", command->content, command->content);
 	if (ft_is_dir(command->content, 'b') == 1)
 		return (126);
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);

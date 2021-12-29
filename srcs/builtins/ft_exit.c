@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 17:49:21 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/29 12:17:31 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:24:33 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_check_exit(t_cont *command);
 
-int	ft_exit(t_env **env, t_cont *command)
+int	ft_exit(t_env **env, t_cont *command, char mode)
 {
 	int	check;
 
@@ -32,7 +32,8 @@ int	ft_exit(t_env **env, t_cont *command)
 			exit_status = ft_atoi(command->content);
 	}
 	ft_free_env(env);
-	ft_putendl_fd("exit", 2);
+	if (mode == 'a')
+		ft_putendl_fd("exit", 2);
 	exit(exit_status);
 	return (0);
 }

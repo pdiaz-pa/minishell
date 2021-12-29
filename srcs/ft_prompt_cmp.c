@@ -10,7 +10,7 @@ int	ft_prompt_cmp(t_env *env, t_cont *command, char mode)
 	ret = 4242;
 	dance = ft_char_dance(command->content);
 	if (ft_strcmp("exit", command->content) == 0)
-		ret = ft_exit(&env, command->next);
+		ret = ft_exit(&env, command->next, 'a');
 	else if (dance == 1)
 		ret = ft_pwd();
 	else if (dance == 2)
@@ -26,7 +26,7 @@ int	ft_prompt_cmp(t_env *env, t_cont *command, char mode)
 	else
 		ret = ft_exe(env, command, mode);
 	if (mode == 'b')
-		ft_exit (&env, NULL);
+		ft_exit (&env, NULL, 'b');
 	return (ret);
 }
 
