@@ -16,7 +16,7 @@ DIR_O = ./
 SRC = 	main.c \
 		ft_tokenizer.c \
 		ft_tokenizer_utils.c \
-		ft_prompt_cmp.c \
+		process/ft_prompt_cmp.c \
 		builtins/ft_echo.c \
 		builtins/ft_cd.c \
 		builtins/ft_export.c \
@@ -32,11 +32,11 @@ SRC = 	main.c \
 		ft_list_utils.c \
 		ft_expander.c \
 		ft_expander_utils.c \
-		ft_command_table.c \
-		ft_save_command.c \
-		ft_save_command_utils.c \
-		ft_process_manager.c \
-		ft_process_manager_utils.c \
+		process/ft_command_table.c \
+		process/ft_save_command.c \
+		process/ft_save_command_utils.c \
+		process/ft_process_manager.c \
+		process/ft_process_manager_utils.c \
 		ft_heredoc.c	\
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
