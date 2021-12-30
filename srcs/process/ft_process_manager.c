@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/30 08:07:07 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/30 14:30:32 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_single_process(t_env *env, t_proc *process)
 	ft_redir_out(process);
 	if (process->list != NULL && process->err == '0')
 		exit_status = ft_prompt_cmp(env, process->list, 'a');
+	if (process->err == '2')
+		exit_status = 0;
 	unlink(".heredoc");
 	dup2(or_fd[0], STDIN_FILENO);
 	close(or_fd[0]);

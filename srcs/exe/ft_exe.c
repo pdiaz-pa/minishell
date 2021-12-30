@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/30 08:08:06 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/30 14:43:52 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int	ft_exe(t_env *env, t_cont *command, char mode)
 	int		ret;
 
 	final = NULL;
+	ret = ft_is_dir(command->content, 'b');
+	if (ret > 0)
+		return (ret);
 	ret = -4242;
-	if (ft_is_dir(command->content, 'b') == 1)
-		return (126);
 	valid_cmd(ft_search_env(env, "PATH"), command->content, &final);
 	if (final == NULL && (ft_print_valid_error(command->content)) == 0)
 		return (127);
