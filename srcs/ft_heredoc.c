@@ -2,13 +2,9 @@
 
 void	ft_sig_int_here(int signal)
 {
-	if (signal == SIGINT)
-	{
+        (void)signal;
 		printf("\n");
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
-	}
+        exit(exit_status);
 }
 
 /*
@@ -50,14 +46,16 @@ int ft_heredoc(t_proc *process) // con proceso hijo
     int fd;
 	pid_t	pid;
 
+
 	pid = fork();
+    signal(SIGINT, SIG_IGN);
     if (pid == -1)
 		perror("pid error");
 	else if (pid == 0) // todo dentro de este else es el hijo
     {
         again = 1;
         fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-        signal(SIGINT, SIG_IGN);
+        
         signal(SIGINT, ft_sig_int_here);
         while (again)
         {
