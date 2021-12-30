@@ -5,9 +5,9 @@ void	ft_sig_int_here(int signal)
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		rl_on_new_line(); // indica a las siguientes funciones que estamos en la siguiente línea
-		//rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
-		//rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
 	}
 }
 
@@ -20,13 +20,11 @@ int ft_heredoc(t_proc *process)
 
     again = 1;
     fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-
+    signal(SIGINT, SIG_IGN);
+    signal(SIGINT, ft_sig_int_here);
     while (again)
     {
-        signal(SIGINT, &ft_sig_int_here);
         keyword = readline("> ");
-        if (keyword == NULL)
-            printf("hoder");
         if (ft_strcmp(keyword, process->input) == 0)
             again = 0;
         else
