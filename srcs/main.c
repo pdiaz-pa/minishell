@@ -23,6 +23,7 @@ void	ft_sig_int(int signal)
 		rl_on_new_line(); // indica a las siguientes funciones que estamos en la siguiente línea
 		rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
 		rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
+		exit_status = 1;
 	}
 }
 
@@ -70,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		again = 1;
 		while (again)
 		{
+			//printf("exit %d\n", exit_status);
 			again = 0;
 			prompt = readline("minishell$ ");
 			if (prompt == NULL) // hay que ponerlo primero por que si strcmp detecta el NULL devuelve 0 y entra en la funicon

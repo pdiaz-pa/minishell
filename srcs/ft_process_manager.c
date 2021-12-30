@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:59:54 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/29 15:26:03 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/30 08:07:07 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,6 @@ static void	ft_last_process(t_env *env, t_proc *process)
 			temp->pid = waitpid(temp->pid, &temp->ret, 0);
 			temp = temp->next;
 		}
-		exit_status = process->ret;
+		ft_exit_status(process->ret);
 	}
 }

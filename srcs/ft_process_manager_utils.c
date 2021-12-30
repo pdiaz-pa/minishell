@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:28:24 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/23 11:27:37 by antgonza         ###   ########.fr       */
+/*   Updated: 2021/12/30 08:05:44 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,14 @@ void	ft_last_redir(t_proc *process)
 		close(process->prev->fd[0]);
 	}
 	return ;
+}
+
+void	ft_exit_status(int status)
+{
+	if (status == 2)
+		exit_status = 130;
+	if (status == 3)
+		exit_status = 131;
+	if (WIFEXITED(status))
+		exit_status = WEXITSTATUS(status);
 }
