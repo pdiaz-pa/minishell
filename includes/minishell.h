@@ -128,6 +128,11 @@ void		ft_flags(t_tokenizer *tk, char *prompt);
 int			ft_is_dir(char *check, char mode);
 int			ft_print_valid_error(char *command);
 void		ft_exit_status(int status);
+void		ft_newtk(char *buff, t_tokenizer *tk, t_mylist *token_list);
+int			ft_normal_mode(char *prompt, t_tokenizer *tk);
+int			ft_size_and_start(int size, t_tokenizer *tk);
+int			ft_expandible(char *prompt, t_tokenizer *tk);
+void		ft_skip_spaces(char *prompt, t_tokenizer *tk);
 
 
 #endif

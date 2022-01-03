@@ -6,11 +6,25 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:09:03 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 16:31:14 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/03 03:23:41 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_newtk(char *buff, t_tokenizer *tk, t_mylist *token_list)
+{
+	ft_mylstadd_back(&token_list, ft_mylstnew(buff, tk->expand));
+	free(buff);
+	buff = NULL;
+}
+
+int	ft_size_and_start(int size, t_tokenizer *tk)
+{
+	size++;
+	tk->start++;
+	return (size);
+}
 
 int	ft_last_spaces(char *prompt, t_tokenizer *tk)
 {

@@ -38,6 +38,8 @@ SRC = 	main.c \
 		process/ft_process_manager.c \
 		process/ft_process_manager_utils.c \
 		ft_heredoc.c	\
+		ft_lexer_modes.c \
+		ft_lexer_utils.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
