@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 17:23:04 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/03 06:42:05 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,26 @@ void	ft_nonexp(t_mylist *tk_l)
 	free(temp2);
 }
 
+void	ft_free_expander(char *first, char *final, char *key, char *temp)
+{
+	free(temp);
+	temp = NULL;
+	free(final);
+	final = NULL;
+	free(first);
+	first = NULL;
+	free(key);
+	key = NULL;
+}
+
+void	ft_question_exp(char *temp, t_mylist *tk_l, char *key)
+{
+	temp = tk_l->content;
+	tk_l->content = ft_itoa(exit_status);
+	free(temp);
+	free(key);
+}
+
 void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 {
 	int		i;
@@ -133,37 +153,20 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 		{
 			key = ft_key_finder(tk_l->content);
 			if (ft_strcmp(key, "?") == 0)
-			{
-				temp = tk_l->content;
-				tk_l->content = ft_itoa(exit_status);
-				free(temp);
-				free(key);
-			}
+				ft_question_exp(temp, tk_l, key);
 			else
 			{
 				expkey = ft_get_my_env(key, env);
 				if (expkey == NULL)
 					tk_l->tk_type = 3;
-				//printf("%s KEY\n", key);
-				//printf("%s expKEY\n", expkey);
 				final = ft_final_finder(tk_l->content, i);
-				//printf("%s FINAL\n", final);
 				i = 0;
 				while (tk_l->content[i] != '#')
 					i++;
 				first = ft_substr(tk_l->content, 0, i);
-				//printf("%s FIRST\n", first);
 				temp = ft_strjoin(first, expkey);
-				//expanded = ft_strjoin(first, expkey); //leak!!
 				expanded = ft_strjoin(temp, final);
-				free(temp);
-				temp = NULL;
-				free(final);
-				final = NULL;
-				free(first);
-				first = NULL;
-				free(key);
-				key = NULL;
+				ft_free_expander(first, final, key, temp);
 				temp = tk_l->content;
 				tk_l->content = expanded;
 				free(temp);
