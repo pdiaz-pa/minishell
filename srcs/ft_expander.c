@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/03 06:42:05 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/04 02:58:22 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,24 @@
 
 int	ft_size_calc(char *str)
 {
-	int	size;
-	int	i;
+	int		size;
+	int		i;
+	char	quote;
 
 	i = 0;
 	size = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == SINGLEQ)
+		if (str[i] == SINGLEQ || str[i] == DOUBLEQ)
 		{
+			quote = str[i];
 			i++;
-			while (str[i] != SINGLEQ && str[i] != '\0')
+			while (str[i] != quote && str[i] != '\0')
 			{
 				size++;
 				i++;
 			}
-			if (str[i] == SINGLEQ)
-				i++;
-		}
-		if (str[i] == DOUBLEQ)
-		{
-			i++;
-			while (str[i] != DOUBLEQ && str[i] != '\0')
-			{
-				size++;
-				i++;
-			}
-			if (str[i] == DOUBLEQ)
+			if (str[i] == quote)
 				i++;
 		}
 		if (str[i] != '\0' && str[i] != SINGLEQ && str[i] != DOUBLEQ)
@@ -57,34 +48,24 @@ char	*ft_dequoter(char *str, int size)
 	int		i;
 	int		j;
 	char	*temp;
+	char	quote;
 
 	i = 0;
 	j = 0;
 	temp = malloc(size + 1);
 	while (str[i] != '\0')
 	{
-		if (str[i] == SINGLEQ)
+		if (str[i] == SINGLEQ || str[i] == DOUBLEQ)
 		{
+			quote = str[i];
 			i++;
-			while (str[i] != SINGLEQ && str[i] != '\0')
+			while (str[i] != quote && str[i] != '\0')
 			{
 				temp[j] = str[i];
 				j++;
 				i++;
 			}
-			if (str[i] == SINGLEQ)
-				i++;
-		}
-		if (str[i] == DOUBLEQ)
-		{
-			i++;
-			while (str[i] != DOUBLEQ && str[i] != '\0')
-			{
-				temp[j] = str[i];
-				j++;
-				i++;
-			}
-			if (str[i] == DOUBLEQ)
+			if (str[i] == quote)
 				i++;
 		}
 		if (str[i] != '\0' && str[i] != SINGLEQ && str[i] != DOUBLEQ)
@@ -123,8 +104,10 @@ void	ft_free_expander(char *first, char *final, char *key, char *temp)
 	key = NULL;
 }
 
-void	ft_question_exp(char *temp, t_mylist *tk_l, char *key)
+void	ft_question_exp(t_mylist *tk_l, char *key)
 {
+	char *temp;
+
 	temp = tk_l->content;
 	tk_l->content = ft_itoa(exit_status);
 	free(temp);
@@ -153,7 +136,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 		{
 			key = ft_key_finder(tk_l->content);
 			if (ft_strcmp(key, "?") == 0)
-				ft_question_exp(temp, tk_l, key);
+				ft_question_exp(tk_l, key);
 			else
 			{
 				expkey = ft_get_my_env(key, env);

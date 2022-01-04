@@ -6,25 +6,24 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:06 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/03 05:17:43 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/04 00:45:21 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int ft_only_spaces(char *prompt)
+int	ft_only_spaces(char *prompt)
 {
-	int count;
+	int	count;
 
 	count = 0;
-
 	while (prompt[count] != '\0')
 	{
-		if(prompt[count] != ' ' && prompt[count] != '\0')
-			return(1);
+		if (prompt[count] != ' ' && prompt[count] != '\0')
+			return (1);
 		count++;
 	}
-	return(0);
+	return (0);
 }
 
 void	ft_sig_int(int signal)
@@ -32,18 +31,18 @@ void	ft_sig_int(int signal)
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		rl_on_new_line(); // indica a las siguientes funciones que estamos en la siguiente línea
-		rl_replace_line("", 1); // reemplaza la línea con lo que le indiques
-		rl_redisplay(); // muestra de nuevo lo que tenemos en prompt
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
 		exit_status = 1;
 	}
 }
 
 void	ft_free_tklist(t_mylist *token_list)
 {
-	t_mylist *temp;
-	
-	while(token_list)
+	t_mylist	*temp;
+
+	while (token_list)
 	{
 		temp = token_list->next;
 		free(token_list->nonexp);
@@ -51,19 +50,19 @@ void	ft_free_tklist(t_mylist *token_list)
 		token_list->content = NULL;
 		token_list->next = NULL;
 		free(token_list);
-		
 		token_list = temp;
 	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int again;
-	char *prompt;
+	int			again;
+	char		*prompt;
+	t_env		*env;
+	t_mylist	*token_list;
+
 	(void)argc;
 	(void)argv;
-	t_env	*env;
-	t_mylist *token_list;
 	env = ft_save_env(envp);
 	/* ft_print_export(exp);
 	ft_print_env(env);
