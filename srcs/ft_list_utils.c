@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:23:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 16:23:53 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/05 01:03:53 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_dollarizer(char *content)
 	i = 0;
 	while (content[i] != '\0')
 	{
-		if (content[i] == '#')
+		if (content[i] == FKDOLLAR)
 			content[i] = '$';
 		i++;
 	}

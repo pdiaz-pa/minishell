@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:09:11 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2021/12/27 16:20:56 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/05 02:16:24 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_final_finder(char *token, int i)
 	j = 0;
 	while (token[j] != '\0')
 		j++;
-	while (token[i] != '#')
+	while (token[i] != FKDOLLAR)
 		i++;
 	while (token[i] != SINGLEQ && token[i] != DOUBLEQ && token[i] != SPACE
 		&& token[i] != '\0')
@@ -37,11 +37,11 @@ char	*ft_key_finder(char *token)
 
 	size = 0;
 	i = 0;
-	while (token[i] != '#')
+	while (token[i] != FKDOLLAR)
 		i++;
 	i++;
 	while (token[i] != SPACE && token[i] != '\0' && token[i] != '$'
-		&& token[i] != '#' && token[i] != DOUBLEQ && token[i] != SINGLEQ)
+		&& token[i] != FKDOLLAR && token[i] != DOUBLEQ && token[i] != SINGLEQ)
 	{
 		i++;
 		size++;
@@ -57,7 +57,7 @@ int	ft_dollar_finder(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '#')
+		if (str[i] == FKDOLLAR)
 			return (1);
 		i++;
 	}

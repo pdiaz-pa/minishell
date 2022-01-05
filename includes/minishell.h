@@ -7,6 +7,7 @@
 #define TEXT 0
 #define PIPE 1
 #define REDIR 2
+#define FKDOLLAR '@'
 
 typedef struct s_mylist{
 	char *content;
@@ -94,7 +95,7 @@ void		ft_save_env_line(t_env **env, char *envp);
 t_mylist	*ft_mylstnew(void *content, int isexp);
 t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist	*ft_init_t_stack(void);
-void		ft_expander(char *token, t_mylist *tk_l, t_env *env);
+void		ft_expander(t_mylist *tk_l, t_env *env);
 char		**ft_split_env(char const *s);
 int			ft_pwd();
 char		**ft_make_argv(t_cont *command);

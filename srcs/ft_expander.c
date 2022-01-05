@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/04 02:58:22 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/05 01:57:55 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_question_exp(t_mylist *tk_l, char *key)
 	free(key);
 }
 
-void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
+void	ft_expander(t_mylist *tk_l, t_env *env)
 {
 	int		i;
 	char	*expanded;
@@ -130,9 +130,9 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 	i = 0;
 	while (ft_dollar_finder(tk_l->content) == 1)
 	{
-		while (tk_l->content[i] != '\0' && token[i] != '#')
+		while (tk_l->content[i] != '\0' && tk_l->content[i] != FKDOLLAR)
 			i++;
-		if (token[i] == '#')
+		if (tk_l->content[i] == FKDOLLAR)
 		{
 			key = ft_key_finder(tk_l->content);
 			if (ft_strcmp(key, "?") == 0)
@@ -144,7 +144,7 @@ void	ft_expander(char *token, t_mylist *tk_l, t_env *env)
 					tk_l->tk_type = 3;
 				final = ft_final_finder(tk_l->content, i);
 				i = 0;
-				while (tk_l->content[i] != '#')
+				while (tk_l->content[i] != FKDOLLAR)
 					i++;
 				first = ft_substr(tk_l->content, 0, i);
 				temp = ft_strjoin(first, expkey);

@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/03 03:23:35 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/05 01:57:28 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 			tk_l->tk_type = REDIR;
 		else
 			tk_l->tk_type = TEXT;
-		ft_expander(tk_l->content, tk_l, env);
+		ft_expander(tk_l, env);
 		temp = tk_l->content;
 		tk_l->content = ft_quote_remover(tk_l->content);
 		free(temp);
@@ -52,7 +52,7 @@ void	ft_lexer(char *prompt, t_tokenizer *tk, t_mylist *token_list)
 		{
 			ft_flags(tk, prompt);
 			if (ft_expandible(prompt, tk) == 1)
-				buff[j] = '#';
+				buff[j] = FKDOLLAR;
 			else
 				buff[j] = prompt[tk->sizer];
 			j++;
