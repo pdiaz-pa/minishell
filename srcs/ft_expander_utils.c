@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:09:11 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/05 02:16:24 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/05 03:14:37 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ char	*ft_final_finder(char *token, int i)
 	j = 0;
 	while (token[j] != '\0')
 		j++;
-	while (token[i] != FKDOLLAR)
-		i++;
-	while (token[i] != SINGLEQ && token[i] != DOUBLEQ && token[i] != SPACE
+	while (token[i] != FKDOLLAR && token[i] != SINGLEQ && token[i] != DOUBLEQ && token[i] != SPACE
 		&& token[i] != '\0')
 		i++;
 	final = ft_substr(token, i, j);

@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/05 01:57:55 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/05 03:13:03 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	ft_expander(t_mylist *tk_l, t_env *env)
 				expkey = ft_get_my_env(key, env);
 				if (expkey == NULL)
 					tk_l->tk_type = 3;
+				i++;
 				final = ft_final_finder(tk_l->content, i);
 				i = 0;
 				while (tk_l->content[i] != FKDOLLAR)
