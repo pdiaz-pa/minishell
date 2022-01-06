@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:00:38 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/05 01:57:28 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/06 02:39:15 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_tk_recognizer(t_mylist *tk_l, t_env *env)
 			tk_l->tk_type = TEXT;
 		ft_expander(tk_l, env);
 		temp = tk_l->content;
-		tk_l->content = ft_quote_remover(tk_l->content);
+		tk_l->content = ft_quote_remover(tk_l->content, tk_l);
 		free(temp);
 		tk_l = tk_l->next;
 		i++;

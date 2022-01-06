@@ -14,6 +14,8 @@ typedef struct s_mylist{
 	char *nonexp;
 	int isexp;
 	int tk_type;
+	int	i;
+	int j;
 	struct s_mylist *next;
 } t_mylist;
 
@@ -114,13 +116,13 @@ int			ft_exit(t_env **env, t_cont *command, char mode);
 void		ft_free_mem(char **arr);
 void		ft_intermediate_redir(t_proc *process);
 void		ft_last_redir(t_proc *process);
-char		*ft_quote_remover(char *str);
+char		*ft_quote_remover(char *str, t_mylist *tk_l);
 char		*ft_get_my_env(char *key, t_env *env);
 int			ft_dollar_finder(char *str);
 char		*ft_key_finder(char *token);
 char		*ft_final_finder(char *token, int i);
-char		*ft_dequoter(char *str, int size);
-int			ft_size_calc(char *str);
+char		*ft_dequoter(t_mylist *tk_l, char *str, int size);
+int			ft_size_calc(t_mylist *tk_l);
 void		ft_init_tk(t_tokenizer *tk);
 int			ft_double_pipe(t_mylist *tk_l);
 int			ft_tk_delimiter(char *content);

@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:28 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/03 01:43:31 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/06 02:28:14 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,24 @@ void	ft_sig_int_here(int signal)
 	exit(exit_status);
 }
 
-int	ft_heredoc(t_proc *process)
+int	ft_pid_zero(int again, t_proc *process, int fd)
 {
 	char	*keyword;
+
+	keyword = readline("> ");
+	if (ft_strcmp(keyword, process->input) == 0)
+		again = 0;
+	else
+	{
+		write(fd, keyword, ft_strlen(keyword));
+		write(fd, "\n", 1);
+	}
+	free(keyword);
+	return (again);
+}
+
+int	ft_heredoc(t_proc *process)
+{
 	int		again;
 	int		fd;
 	pid_t	pid;
@@ -36,17 +51,7 @@ int	ft_heredoc(t_proc *process)
 		fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		signal(SIGINT, ft_sig_int_here);
 		while (again)
-		{
-			keyword = readline("> ");
-			if (ft_strcmp(keyword, process->input) == 0)
-				again = 0;
-			else
-			{
-				write(fd, keyword, ft_strlen(keyword));
-				write(fd, "\n", 1);
-			}
-			free(keyword);
-		}
+			again = ft_pid_zero(again, process, fd);
 		close (fd);
 		exit(0);
 	}
