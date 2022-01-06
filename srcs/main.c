@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:06 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/04 00:45:21 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/06 03:54:08 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,34 @@ void	ft_free_tklist(t_mylist *token_list)
 	}
 }
 
+int	ft_main_loop(int again, char *prompt, t_env *env, t_mylist *token_list)
+{
+	again = 0;
+	prompt = readline("minishell$ ");
+	if (prompt == NULL)
+	{
+		rl_redisplay();
+		ft_exit(&env, NULL, 'a');
+	}
+	if (prompt != NULL && prompt[0] != '\0')
+		add_history(prompt);
+	if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
+	{
+		token_list = ft_tokenizer(prompt, token_list, env);
+		if (token_list->isexp != -1)
+			ft_command_table(env, token_list->next);
+		else
+			exit_status = 1;
+	}
+	if (prompt[0] == '\0')
+		exit_status = 0;
+	if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
+		ft_free_tklist(token_list);
+	free(prompt);
+	prompt = NULL;
+	return (again);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int			again;
@@ -61,50 +89,18 @@ int	main(int argc, char **argv, char **envp)
 	t_env		*env;
 	t_mylist	*token_list;
 
+	token_list = NULL;
+	prompt = NULL;
 	(void)argc;
 	(void)argv;
 	env = ft_save_env(envp);
-	/* ft_print_export(exp);
-	ft_print_env(env);
-	ft_free_env(&exp);
-	ft_free_env(&env);
- */
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &ft_sig_int);
 		again = 1;
 		while (again)
-		{
-			//printf("exit %d\n", exit_status);
-			again = 0;
-			prompt = readline("minishell$ ");
-			if (prompt == NULL)
-			{
-				//rl_replace_line("exit", 0);
-				rl_redisplay();
-				ft_exit(&env, NULL, 'a');
-			}
-			if (prompt != NULL && prompt[0] != '\0')
-				add_history(prompt);
-			if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
-			{
-				token_list = ft_tokenizer(prompt, token_list, env);
-				if (token_list->isexp != -1)
-					ft_command_table(env, token_list->next);
-				else
-					exit_status = 1;
-			}
-			if (prompt[0] == '\0')
-				exit_status = 0;
-			//printf ("exit: %d\n", exit_status);
-			//ft_stack_printer(token_list);
-			if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
-				ft_free_tklist(token_list);
-			free(prompt);
-			prompt = NULL;
-			//system("leaks minishell");
-		}
+			again = ft_main_loop(again, prompt, env, token_list);
 	}
 	return (0);
 }

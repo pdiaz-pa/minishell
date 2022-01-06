@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 08:38:12 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/30 14:45:37 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/06 03:54:25 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_is_dir(char *check, char mode)
 {
 	struct stat	info;
 	int			ret;
-	
+
 	ret = ft_check_points(check);
 	if (ret > 0)
 		return (ret);
