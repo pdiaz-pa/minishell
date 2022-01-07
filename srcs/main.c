@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:06 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/06 03:54:08 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/07 07:38:46 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,18 @@ void	ft_free_tklist(t_mylist *token_list)
 
 int	ft_main_loop(int again, char *prompt, t_env *env, t_mylist *token_list)
 {
+	struct termios termattr;
+
+	backup_termattr(&termattr);
+	turnoff_echoctl_termattr();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ft_sig_int);
 	again = 0;
 	prompt = readline("minishell$ ");
 	if (prompt == NULL)
 	{
 		rl_redisplay();
+		reset_termattr(&termattr);
 		ft_exit(&env, NULL, 'a');
 	}
 	if (prompt != NULL && prompt[0] != '\0')
@@ -87,8 +94,8 @@ int	main(int argc, char **argv, char **envp)
 	int			again;
 	char		*prompt;
 	t_env		*env;
-	t_mylist	*token_list;
-
+	t_mylist	*token_list;	
+	//rl_catch_signals = 0;
 	token_list = NULL;
 	prompt = NULL;
 	(void)argc;
@@ -96,8 +103,6 @@ int	main(int argc, char **argv, char **envp)
 	env = ft_save_env(envp);
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &ft_sig_int);
 		again = 1;
 		while (again)
 			again = ft_main_loop(again, prompt, env, token_list);

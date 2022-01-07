@@ -34,6 +34,7 @@ typedef struct  s_tokenizer{
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <errno.h>
 # include <signal.h>
@@ -136,6 +137,8 @@ int			ft_normal_mode(char *prompt, t_tokenizer *tk);
 int			ft_size_and_start(int size, t_tokenizer *tk);
 int			ft_expandible(char *prompt, t_tokenizer *tk);
 void		ft_skip_spaces(char *prompt, t_tokenizer *tk);
-
+void		backup_termattr(struct termios *termattr);
+void		reset_termattr(struct termios *termattr);
+void		turnoff_echoctl_termattr(void);
 
 #endif

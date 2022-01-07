@@ -41,6 +41,7 @@ SRC = 	main.c \
 		ft_lexer_modes.c \
 		ft_lexer_utils.c \
 		ft_dequoter.c \
+		ft_signals.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
