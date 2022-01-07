@@ -140,5 +140,8 @@ void		ft_skip_spaces(char *prompt, t_tokenizer *tk);
 void		backup_termattr(struct termios *termattr);
 void		reset_termattr(struct termios *termattr);
 void		turnoff_echoctl_termattr(void);
+void		ft_sig_int(int signal);
+int			ft_only_spaces(char *prompt);
+void		ft_signal_handle(void);
 
 #endif

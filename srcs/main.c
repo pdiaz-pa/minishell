@@ -6,37 +6,11 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:06 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/07 07:38:46 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/07 08:43:52 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	ft_only_spaces(char *prompt)
-{
-	int	count;
-
-	count = 0;
-	while (prompt[count] != '\0')
-	{
-		if (prompt[count] != ' ' && prompt[count] != '\0')
-			return (1);
-		count++;
-	}
-	return (0);
-}
-
-void	ft_sig_int(int signal)
-{
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
-		exit_status = 1;
-	}
-}
 
 void	ft_free_tklist(t_mylist *token_list)
 {
@@ -54,22 +28,32 @@ void	ft_free_tklist(t_mylist *token_list)
 	}
 }
 
+void	ft_ctrl_d(struct termios termattr, t_env *env)
+{
+	ft_putstr_fd("\x1b[1A", 1);
+	ft_putstr_fd("\033[11C", 1);
+	ft_putstr_fd("exit\n", 1);
+	reset_termattr(&termattr);
+	ft_exit(&env, NULL, 'b');
+}
+
+void	ft_free_prompt(char *prompt)
+{
+	free(prompt);
+	prompt = NULL;
+}
+
 int	ft_main_loop(int again, char *prompt, t_env *env, t_mylist *token_list)
 {
-	struct termios termattr;
+	struct termios	termattr;
 
 	backup_termattr(&termattr);
 	turnoff_echoctl_termattr();
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ft_sig_int);
+	ft_signal_handle();
 	again = 0;
 	prompt = readline("minishell$ ");
 	if (prompt == NULL)
-	{
-		rl_redisplay();
-		reset_termattr(&termattr);
-		ft_exit(&env, NULL, 'a');
-	}
+		ft_ctrl_d(termattr, env);
 	if (prompt != NULL && prompt[0] != '\0')
 		add_history(prompt);
 	if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
@@ -84,8 +68,7 @@ int	ft_main_loop(int again, char *prompt, t_env *env, t_mylist *token_list)
 		exit_status = 0;
 	if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
 		ft_free_tklist(token_list);
-	free(prompt);
-	prompt = NULL;
+	ft_free_prompt(prompt);
 	return (again);
 }
 
@@ -95,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	char		*prompt;
 	t_env		*env;
 	t_mylist	*token_list;	
-	//rl_catch_signals = 0;
+
 	token_list = NULL;
 	prompt = NULL;
 	(void)argc;

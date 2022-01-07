@@ -6,11 +6,25 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:05:27 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/03 03:26:51 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/07 08:43:02 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_only_spaces(char *prompt)
+{
+	int	count;
+
+	count = 0;
+	while (prompt[count] != '\0')
+	{
+		if (prompt[count] != ' ' && prompt[count] != '\0')
+			return (1);
+		count++;
+	}
+	return (0);
+}
 
 void	ft_skip_spaces(char *prompt, t_tokenizer *tk)
 {

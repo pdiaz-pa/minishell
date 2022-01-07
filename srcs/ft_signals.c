@@ -6,11 +6,17 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 07:30:32 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/07 07:43:05 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/07 08:43:24 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_signal_handle(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ft_sig_int);
+}
 
 void	backup_termattr(struct termios *termattr)
 {
@@ -34,4 +40,16 @@ void	turnoff_echoctl_termattr(void)
 	tcgetattr(STDOUT_FILENO, &termattr);
 	termattr.c_lflag = ~(ECHOCTL);
 	tcsetattr(STDOUT_FILENO, TCSANOW, &termattr);
+}
+
+void	ft_sig_int(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+		exit_status = 1;
+	}
 }
