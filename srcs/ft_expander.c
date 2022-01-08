@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 16:08:51 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/06 03:40:06 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:09:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_question_exp(t_mylist *tk_l, char *key)
 	char	*temp;
 
 	temp = tk_l->content;
-	tk_l->content = ft_itoa(exit_status);
+	tk_l->content = ft_itoa(g_exit_status);
 	free(temp);
 	free(key);
 }

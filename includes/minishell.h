@@ -1,34 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/08 09:02:18 by antgonza          #+#    #+#             */
+/*   Updated: 2022/01/08 09:11:22 by antgonza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#define DOUBLEQ 34
-#define SINGLEQ 39
-#define SPACE 32
-#define TEXT 0
-#define PIPE 1
-#define REDIR 2
-#define FKDOLLAR '@'
-
-typedef struct s_mylist{
-	char *content;
-	char *nonexp;
-	int isexp;
-	int tk_type;
-	int	i;
-	int j;
-	struct s_mylist *next;
-} t_mylist;
-
-typedef struct  s_tokenizer{
-	int start;
-	int sizer;
-	int size;
-	char ch;
-	int expand;
-	int single_flag;
-	int double_flag;
-	char **arr;
-}	t_tokenizer;
+# define DOUBLEQ 34
+# define SINGLEQ 39
+# define SPACE 32
+# define TEXT 0
+# define PIPE 1
+# define REDIR 2
+# define FKDOLLAR '@'
 
 # include <stdio.h>
 # include <unistd.h>
@@ -43,17 +34,38 @@ typedef struct  s_tokenizer{
 # include <sys/types.h>
 # include <sys/stat.h>
 
-typedef struct  s_env{
+typedef struct s_mylist{
+	char			*content;
+	char			*nonexp;
+	int				isexp;
+	int				tk_type;
+	int				i;
+	int				j;
+	struct s_mylist	*next;
+}					t_mylist;
+
+typedef struct s_tokenizer{
+	int		start;
+	int		sizer;
+	int		size;
+	char	ch;
+	int		expand;
+	int		single_flag;
+	int		double_flag;
+	char	**arr;
+}			t_tokenizer;
+
+typedef struct s_env{
 	char			**line;
 	struct s_env	*next;
-}	            t_env;
+}					t_env;
 
-typedef struct	s_cont{
+typedef struct s_cont{
 	char			*content;
 	struct s_cont	*next;
-}				t_cont;
+}					t_cont;
 
-typedef struct  s_proc{
+typedef struct s_proc{
 	struct s_proc	*prev;
 	int				total;
 	int				num;
@@ -67,21 +79,22 @@ typedef struct  s_proc{
 	char			out;
 	char			out2;
 	char			*input;
-	char 			*nonexp;
+	char			*nonexp;
 	char			*output;
 	pid_t			pid;
 	struct s_cont	*list;
 	struct s_proc	*next;
-}               t_proc;
+}					t_proc;
 
-int		exit_status;
+int			g_exit_status;
 
 t_mylist	*ft_tokenizer(char *prompt, t_mylist *token_list, t_env *env);
-void		ft_prompt_to_array(char *prompt, t_tokenizer *tk, t_mylist *token_list);
+void		ft_prompt_to_array(char *prompt, t_tokenizer *tk,
+				t_mylist *token_list);
 void		ft_make_list(t_list *head, char **token_arr, int array_size);
 int			ft_prompt_cmp(t_env *env, t_cont *command, char mode);
 int			ft_echo(t_cont *command);
-int			ft_cd(t_env **env,  t_cont *command);
+int			ft_cd(t_env **env, t_cont *command);
 int			ft_exe(t_env *env, t_cont *command, char mode);
 t_env		*ft_save_env(char **envp);
 int			ft_print_export(t_env *env);
@@ -100,7 +113,7 @@ t_mylist	*ft_mylstlast(t_mylist *lst);
 t_mylist	*ft_init_t_stack(void);
 void		ft_expander(t_mylist *tk_l, t_env *env);
 char		**ft_split_env(char const *s);
-int			ft_pwd();
+int			ft_pwd(void);
 char		**ft_make_argv(t_cont *command);
 char		**ft_make_envp(t_env *env);
 void		ft_command_table(t_env *env, t_mylist *tk_l);
@@ -110,7 +123,7 @@ void		ft_single_process(t_env *env, t_proc *process);
 void		ft_check_redir(t_proc *process, t_mylist *temp);
 int			ft_heredoc(t_proc *process);
 void		ft_sig_int(int signal);
-char 		*ft_dollarizer (char *content);
+char		*ft_dollarizer(char *content);
 void		ft_redir_in(t_proc *process);
 void		ft_redir_out(t_proc *process);
 int			ft_exit(t_env **env, t_cont *command, char mode);
@@ -131,7 +144,7 @@ int			ft_last_spaces(char *prompt, t_tokenizer *tk);
 void		ft_flags(t_tokenizer *tk, char *prompt);
 int			ft_is_dir(char *check, char mode);
 int			ft_print_valid_error(char *command);
-void		ft_exit_status(int status);
+void		ft_g_exit_status(int status);
 void		ft_newtk(char *buff, t_tokenizer *tk, t_mylist *token_list);
 int			ft_normal_mode(char *prompt, t_tokenizer *tk);
 int			ft_size_and_start(int size, t_tokenizer *tk);

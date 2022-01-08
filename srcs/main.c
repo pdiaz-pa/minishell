@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:06 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/07 08:43:52 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:09:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int	ft_main_loop(int again, char *prompt, t_env *env, t_mylist *token_list)
 		if (token_list->isexp != -1)
 			ft_command_table(env, token_list->next);
 		else
-			exit_status = 1;
+			g_exit_status = 1;
 	}
 	if (prompt[0] == '\0')
-		exit_status = 0;
+		g_exit_status = 0;
 	if (prompt[0] != '\0' && ft_only_spaces(prompt) == 1)
 		ft_free_tklist(token_list);
 	ft_free_prompt(prompt);

@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/30 14:43:52 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:09:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,6 @@ static int	ft_mode_a(char *cmd, char **argv, char **envp)
 	{
 		pid = waitpid(-1, &status, 0);
 	}
-	ft_exit_status(status);
-	return (exit_status);
+	ft_g_exit_status(status);
+	return (g_exit_status);
 }

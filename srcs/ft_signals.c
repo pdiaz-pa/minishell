@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 07:30:32 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/07 08:43:24 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:09:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	ft_sig_int(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
-		exit_status = 1;
+		g_exit_status = 1;
 	}
 }

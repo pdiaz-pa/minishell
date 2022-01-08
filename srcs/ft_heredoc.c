@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:28 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/07 06:22:10 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:09:27 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_sig_int_here(int signal)
 {
 	(void)signal;
 	printf("\n");
-	exit(exit_status);
+	exit(g_exit_status);
 }
 
 int	ft_pid_zero(int again, t_proc *process, int fd)
