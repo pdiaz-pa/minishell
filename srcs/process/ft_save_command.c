@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:01:40 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/30 14:29:24 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/08 08:44:41 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	ft_analize_command(t_proc *new, t_mylist *tk_l)
 	temp = tk_l;
 	while (temp != NULL && temp->tk_type != 1)
 	{
-		if (temp->tk_type == 3)
+		if (temp->tk_type == 3 && temp->content == NULL)
 			new->err = '2';
 		else if (temp->tk_type == 2)
 		{
