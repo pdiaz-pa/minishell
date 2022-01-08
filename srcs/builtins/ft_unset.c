@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 17:50:14 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 19:36:46 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/08 11:52:45 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_unset(t_env **env, t_cont *command)
 			ret = 1;
 		}
 		unset = ft_search_env(*env, list->content);
-		if (unset != NULL)
+		if (unset != NULL && ft_strcmp(unset->line[0], "_") != 0)
 			ft_unset_2(env, unset);
 		list = list->next;
 	}

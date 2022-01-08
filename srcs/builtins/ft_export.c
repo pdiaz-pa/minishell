@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:49:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 19:09:41 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/08 11:45:58 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	ft_export_2(t_env **env, char *content)
 	t_env	*temp;
 	char	**split;
 
+	if (content[0] == '_' && content[1] == '=')
+		return ;
 	split = ft_split_env(content);
 	temp = ft_search_env(*env, split[0]);
 	if (temp != NULL)
