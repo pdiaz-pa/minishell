@@ -16,7 +16,14 @@ DIR_O = ./
 SRC = 	main.c \
 		ft_tokenizer.c \
 		ft_tokenizer_utils.c \
-		process/ft_prompt_cmp.c \
+		ft_list_utils.c \
+		ft_expander.c \
+		ft_expander_utils.c \
+		ft_heredoc.c	\
+		ft_lexer_modes.c \
+		ft_lexer_utils.c \
+		ft_dequoter.c \
+		ft_signals.c \
 		builtins/ft_echo.c \
 		builtins/ft_cd.c \
 		builtins/ft_export.c \
@@ -29,19 +36,12 @@ SRC = 	main.c \
 		exe/ft_exe.c \
 		exe/ft_exe_utils.c \
 		exe/ft_check_command.c \
-		ft_list_utils.c \
-		ft_expander.c \
-		ft_expander_utils.c \
+		process/ft_prompt_cmp.c \
 		process/ft_command_table.c \
 		process/ft_save_command.c \
 		process/ft_save_command_utils.c \
 		process/ft_process_manager.c \
 		process/ft_process_manager_utils.c \
-		ft_heredoc.c	\
-		ft_lexer_modes.c \
-		ft_lexer_utils.c \
-		ft_dequoter.c \
-		ft_signals.c \
 
 SRCS = $(addprefix $(DIR_S),$(SRC))
 
