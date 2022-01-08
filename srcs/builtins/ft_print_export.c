@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 18:55:22 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:53:55 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static t_env	*ft_save_exp(t_env *env)
 	temp = env;
 	while (temp != NULL)
 	{
-		ft_save_line(&ret, temp->line);
+		if (ft_strcmp(temp->line[0], "_") != 0)
+			ft_save_line(&ret, temp->line);
 		temp = temp->next;
 	}
 	return (ret);
