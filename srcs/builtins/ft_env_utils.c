@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 08:53:38 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 18:08:03 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 14:00:35 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*ft_search_env(t_env *env, char *name)
 {
 	t_env	*temp;
 
-	temp = env;
+	temp = env->next;
 	while (temp != NULL && (ft_strcmp(temp->line[0], name) != 0))
 		temp = temp->next;
 	return (temp);

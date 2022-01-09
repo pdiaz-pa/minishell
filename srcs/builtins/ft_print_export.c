@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 07:42:26 by antgonza          #+#    #+#             */
-/*   Updated: 2022/01/08 09:53:55 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:50:24 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_print_export(t_env *env)
 	t_env	*temp;
 	t_env	*temp2;
 
-	temp = ft_save_exp(env);
+	temp = ft_save_exp(env->next);
 	temp2 = temp;
 	while (temp2 != NULL)
 	{

@@ -6,11 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:47:47 by antgonza          #+#    #+#             */
-/*   Updated: 2021/12/18 18:07:25 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:35:03 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	ft_empty_environment(t_env **env);
 
 t_env	*ft_save_env(char **envp)
 {
@@ -20,6 +22,9 @@ t_env	*ft_save_env(char **envp)
 
 	i = 0;
 	env = NULL;
+	ft_save_env_line(&env, "");
+	if (envp[0] == NULL)
+		ft_empty_environment(&env);
 	while (envp[i])
 	{
 		ft_save_env_line(&env, envp[i]);
@@ -88,4 +93,23 @@ int	ft_print_env(t_env *env)
 		temp = temp->next;
 	}
 	return (0);
+}
+
+static void	ft_empty_environment(t_env **env)
+{
+	char	*temp;
+	char	*temp2;
+
+	temp = getcwd(NULL, 0);
+	temp2 = ft_strjoin("PWD=", temp);
+	ft_save_env_line(env, temp2);
+	free (temp2);
+	temp2 = ft_strjoin("_=", temp);
+	free (temp);
+	temp = ft_strjoin(temp2, "/./minishell");
+	free(temp2);
+	ft_save_env_line(env, temp);
+	free (temp);
+	ft_save_env_line(env, "SHLVL=1");
+	return ;
 }
