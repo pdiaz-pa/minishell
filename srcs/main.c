@@ -6,7 +6,7 @@
 /*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 01:43:06 by pdiaz-pa          #+#    #+#             */
-/*   Updated: 2022/01/09 02:24:01 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/09 06:33:18 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_free_prompt(char *prompt)
 int	ft_main_loop(int again, char *prompt, t_env *env, t_mylist *token_list)
 {
 	struct termios	termattr;
+
 	backup_termattr(&termattr);
 	turnoff_echoctl_termattr();
 	ft_signal_handle();
