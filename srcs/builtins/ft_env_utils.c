@@ -6,11 +6,13 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 08:53:38 by antgonza          #+#    #+#             */
-/*   Updated: 2022/01/09 21:48:21 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 22:17:38 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	ft_is_valid(char *line);
 
 t_env	*ft_search_env(t_env *env, char *name)
 {
@@ -54,7 +56,7 @@ void	ft_shlvl(t_env *env)
 		ft_save_env_line(&env, "SHLVL=1");
 	else
 	{
-		if (temp->line[1] == NULL || temp->line[1][0] == 0)
+		if (temp->line[1] == NULL || ft_is_valid(temp->line[1]) == 1)
 			value = 0;
 		else
 			value = ft_atoi(temp->line[1]);
@@ -63,4 +65,18 @@ void	ft_shlvl(t_env *env)
 			free(temp->line[1]);
 		temp->line[1] = ft_itoa(value);
 	}
+}
+
+static int	ft_is_valid(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (!(ft_isdigit(line[i])))
+			return (1);
+		i++;
+	}
+	return (0);
 }
