@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 09:02:18 by antgonza          #+#    #+#             */
-/*   Updated: 2022/01/08 09:11:22 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 02:16:43 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define TEXT 0
 # define PIPE 1
 # define REDIR 2
-# define FKDOLLAR '@'
+# define FKDOLLAR 64
 
 # include <stdio.h>
 # include <unistd.h>

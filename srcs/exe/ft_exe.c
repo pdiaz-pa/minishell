@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 11:30:19 by antgonza          #+#    #+#             */
-/*   Updated: 2022/01/08 09:09:27 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 02:23:00 by pdiaz-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ static int	ft_mode_a(char *cmd, char **argv, char **envp)
 	}
 	else if (pid > 0)
 	{
+		signal(SIGINT, SIG_IGN);
 		pid = waitpid(-1, &status, 0);
 	}
 	ft_g_exit_status(status);
