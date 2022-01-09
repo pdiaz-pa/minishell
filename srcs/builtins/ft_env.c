@@ -6,7 +6,7 @@
 /*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:47:47 by antgonza          #+#    #+#             */
-/*   Updated: 2022/01/09 13:35:03 by antgonza         ###   ########.fr       */
+/*   Updated: 2022/01/09 21:47:53 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,18 @@ t_env	*ft_save_env(char **envp)
 	ft_save_env_line(&env, "");
 	if (envp[0] == NULL)
 		ft_empty_environment(&env);
-	while (envp[i])
+	else
 	{
-		ft_save_env_line(&env, envp[i]);
-		i++;
+		while (envp[i])
+		{
+			ft_save_env_line(&env, envp[i]);
+			i++;
+		}
+		ft_shlvl(env);
+		temp = ft_search_env(env, "OLDPWD");
+		if (temp == NULL)
+			ft_save_env_line(&env, "OLDPWD");
 	}
-	temp = ft_search_env(env, "OLDPWD");
-	if (temp == NULL)
-		ft_save_env_line(&env, "OLDPWD");
 	return (env);
 }
 
@@ -111,5 +115,6 @@ static void	ft_empty_environment(t_env **env)
 	ft_save_env_line(env, temp);
 	free (temp);
 	ft_save_env_line(env, "SHLVL=1");
+	ft_save_env_line(env, "OLDPWD");
 	return ;
 }

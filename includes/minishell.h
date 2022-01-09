@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdiaz-pa <pdiaz-pa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antgonza <antgonza@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 09:02:18 by antgonza          #+#    #+#             */
-/*   Updated: 2022/01/09 02:16:43 by pdiaz-pa         ###   ########.fr       */
+/*   Updated: 2022/01/09 21:32:13 by antgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ void		turnoff_echoctl_termattr(void);
 void		ft_sig_int(int signal);
 int			ft_only_spaces(char *prompt);
 void		ft_signal_handle(void);
+void		ft_shlvl(t_env *env);
 
 #endif
